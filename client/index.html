@@ -18,8 +18,9 @@
 
         
         <script src="app.js"></script>
-        <!-- <script src="config.js"></script>
-        <script src="login/login.controller.js"></script>  
+        <!-- <script src="config.js"></script>-->
+        <script src="mainController.js"></script>     
+        <!-- <script src="login/login.controller.js"></script>  
         <script src="login/logout.controller.js"></script>  
         <script src="school/school.controller.js"></script>  
         <script src="course/viewCourse.controller.js"></script>  
@@ -27,7 +28,7 @@
         <script src="services/courseService.js"></script>
         <script src="services/studentService.js"></script>
         <script src="services/imageService.js"></script>
-        <script src="directives/directive.js"></script> -->
+        <script src="directives/directive.js"></script> --> -->
     </head>
     <body>
         <header>
@@ -44,6 +45,9 @@
                 </div>
             </nav> 
         </header>
-        <div ng-view></div>
+
+        <div ng-controller="mainController" id='main-placeholder'>
+        </div>
+
     </body>
 </html>
