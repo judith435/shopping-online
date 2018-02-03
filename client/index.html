@@ -3,9 +3,11 @@
     <head>
         <title>Pick n Pay</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <script src="../jquery/dist/jquery.min.js"></script> -->
+        <script src="../jquery/dist/jquery.min.js"></script>
         <script src="../angular/angular.min.js"></script>
         <script src="../angular-route/angular-route.min.js"></script>
+        <link rel="stylesheet" href="../bootstrap/dist//css/bootstrap.min.css">
+        <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
         <script src="../angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 
@@ -29,24 +31,16 @@
     </head>
     <body>
         <header>
-            <nav id="school-navigation" class="navbar navbar-inverse">
+            <nav id="shopping-navigation" class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <img src="images/logo.png" class="img-fluid img-thumbnail"  width="205" height="75" alt="School Logo">
                     </div>
-                    <ul class="nav navbar-nav">
-                        <li><a id="school-link" class="hide" href="#!school">School</a></li>
-                        <li><a id="administration-link" class="hide" href="#!administration">Administration</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav pull-right">
-                        <div class="info-row-navigation">
-                            <div class="info-container">
-                                <label id="admr-summary"></label>
-                                <a id="logout-link" class="logout-link hide" href="#!logout">Logout</a>
-                            </div>
-                            <img id="admr-image" src="" class="img-fluid img-thumbnail hide"  width="66" height="75">
+                    <div class="info-row-navigation">
+                        <div class="info-container">
+                            <label>{{client-summary}}</label>
                         </div>
-                    </ul>
+                    </div>
                 </div>
             </nav> 
         </header>
