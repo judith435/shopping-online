@@ -14,7 +14,7 @@ shoppingApp.controller('mainController', function handleNavigation( $scope,
     });
 
     $scope.login = function(){
-         $templateRequest("../products.html").then(function(html){
+         $templateRequest("products/products.html").then(function(html){
              var template = $compile(html)($scope);
              angular.element(document.querySelector('#main-placeholder')).empty().append(template);
          });
