@@ -19,6 +19,14 @@
     .commercial  {-webkit-flex: 2 auto; flex: 2 auto; -webkit-order: 2; order: 2;}
     .notifications  {-webkit-flex: 2 auto; flex: 2 auto; -webkit-order: 3; order: 3;}
 }
+
+@media all and (min-width: 300px) {        
+    .product-action-flex {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 1; order: 1;}
+    .product-list-flex  {-webkit-flex: 6 auto; flex: 6 auto; -webkit-order: 2; order: 2;}
+}
+
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //styles for navigation header
 #shopping-navigation {
@@ -33,15 +41,15 @@
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //style to display image with text aligned horizontally next to image - used in entire site:  examples navigation bar displaying admin info next to admin image 
  //mixin for info rows
- .info-row {  
-    display: flex;
-    flex-direction: row;
-}
+//  .info-row {  
+//     display: flex;
+//     flex-direction: row;
+// }
 
-.info-row-navigation { //used in navigation bar
-    .info-row;
-    height: 75px;
-}
+// .info-row-navigation { //used in navigation bar
+//     .info-row;
+//     height: 75px;
+// }
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //genral styles 
 * {
@@ -55,3 +63,8 @@
  }
 
 h6 { font-size: 24px; text-align: center; margin-bottom: 15px} //used in loggin
+
+.product-action-flex { background-color: lightblue}
+
+//used to style add new product button as "+"
+.add-button { background-color : white; border : none; padding : 5px; font-size: 16px}
