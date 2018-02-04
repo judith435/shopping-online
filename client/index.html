@@ -30,7 +30,7 @@
         <script src="services/imageService.js"></script>
         <script src="directives/directive.js"></script> --> -->
     </head>
-    <body>
+    <body  ng-controller="mainController">
         <header>
             <nav id="shopping-navigation" class="navbar navbar-inverse">
                 <div class="container-fluid">
@@ -39,14 +39,14 @@
                     </div>
                     <div class="info-row-navigation">
                         <div class="info-container">
-                            <label>{{client-summary}}</label>
+                            <label>{{clientSummary}}</label>
                         </div>
                     </div>
                 </div>
             </nav> 
         </header>
 
-        <div ng-controller="mainController" id='main-placeholder'>
+        <div id='main-placeholder'>
         </div>
 
     </body>
