@@ -1,0 +1,54 @@
+
+<!-- <form id="frmCUD" enctype="multipart/form-data" ng-controller="editCourseController"> -->
+<form id="formProductCU" enctype="multipart/form-data" >
+    <div class="form-group row">
+        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Name</label>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+            <input type="text" ng-model=product.productName   class="form-control form-controlXXX " maxlength="45" placeholder="Enter new Product Name">
+            <label class="validationError">{{productName_errorMessage}}</label>     
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">{{productID}}</label>
+    </div>
+    <div class="form-group row">
+        <label for="courseDescription" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Price</label>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+            <input type="number" ng-model=product.productPrice class="form-control" min="0" step=".01" placeholder="Enter new Product Price in $">
+            <label class="validationError">{{productPrice_errorMessage}}</label>     
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="courseImage" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Image</label>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+            <span>valid extensions jpg, jpeg, png or gif, size up to 5 MB</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <span class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left"></span>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+            <input type="file" class="btn btn-info pull-left" ng-model=productImage>
+            <button class="btn btn-default pull-left" id="btnCancel" ng-click="clearImage()" type="button">Cancel</button>
+        </div> 
+    </div>
+    <div class="form-group row text-left">
+        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left"></label>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+            <figure>
+               <canvas id="canvasProduct"  class="img-fluid image-margin"  width="80" height="100" ></canvas>
+               <figcaption>image dimensions: width="80px" height="100px"</figcaption>
+            </figure> 
+            <label class="validationError">{{productImage_errorMessage}}</label>     
+        </div>
+    </div>
+    <div class="row button-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <span class="float-md-left">
+                <button class="btn btn-primary btnSave"  ng-click="saveProduct()"  type="button">Save</button>
+                <label class="validationError">{{duplicateProduct_errorMessage}}</label>     
+            </span>
+        </div>
+    </div>
+</form>
+
+    

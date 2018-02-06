@@ -30,7 +30,7 @@
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //styles for navigation header
 #shopping-navigation {
-    color: #0a0a29;
+    // color: #0a0a29;
     background-color: #d6d6f5 ; 
     a {color:cornsilk }
 }
@@ -54,14 +54,23 @@
 //genral styles 
 * {
 	margin:0px;
-        padding:0px;
-        box-sizing: border-box;
+    padding:0px;
+    box-sizing: border-box;
 }
+ body { color: #0a0a29 !important; }
+
+ canvas {border: outset #0a0a29 2px;}
 
 .bordered-right {  //used as visual divider between aside and main containers #side-container
-        border-right: 2px #191967 solid;
+        border-right: 2px #0a0a29 solid;
  }
 
+.caption { //used for general description in sidebar
+    // float: left;
+    font-weight: bold;
+    padding: 8px 0px 0px 10px;
+} 
+h3 { margin: 0px}
 h6 { font-size: 24px; text-align: center; margin-bottom: 15px} //used in loggin
 
 .product-action-flex { background-color: #d6d6f5}
