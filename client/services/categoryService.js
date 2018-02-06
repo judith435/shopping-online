@@ -1,6 +1,6 @@
-shoppingApp.service('catgoryService', function($http) {
+shoppingApp.service('categoryService', function($http) {
     
-    this.getCatgories = function (configSettings, success) { 
+    this.getCategories = function (configSettings, success) { 
         $http.get(configSettings.shoppingApi +'/category/ddl',{}).then(success, error);
     }
 

@@ -9,7 +9,7 @@ function getCategoryDDL(callback) {
     });
 }
 
-module.exports.catgory = {
+module.exports.category = {
     getCategoryDDL: getCategoryDDL
 
 }

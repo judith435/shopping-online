@@ -1,12 +1,12 @@
-var bl = require('../bl/catgoryBL');
+var bl = require('../bl/categoryBL');
 
 function getCategoryDDL(callback) {
 
-    bl.catgory.getCategoryDDL(function(err, catgoryArray) {
+    bl.category.getCategoryDDL(function(err, categoryArray) {
         if (err) {
             callback(err);
         }
-        callback(null, catgoryArray);
+        callback(null, categoryArray);
     })
 }
 

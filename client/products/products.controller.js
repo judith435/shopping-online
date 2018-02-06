@@ -1,9 +1,9 @@
-shoppingApp.controller('productController', function handleProducts($scope, catgoryService, configSettings)
+shoppingApp.controller('productController', function handleProducts($scope, categoryService, configSettings)
 {
     fillCategoriesDDL();
 
     function fillCategoriesDDL() {
-        catgoryService.getCatgories(configSettings, function(categories) {
+        categoryService.getCategories(configSettings, function(categories) {
             $scope.options = categories.data[0];
         });
     }
