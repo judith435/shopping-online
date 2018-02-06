@@ -22,21 +22,15 @@ figure {
 .image-margin { margin: 0px 3px 3px 0px}
 
 //added form to selector because .form-control is used in login panel & login panel must have form-control width 100%
-#formProductCU.form-control { 
+#formProductCU input.form-control, #formProductCU select.form-control { 
         display: inline-block;
         width: auto;
         min-width: 60%;
 }  
 
-.form-controlXXX { 
-    display: inline-block;
-    width: auto;
-    min-width: 60%;
-}  
-
 .validationError {
-    background:url("../images/errori.png") no-repeat  left top;
-    padding-left: 14px;
+    background:url("../images/error.png") no-repeat  left top;
+    padding-left: 18px;
     font-weight: 500;
     // color: #EA5200;
     color: darkred;

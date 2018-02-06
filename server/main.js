@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const path = require('path');
+const apiCategory = require('./api/categoryAPI.js');
 
 const app = express();
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -26,6 +26,7 @@ app.get('/', function (req, res) {
    
 });
 
+app.get('/category/ddl', apiCategory.getCategoryDDL);
 
 var server = app.listen(8085, function () {
 
