@@ -1,23 +1,53 @@
 function addProduct(req, res) {
-    var tala = req.query;
-    if (!req.files) {
-         return res.status(400).send('No files were uploaded.');
-    }
-    let sampleFile = req.files.productImage;
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
-      if (err)
-        return res.status(500).send(err);
-   
-      res.send('File uploaded!');
-    });
+  var tala = req.body;
+  console.log('addProduct req.body:  ' + tala);
+  console.log('addProduct req.body:  ' + JSON.stringify(tala));
 
-    // productCtrl.addProduct(function(err, product) {
-    //     if (err) {
-    //         res.end('Sorry Dude! '+ err);
-    //     }
-    //     res.end(JSON.stringify(product));
-    // })
+  if (!req.files) {
+       return res.status(400).send('No files were uploaded.');
+  }
+  let sampleFile = req.files.productImage;
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+    res.send('File uploaded!');
+  });
+
+  // productCtrl.addProduct(function(err, product) {
+  //     if (err) {
+  //         res.end('Sorry Dude! '+ err);
+  //     }
+  //     res.end(JSON.stringify(product));
+  // })
 }
 
+function updateProduct(req, res) {
+  var tala = req.body;
+  console.log('updateProduct req.body:  ' + tala);
+  console.log('updateProduct req.body:  ' + JSON.stringify(tala));
+
+  if (!req.files) {
+       return res.status(400).send('No files were uploaded.');
+  }
+  let sampleFile = req.files.productImage;
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+    res.send('File uploaded!');
+  });
+
+  // productCtrl.addProduct(function(err, product) {
+  //     if (err) {
+  //         res.end('Sorry Dude! '+ err);
+  //     }
+  //     res.end(JSON.stringify(product));
+  // })
+}
+
+
 module.exports.addProduct = addProduct;
+module.exports.updateProduct = updateProduct;

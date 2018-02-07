@@ -34,9 +34,17 @@ shoppingApp.service('productService', function($http) {
 
     this.addProduct = function(configSettings, product, productImage, success, error) {
         var formData = new FormData();
+
+        for (var key in product) {
+            if (product.hasOwnProperty(key)) {
+                formData.append(key, product[key]);
+            }
+        }
+
         formData.append("productImage", productImage);
-    
-        $http.post(configSettings.shoppingApi + '/product', formData,
+
+        //$http.post(configSettings.shoppingApi + '/product', formData,
+        $http.put(configSettings.shoppingApi + '/product', formData,
         {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
