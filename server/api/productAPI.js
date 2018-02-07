@@ -1,4 +1,5 @@
 function addProduct(req, res) {
+    var tala = req.query;
     if (!req.files) {
          return res.status(400).send('No files were uploaded.');
     }
