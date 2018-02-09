@@ -1,4 +1,4 @@
-const fs = require('fs');
+const logError = require('../share/errorLogging.js');
 
 function addProduct(req, res) {
   console.log('addProduct req.body:  ' + req.body);
@@ -25,31 +25,21 @@ function updateProduct(req, res) {
   console.log('updateProduct req.body:  ' + tala);
   console.log('updateProduct req.body:  ' + JSON.stringify(tala));
 
-  if (!req.files) {
-       return res.status(400).send('No files were uploaded');
+  var statusCode = 0;
+  uploadProductImage(req, statusCode);
+  if (statusCode) {
+    res.status(statusCode).send('error uploading product image => product save failed');
   }
-  let sampleFile = req.files.productImage;
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
-    if (err)
-      return res.status(500).send(err);
- 
-    res.send('File uploaded!');
-  });
 
-  // productCtrl.addProduct(function(err, product) {
-  //     if (err) {
-  //         res.end('Sorry Dude! '+ err);
-  //     }
-  //     res.end(JSON.stringify(product));
-  // })
+  res.send('File uploaded!');
+
 }
 
 function uploadProductImage(req, statusCode) {
 
   if (!req.files) {
     statusCode = 400; 
-    logError('product image not uploaded to server');
+    logError.writeToErrorLog('product image not uploaded to server');
     return
   }
 
@@ -57,25 +47,14 @@ function uploadProductImage(req, statusCode) {
   sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
     if (err) {
       statusCode = 500; 
-      logError(err);
+      logError.writeToErrorLog(err);
       return
     }
   });
 
-  logError('all ok');
+  logError.writeToErrorLog('all ok');
 }
 
-
-function logError(error) {
-
-  fs.writeFile('errorLog.txt', error, (err) => {  
-      // throws an error, you could also catch it here
-      if (err) throw err;
-
-      // success case, the file was saved
-      console.log('error log saved!');
-  });
-}
 
 module.exports.addProduct = addProduct;
 module.exports.updateProduct = updateProduct;
