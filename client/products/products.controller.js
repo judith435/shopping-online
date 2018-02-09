@@ -10,7 +10,7 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
 
 
     $scope.productName = 'click +  to add product';
-    $scope.showProductUpdate = false;
+    $scope.showProductUpdate = false; //hide directive containing product cuForm
 
     $scope.imageUploaded  = function () {
         var drawingCanvas = document.getElementById('canvasProduct');
@@ -19,23 +19,23 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
 
 
     $scope.addProduct = function()  {
-        $scope.showProductUpdate = true;
-        $scope.productName_errorMessage = 'product name required';
-        $scope.productID = 'ID:'
+        $scope.showProductUpdate = true; //show directive containing product cuForm
+        $scope.product = {};
+        $scope.product.id = 'ID:'
     }  
 
     $scope.saveProduct = function()  {
 
         var product = {
-            id: $scope.product.productID,
-            productName: $scope.product.productName,
-            productCategory: $scope.product.category
+            id: $scope.product.id,
+            name: $scope.product.name,
+            price: $scope.product.price,
+            category: $scope.product.category
         };
 
-        // validateInput();
+        validateInput();
 
-        // if ($scope.errorsFound) { return; }
-        // alert ('no errors found!!!');
+        if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
@@ -58,6 +58,57 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
             });
         // }
     } 
+
+    function validateInput() {
+        $scope.errorsFound = false;
+
+        // if ($rootScope.updateCourse) {
+        //     var data = sessionStorage.getItem("courseBeforeChange");
+        //     var courseBeforeChange = JSON.parse(data);
+
+        //     if (courseBeforeChange.courseName === $scope.course.courseName && 
+        //         courseBeforeChange.courseDescription === $scope.course.courseDescription) {
+        //             $scope.duplicateCourse_errorMessage =  'no change in data - no update';  
+        //             $scope.errorsFound = true;
+        //             return;
+        //     }  
+        // }
+
+        $scope.name_errorMessage = !$scope.product.name  ? 'Product Name required' : '';
+        $scope.errorsFound = $scope.name_errorMessage !== '' || $scope.errorsFound;
+        $scope.price_errorMessage = !$scope.product.price ? 'Product Price  required' : '';
+        $scope.errorsFound = $scope.price_errorMessage !== '' || $scope.errorsFound;
+        $scope.category_errorMessage = !$scope.product.category ? 'Product Category  required' : '';
+        $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
+        $scope.productImage_errorMessage = !$scope.productImage ? 'Product Image  required' : '';
+        $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
+        
+        if ($scope.productImage) { //check image extensions/size => no point checking if no image uploaded
+
+            var extension = $scope.productImage.name.split(".").pop().toLowerCase();
+            $scope.productImage_errorMessage = $.inArray(extension, ['jpg', 'jpeg', 'png', 'gif']) === -1 ? 'Valid extensions: jpg, jpeg, png or gif' : '';
+            $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
+    
+            if ($scope.courseImage_errorMessage) {
+                return;
+            }
+    
+            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.courseImage[0].size + " bytes" : '';
+            $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
+        }
+
+        if (!$scope.product.name || !$scope.product.price || !$scope.product.category) { //product name missing - no point checking duplicate product
+            return;
+        }
+
+        // courseService.checkDuplicateProduct(configSettings, $scope.course, function(response) {
+        //     let duplicateCourseID = parseInt(response.data);
+        //     $scope.errorsFound = duplicateCourseID !== -1;
+        //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
+        //             ? 'course with same name already exists (courseID: ' + duplicateCourseID + ')' : '' ;
+        // });
+    }    
+
 
 });
 

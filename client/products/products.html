@@ -1,17 +1,18 @@
 <div class='flex-container'  ng-controller='productController'>
     <h3>Product Management</h3>
-    <section class='product-action-flex' style='border: 3px solid purple'>
+    <section class='product-action-flex resize' style='border: 3px solid purple'>
         <div style='border: 3px solid green'>
             <span class='caption'>{{productName}}</span>
             <button  class='add-button' ng-click='addProduct()'>+</button>
         </div>
+        <div class='clear'></div>
         <div style='border: 3px solid red'>
             <product-update ng-show="showProductUpdate"></product-update>
         </div>
         <!-- <hr> -->
         <!-- <div ng-include='courseAsideTemplate'></div> -->
     </section>
-    <section  class='product-list-flex'>
+    <section  class='product-list-flex resize'>
         <!-- <div ng-include='studentAsideTemplate'></div> -->
     </section>
 </div>
