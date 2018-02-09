@@ -1,10 +1,12 @@
+const fs = require('fs');
+
 function addProduct(req, res) {
   console.log('addProduct req.body:  ' + req.body);
   console.log('addProduct req.body:  ' + JSON.stringify(req.body));
-  var fus = new fileUploadStatus(0, '');
-  uploadProductImage(req, fus);
-  if (fus.status !== 0) {
-    res.status(fu.status).send(fu.errorMessage);
+  var statusCode = 0;
+  uploadProductImage(req, statusCode);
+  if (statusCode) {
+    res.status(statusCode).send('error uploading product image => product save failed');
   }
 
   res.send('File uploaded!');
@@ -17,10 +19,6 @@ function addProduct(req, res) {
   // })
 }
 
-function fileUploadStatus (status, errorMessage) {
-  this.status = status;
-  this.errorMessage = errorMessage;
-}
 
 function updateProduct(req, res) {
   var tala = req.body;
@@ -47,24 +45,37 @@ function updateProduct(req, res) {
   // })
 }
 
-function uploadProductImage(req, fus) {
+function uploadProductImage(req, statusCode) {
 
   if (!req.files) {
-    fus.status = 400; 
-    fus.errorMessage =  'No files were uploaded';
+    statusCode = 400; 
+    logError('product image not uploaded to server');
     return
   }
 
   let sampleFile = req.files.productImage;
   sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
     if (err) {
-      fus.status = 500; 
-      fus.errorMessage =  err;
+      statusCode = 500; 
+      logError(err);
       return
     }
   });
+
+  logError('all ok');
 }
 
+
+function logError(error) {
+
+  fs.writeFile('errorLog.txt', error, (err) => {  
+      // throws an error, you could also catch it here
+      if (err) throw err;
+
+      // success case, the file was saved
+      console.log('error log saved!');
+  });
+}
 
 module.exports.addProduct = addProduct;
 module.exports.updateProduct = updateProduct;
