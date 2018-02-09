@@ -33,6 +33,26 @@ shoppingApp.service('productService', function($http) {
     // }
 
     this.addProduct = function(configSettings, product, productImage, success, error) {
+        
+        var formData = buildFormData(product, productImage);
+        $http.post(configSettings.shoppingApi + '/product', formData,
+        {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+ 
+        }).then(success, error); 
+    }
+
+    this.updateProduct = function(configSettings, product, productImage, success, error) {
+        $http.put(configSettings.shoppingApi + '/product', formData,
+        {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+ 
+        }).then(success, error); 
+    }
+
+    function buildFormData(product, productImage) {
         var formData = new FormData();
 
         for (var key in product) {
@@ -42,30 +62,8 @@ shoppingApp.service('productService', function($http) {
         }
 
         formData.append("productImage", productImage);
-
-        //$http.post(configSettings.shoppingApi + '/product', formData,
-        $http.put(configSettings.shoppingApi + '/product', formData,
-        {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
- 
-        }).then(success, error); 
+        return formData;
     }
-
-    // type: verb,
-    // url: app.shoppingApi,
-    // data: ajaxData,
-    // contentType: verb === "POST" ? false : undefined,
-    // processData: verb === "POST" ? false : undefined 
-  //productService.updateproduct(configSettings, product, $scope.productImage, function(response) {
-    this.updateProduct = function(configSettings, product, productImage, success, error) {
-        $http({
-            url: configSettings.shoppingApi + '/product',
-            method: 'PUT',
-            params: { product: product } 
-        }).then(success, error);
-    }
-
 
     function error(response) {
         alert("Sorry Error occured in productService: " + JSON.stringify(response));

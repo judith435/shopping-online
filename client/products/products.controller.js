@@ -89,11 +89,11 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
             $scope.productImage_errorMessage = $.inArray(extension, ['jpg', 'jpeg', 'png', 'gif']) === -1 ? 'Valid extensions: jpg, jpeg, png or gif' : '';
             $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
     
-            if ($scope.courseImage_errorMessage) {
+            if ($scope.productImage_errorMessage) {
                 return;
             }
     
-            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.courseImage[0].size + " bytes" : '';
+            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : '';
             $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
         }
 
