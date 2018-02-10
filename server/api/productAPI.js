@@ -1,22 +1,24 @@
+const productCtrl = require('../controllers/productController');
 const logError = require('../share/errorLogging.js');
 
 function addProduct(req, res) {
-  console.log('addProduct req.body:  ' + req.body);
-  console.log('addProduct req.body:  ' + JSON.stringify(req.body));
+      console.log('addProduct req.body:  ' + req.body);
+      console.log('addProduct req.body:  ' + JSON.stringify(req.body));
   var statusCode = 0;
   uploadProductImage(req, statusCode);
   if (statusCode) {
     res.status(statusCode).send('error uploading product image => product save failed');
   }
-
+  else { //product image uploaded successfully - continue wih save to db 
+    productCtrl.addProduct(req, function(err, result) {
+        if (err) {
+          logError.writeToErrorLog('error in add product: ' + err);
+          res.end('Sorry Dude! adding product failed');
+        }
+        res.end(result);// ('product added successfully');
+    })
+  }
   res.send('File uploaded!');
-
-  // productCtrl.addProduct(function(err, product) {
-  //     if (err) {
-  //         res.end('Sorry Dude! '+ err);
-  //     }
-  //     res.end(JSON.stringify(product));
-  // })
 }
 
 
@@ -51,8 +53,6 @@ function uploadProductImage(req, statusCode) {
       return
     }
   });
-
-  logError.writeToErrorLog('all ok');
 }
 
 

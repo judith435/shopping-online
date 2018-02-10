@@ -1,4 +1,4 @@
-var bl = require('../bl/categoryBL');
+const bl = require('../bl/categoryBL');
 
 function getCategoryDDL(callback) {
 
