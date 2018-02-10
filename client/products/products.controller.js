@@ -74,11 +74,11 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
         //     }  
         // }
 
-        $scope.name_errorMessage = !$scope.product.name  ? 'Product Name required' : '';
+        $scope.name_errorMessage = !$scope.product.name  ? 'Name required' : '';
         $scope.errorsFound = $scope.name_errorMessage !== '' || $scope.errorsFound;
-        $scope.price_errorMessage = !$scope.product.price ? 'Product Price  required' : '';
+        $scope.price_errorMessage = !$scope.product.price ? 'Price up to 9999.99 $ required' : '';
         $scope.errorsFound = $scope.price_errorMessage !== '' || $scope.errorsFound;
-        $scope.category_errorMessage = !$scope.product.category ? 'Product Category  required' : '';
+        $scope.category_errorMessage = !$scope.product.category ? 'Category  required' : '';
         $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
         $scope.productImage_errorMessage = !$scope.productImage ? 'Product Image  required' : '';
         $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;

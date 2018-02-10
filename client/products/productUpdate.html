@@ -14,7 +14,7 @@
     <div class="form-group row">
         <label for="courseDescription" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Price</label>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-            <input type="number" ng-model=product.price class="form-control" min="0" step=".01" placeholder="Enter new Product Price in $">
+            <input type="number" ng-model=product.price class="form-control"  max="9999.99" min="0" step=".01" placeholder="Enter new Product Price in $">
             <label class="validationError">{{price_errorMessage}}</label>     
         </div>
     </div>

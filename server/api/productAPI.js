@@ -10,17 +10,21 @@ function addProduct(req, res) {
     res.status(statusCode).send('error uploading product image => product save failed');
   }
   else { //product image uploaded successfully - continue wih save to db 
-    productCtrl.addProduct(req, function(err, result) {
+    productCtrl.addProduct(req, function(err, newProductID) {
         if (err) {
-          logError.writeToErrorLog('error in add product: ' + err);
-          res.end('Sorry Dude! adding product failed');
+          if(err.startsWith("following erors were found in input")) {
+            res.end(err);
+          }
+          else { //genaral error occures
+            logError.writeToErrorLog('error in add product: ' + err);
+            res.end('Adding product failed - please contact support center ');
+          }
         }
-        res.end(result);// ('product added successfully');
+        res.end('product added successfully => new productID = ' +  newProductID);
     })
   }
-  res.send('File uploaded!');
 }
-
+//"Hello World!".startsWith("He");
 
 function updateProduct(req, res) {
   var tala = req.body;

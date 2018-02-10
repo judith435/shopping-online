@@ -5,20 +5,23 @@ const model = require('../models/productModel');
 function addProduct(req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
-    
-    if (productValid(product)) {
-        bl.product.addProduct(product, function(err, result) {
+    const inputErrorsFound = '';
+    if (productValid(product, inputErrorsFound)) {
+        bl.product.addProduct(product, function(err, newProductID) {
             if (err) {
                 callback(err);
             }
-            callback(null, result);
+            callback(null, newProductID);
         })
+    }
+    else {
+        callback('following erors were found in input ' + inputErrorsFound);
     }
 }
 
-function productValid(product) {
+function productValid(product, inputErrorsFound) {
 
-    return true;
+    return false;
 }
 
 module.exports.addProduct = addProduct;
