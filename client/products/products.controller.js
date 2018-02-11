@@ -34,7 +34,6 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
         };
 
         validateInput();
-
         if ($scope.errorsFound) { return; }
 
 

@@ -1,1 +1,9 @@
-following error occured at Fri Feb 09 2018 12:28:20 GMT+0200 (Jerusalem Standard Time) : all ok
+
+following error occured at Sun Feb 11 2018 16:08:11 GMT+0200 (שעון רגיל ירושלים) : {"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE shopping.Xget_categories_for_ddl does not exist","sqlState":"42000","index":0,"sql":"Call Xget_categories_for_ddl()"}
+following error occured at Sun Feb 11 2018 16:09:36 GMT+0200 (שעון רגיל ירושלים) : {"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE shopping.Xget_categories_for_ddl does not exist","sqlState":"42000","index":0,"sql":"Call Xget_categories_for_ddl()"}
+following error occured at Sun Feb 11 2018 16:09:36 GMT+0200 (שעון רגיל ירושלים) : "some date error occured"
+following error occured at Sun Feb 11 2018 16:09:44 GMT+0200 (שעון רגיל ירושלים) : {"code":"ER_SP_DOES_NOT_EXIST","errno":1305,"sqlMessage":"PROCEDURE shopping.Xget_categories_for_ddl does not exist","sqlState":"42000","index":0,"sql":"Call Xget_categories_for_ddl()"}
+following error occured at Sun Feb 11 2018 16:09:44 GMT+0200 (שעון רגיל ירושלים) : "some date error occured"
+following error occured at Sun Feb 11 2018 16:15:23 GMT+0200 (שעון רגיל ירושלים) : "product image not uploaded to server"
+following error occured at Sun Feb 11 2018 16:16:46 GMT+0200 (שעון רגיל ירושלים) : {"errno":-4058,"code":"ENOENT","syscall":"open","path":"C:\\fullstack\\shopping-online\\server\\uploads\\034.JPG"}
+following error occured at Sun Feb 11 2018 16:32:32 GMT+0200 (שעון רגיל ירושלים) : {"errno":-4058,"code":"ENOENT","syscall":"open","path":"C:\\fullstack\\shopping-online\\server\\image_for_productID_\\image_for_productID_7"}

@@ -12,13 +12,14 @@ function addProduct(req, res) {
   else { //product image uploaded successfully - continue wih save to db 
     productCtrl.addProduct(req, function(err, newProductID) {
         if (err) {
-          if(err.startsWith("following erors were found in input")) {
-            res.end(err);
-          }
-          else { //genaral error occures
-            logError.writeToErrorLog('error in add product: ' + err);
-            res.end('Adding product failed - please contact support center ');
-          }
+          res.end(JSON.stringify(err));
+          // if(JSON.stringify( err.startsWith('following erors were found in input'))) { //if (pathname.substring(0, 6) == "/sub/1") 
+          //   res.end(err);
+          // }
+          // else { //genaral error occures
+          //   logError.writeToErrorLog('error in add product: ' + err);
+          //   res.end('Adding product failed - please contact support center ');
+          // }
         }
         res.end('product added successfully => new productID = ' +  newProductID);
     })
@@ -50,15 +51,16 @@ function uploadProductImage(req, statusCode) {
   }
 
   let sampleFile = req.files.productImage;
-  sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+  //sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+    sampleFile.mv(`uploads/image.jpg`, function(err) {
     if (err) {
       statusCode = 500; 
       logError.writeToErrorLog(err);
       return
     }
   });
-}
 
+}
 
 module.exports.addProduct = addProduct;
 module.exports.updateProduct = updateProduct;

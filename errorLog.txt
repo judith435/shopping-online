@@ -1,0 +1,2 @@
+
+following error occured at Sun Feb 11 2018 16:46:49 GMT+0200 (שעון רגיל ירושלים) : {"errno":-4058,"code":"ENOENT","syscall":"open","path":"c:\\fullstack\\shopping-online\\image_for_productID_\\image_for_productID_5"}

@@ -57,7 +57,9 @@ shoppingApp.service('productService', function($http) {
 
         for (var key in product) {
             if (product.hasOwnProperty(key)) {
-                formData.append(key, product[key]);
+                //if product value undefined (can occur if client validations neutralized) set value to string 'value-from-client-is-undefined' so that server
+                //can distinguish between real undefined and string containing word undefined (all values arrive at server as strings as 'undefined')  
+                formData.append(key, product[key] === undefined ? 'value-from-client-is-undefined' : product[key] );
             }
         }
 

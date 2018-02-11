@@ -1,7 +1,8 @@
 const mysql = require('mysql');
+const logError = require('../share/errorLogging.js');
 
 function executeQuery(dbname, spName, spParms, callback) {
-    console.log('@@@ in dal =>  spName: ' + spName + ' spParms: ' + JSON.stringify(spParms));
+   // console.log('@@@ in dal =>  spName: ' + spName + ' spParms: ' + JSON.stringify(spParms));
 
     var parms = '';
     if (spParms === '') {
@@ -16,7 +17,7 @@ function executeQuery(dbname, spName, spParms, callback) {
                 console.log('*** in loop parms=' + parms)
             });
             parms = '(' + parms + ')'
-            console.log('### at end of loop parms=' + parms)
+          //  console.log('### at end of loop parms=' + parms)
     }
 
     const con = mysql.createConnection(
@@ -31,6 +32,7 @@ function executeQuery(dbname, spName, spParms, callback) {
 
     con.connect(function (err) {
         if (err) {
+            logError.writeToErrorLog(err);
             console.log('Error connecting to DB:' + err);
             return;
         }
@@ -38,7 +40,7 @@ function executeQuery(dbname, spName, spParms, callback) {
 
     con.query('Call ' + spName + parms, function (err, rows) {
         if (err) {
-            console.log('>>> dal error calling stored procedurs' + err);
+            logError.writeToErrorLog(err);
             callback(err);
         } 
         else {
