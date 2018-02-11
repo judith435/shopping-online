@@ -13,7 +13,7 @@ function addProduct(req, callback) {
             if (err) {
                 callback(err);
             }
-            saveProductImage(req, newProductID);
+            saveProductImage(newProductID);
             callback(null, newProductID);
         })
     }
@@ -42,13 +42,12 @@ function productValid(product) {
     return errorsFound;
 }
 
-function saveProductImage(req, newProductID) {
-    fs.rename('product_images/image_for_productID_' + newProductID+ '.jpg', 'uploads/image.jpg', function (err) {
+function saveProductImage(newProductID) {
+    fs.rename('uploads/image.jpg', 'product_images/image_for_productID_' + newProductID + '.jpg', function (err) {
         if (err) {
             logError.writeToErrorLog(err);
             throw err;
         }
-        console.log('File Renamed.');
     });
 
 

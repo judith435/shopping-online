@@ -15,6 +15,9 @@ app.use(express.static('../client'));
 app.use(express.static('../node_modules'));
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
+
+app.use(express.static('/uploads'));
+
 // Listen to '/' in GET Verb methods - serve the main Angular index.html file
 app.get('/', function (req, res) {
 
