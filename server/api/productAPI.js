@@ -50,15 +50,14 @@ function uploadProductImage(req, statusCode) {
     return
   }
 
-  let sampleFile = req.files.productImage;
-  //sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
-    sampleFile.mv(`uploads/image.jpg`, function(err) {
-    if (err) {
-      statusCode = 500; 
-      logError.writeToErrorLog(err);
-      return
-    }
-  });
+  // let sampleFile = req.files.productImage;
+  //   sampleFile.mv(`uploads/image.jpg`, function(err) {
+  //   if (err) {
+  //     statusCode = 500; 
+  //     logError.writeToErrorLog(err);
+  //     return
+  //   }
+  // });
 
 }
 
