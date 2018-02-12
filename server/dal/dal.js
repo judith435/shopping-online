@@ -14,10 +14,10 @@ function executeQuery(dbname, spName, spParms, callback) {
                 parmTemp = parm.isString ? '"' + parm.value + '"' : parm.value;
                 parms += parmTemp;
                 parms += i < spParms.length - 1 ? ',' : ''; //put comma after each parameter except for last one
-                console.log('*** in loop parms=' + parms)
+              //  console.log('*** in loop parms=' + parms)
             });
             parms = '(' + parms + ')'
-          //  console.log('### at end of loop parms=' + parms)
+            console.log('### at end of loop parms=' + parms)
     }
 
     const con = mysql.createConnection(

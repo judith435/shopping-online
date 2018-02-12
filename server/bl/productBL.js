@@ -19,7 +19,7 @@ function addProduct(product, callback) {
         }
         else {
             rows[0].forEach(function (row) {
-                // console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
+                 console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
                  callback(null, row.new_product_id);
             });
         }

@@ -47,9 +47,13 @@ function productValid(product,req) {
 }
 
 function saveProductImage(req, newProductID, callback) {
+
     let imageFile = req.files.productImage;
-    imageFile.mv( 'product_images/image_for_productID_' + newProductID + '.jpg', function(err) {
+    console.log('#### saveProductImage: befores move ' );
+
+    imageFile.mv('product_images/image_for_productID_' + newProductID + '.jpg', function(err) {
         if (err) {
+            console.log('saveProductImage: error ' + err);
             callback('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
         }
     });

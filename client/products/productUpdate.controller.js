@@ -34,8 +34,8 @@ shoppingApp.controller('productUpdateController', function handleProducts($scope
         var product = {
             id: $scope.product.id,
             name: $scope.product.name,
-            price: $scope.product.price,
-            category: $scope.product.category
+            category: $scope.product.category,
+            price: $scope.product.price
         };
 
         validateInput();
