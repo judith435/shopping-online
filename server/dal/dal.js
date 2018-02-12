@@ -40,8 +40,7 @@ function executeQuery(dbname, spName, spParms, callback) {
 
     con.query('Call ' + spName + parms, function (err, rows) {
         if (err) {
-            logError.writeToErrorLog(err);
-            callback(err);
+            callback('error in dal => ' + err);
         } 
         else {
             callback(null, rows)

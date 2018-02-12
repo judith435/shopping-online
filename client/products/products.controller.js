@@ -8,7 +8,7 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
                 alert('error occured - please contact support center');
             }
             else {
-                $scope.options = response.data.content;//resp.categories.data[0];
+                $scope.options = response.data.content[0];
             }
         });
     }
