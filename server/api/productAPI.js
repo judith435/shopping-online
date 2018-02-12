@@ -25,7 +25,6 @@ function addProduct(req, res) {
     })
   }
 }
-//"Hello World!".startsWith("He");
 
 function updateProduct(req, res) {
   var tala = req.body;
@@ -43,7 +42,7 @@ function updateProduct(req, res) {
 }
 
 function uploadProductImage(req, statusCode) {
-
+  let imageFile = req.files.productImage;
   if (!req.files) {
     statusCode = 400; 
     logError.writeToErrorLog('product image not uploaded to server');

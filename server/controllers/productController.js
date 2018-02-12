@@ -23,8 +23,8 @@ function addProduct(req, callback) {
     }
 }
 
-function productValid(product) {
-    var errorsFound = '';
+function productValid(product ) {
+    let errorsFound = '';
 
     if (!validations.inputNotEmpty(product.name)) {
         errorsFound = 'product name required';

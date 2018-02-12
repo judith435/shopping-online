@@ -33,7 +33,7 @@ function executeQuery(dbname, spName, spParms, callback) {
     con.connect(function (err) {
         if (err) {
             logError.writeToErrorLog(err);
-            console.log('Error connecting to DB:' + err);
+            console.log('Error connecting to DB: ' + err);
             return;
         }
     });

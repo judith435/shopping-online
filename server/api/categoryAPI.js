@@ -1,12 +1,18 @@
 const categoryCtrl = require('../controllers/categoryController');
+const sr = require('../share/serverResponse.js');
 
 function getCategoryDDL(req, res) {
     categoryCtrl.getCategoryDDL(function(err, categories) {
-        if (err) {
-            res.end('error occured'+ err);
+        if (err) { 
+            var response =  new sr.ServerResponse('error occured', err);
         }
-        res.end(JSON.stringify(categories));
+        else {
+            var response =  new sr.ServerResponse('ok', categories);
+        }
+        res.end(JSON.stringify(response));
     })
 }
+
+
 
 module.exports.getCategoryDDL = getCategoryDDL;
