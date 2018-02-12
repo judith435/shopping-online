@@ -3,7 +3,7 @@
 
 function Product(product) {
     this.id = product['id'];
-    this.name = product['name'] === 'value-from-client-is-undefined' ? undefined : product['name'];
+    this.name = product['name'] === 'value-from-client-is-undefined' ? undefined : product['name'].trim();
     this.category = product['category'] === 'value-from-client-is-undefined' ? undefined : product['category'];
     this.price = product['price'] === 'value-from-client-is-undefined' ? undefined : product['price'];
 }

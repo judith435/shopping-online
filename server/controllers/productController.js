@@ -1,88 +1,58 @@
 const bl = require('../bl/productBL');
 const model = require('../models/productModel');
 const validations = require('../share/validations');
-const logError = require('../share/errorLogging.js');
-const fs = require('fs');
 
 function addProduct(req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
-    const inputErrorsFound = productValid(product);
+    const inputErrorsFound = productValid(product, req);
     if (!inputErrorsFound) {
         bl.product.addProduct(product, function(err, newProductID) {
             if (err) {
-                callback(err);
+                callback('called by productController.addProduct => ' + err);
             }
 
-            saveProductImage(req, newProductID);
-            callback(null, newProductID);
+            saveProductImage(req, newProductID, function (err) {
+                if (err) {
+                    callback('called by productController.addProduct => ' + err);
+                }
+                else {
+                    callback(null, newProductID);
+                }
+            });
         })
     }
     else {
-        callback('following erors were found in input ' + inputErrorsFound);
+        callback(null, 'invalid input =>  following erors were found: \n' + inputErrorsFound); 
     }
 }
 
-function productValid(product ) {
+function productValid(product,req) {
     let errorsFound = '';
 
-    if (!validations.inputNotEmpty(product.name)) {
-        errorsFound = 'product name required';
-    }
+    errorsFound  = validations.inputEmpty(product.name) ?  'product name required \n' : '';
+    errorsFound += !validations.inputValidAmount(product.price) ? 'product price up to 9999.99 $ required \n' : '';
+    errorsFound += validations.inputEmpty(product.category) ? 'product category required \n' : '';
 
-    if (!validations.inputNotEmpty(product.price)) {
-        errorsFound += errorsFound ? ', ' : '' ;
-        errorsFound += 'product price up to 9999.99 $ required';
+    //check productImage sent and valid
+    if (!req.files) {
+        errorsFound += 'no product image supplied and uploaded \n';
     }
-
-    if (!validations.inputNotEmpty(product.category)) {
-        errorsFound += errorsFound ? ', ' : '' ;
-        errorsFound += 'product category  required';
+    else {
+        let prodImage = req.files.productImage;  //sampleFile.name   sampleFile.data.length
+        errorsFound += validations.fileTooLarge(prodImage) ? 'product image larger than 5MB - actual size: ' + prodImage.data.length + ' bytes \n' : '';
+        errorsFound += validations.fileExtensionInvalid(prodImage) ? 'file extension invalid - valid extensions are: jpg, jpeg, png or gif' : '';
     }
-
     return errorsFound;
 }
 
-function saveProductImage(req, newProductID) {
+function saveProductImage(req, newProductID, callback) {
     let imageFile = req.files.productImage;
     imageFile.mv( 'product_images/image_for_productID_' + newProductID + '.jpg', function(err) {
         if (err) {
-            statusCode = 500; 
-            logError.writeToErrorLog(err);
+            callback('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
         }
     });
-
-
-
-    // fs.rename('uploads/image.jpg', 'product_images/image_for_productID_' + newProductID + '.jpg', function (err) {
-    //     if (err) {
-    //         logError.writeToErrorLog(err);
-    //         throw err;
-    //     }
-    // });
-
-
-    // let sampleFile = req.files.productImage;
-    // //sampleFile.mv(`product_images/${sampleFile.image_for_productID_ + newProductID }`, function(err) {
-    // let newFileName =   'image_for_productID_' + newProductID;
-    // sampleFile.mv(`image_for_productID_/${newFileName}`, function(err) {
-    // if (err) {
-    //     statusCode = 500; 
-    //     logError.writeToErrorLog(err);
-    //     return
-    //   }
-    // });
-  
 }
 
 module.exports.addProduct = addProduct;
-
-
-// $scope.name_errorMessage = !$scope.product.name  ? 'Name required' : '';
-// $scope.errorsFound = $scope.name_errorMessage !== '' || $scope.errorsFound;
-// $scope.price_errorMessage = !$scope.product.price ? 'Price up to 9999.99 $ required' : '';
-// $scope.errorsFound = $scope.price_errorMessage !== '' || $scope.errorsFound;
-// $scope.category_errorMessage = !$scope.product.category ? 'Category  required' : '';
-// $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
-// $scope.productImage_errorMessage = !$scope.productImage ? 'Product Image  required' : '';
-// $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;

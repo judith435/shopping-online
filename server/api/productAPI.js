@@ -1,29 +1,33 @@
 const productCtrl = require('../controllers/productController');
 const logError = require('../share/errorLogging.js');
+const sr = require('../share/serverResponse.js');
 
 function addProduct(req, res) {
-      console.log('addProduct req.body:  ' + req.body);
-      console.log('addProduct req.body:  ' + JSON.stringify(req.body));
-  var statusCode = 0;
-  uploadProductImage(req, statusCode);
-  if (statusCode) {
-    res.status(statusCode).send('error uploading product image => product save failed');
-  }
-  else { //product image uploaded successfully - continue wih save to db 
-    productCtrl.addProduct(req, function(err, newProductID) {
-        if (err) {
-          res.end(JSON.stringify(err));
-          // if(JSON.stringify( err.startsWith('following erors were found in input'))) { //if (pathname.substring(0, 6) == "/sub/1") 
-          //   res.end(err);
-          // }
-          // else { //genaral error occures
-          //   logError.writeToErrorLog('error in add product: ' + err);
-          //   res.end('Adding product failed - please contact support center ');
-          // }
-        }
-        res.end('product added successfully => new productID = ' +  newProductID);
-    })
-  }
+  console.log('addProduct req.body:  ' + req.body);
+  console.log('addProduct req.body:  ' + JSON.stringify(req.body));
+  productCtrl.addProduct(req, function(err, response) {
+    if (err) {
+      logError.writeToErrorLog('called by productAPI.addProduct => ' + err);
+      var response =  new sr.ServerResponse('error', err);
+     // res.end(JSON.stringify(err));  str.substring(1, 4);
+      // if(JSON.stringify( err.startsWith('following erors were found in input'))) { //if (pathname.substring(0, 6) == "/sub/1") 
+      //   res.end(err);
+      // }
+      // else { //genaral error occures
+      //   logError.writeToErrorLog('error in add product: ' + err);
+      //   res.end('Adding product failed - please contact support center ');
+      // }
+    }
+    else {
+      if (response.substr(0, 13) === 'invalid input') { 
+        var response =  new sr.ServerResponse('invalid input', response);
+      }
+      else {
+        var response =  new sr.ServerResponse('ok', 'product added successfully => new productID = ' +  response);
+      }
+    }
+    res.end(JSON.stringify(response));
+  })
 }
 
 function updateProduct(req, res) {
@@ -38,25 +42,6 @@ function updateProduct(req, res) {
   }
 
   res.send('File uploaded!');
-
-}
-
-function uploadProductImage(req, statusCode) {
-  let imageFile = req.files.productImage;
-  if (!req.files) {
-    statusCode = 400; 
-    logError.writeToErrorLog('product image not uploaded to server');
-    return
-  }
-
-  // let sampleFile = req.files.productImage;
-  //   sampleFile.mv(`uploads/image.jpg`, function(err) {
-  //   if (err) {
-  //     statusCode = 500; 
-  //     logError.writeToErrorLog(err);
-  //     return
-  //   }
-  // });
 
 }
 

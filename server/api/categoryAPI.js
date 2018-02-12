@@ -6,7 +6,7 @@ function getCategoryDDL(req, res) {
     categoryCtrl.getCategoryDDL(function(err, categories) {
         if (err) { 
             logError.writeToErrorLog('called by categoryAPI.getCategoryDDL => ' + err);
-            var response =  new sr.ServerResponse('error occured', err);
+            var response =  new sr.ServerResponse('error', err);
         }
         else {
             var response =  new sr.ServerResponse('ok', categories);

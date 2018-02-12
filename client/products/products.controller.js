@@ -4,7 +4,7 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
 
     function fillCategoriesDDL() {
         categoryService.getCategories(configSettings, function(response) {
-            if (response.data.status === 'error occured') {
+            if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
             }
             else {
@@ -38,8 +38,8 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
             category: $scope.product.category
         };
 
-        validateInput();
-        if ($scope.errorsFound) { return; }
+        // validateInput();
+        // if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
@@ -52,9 +52,14 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
         //     });
         // } 
         // else {
-            productService.addProduct(configSettings, product, $scope.productImage, function(response) {
+            productService.addProduct(configSettings, product, $scope.productImage, function(response) {  //            if (response.data.status === 'error') {
+                if (response.data.status === 'error') {
+                    alert('error occured - please contact support center');
+                }
+                else {
+                    alert  (response.data.content);
+                }
                 //courseService.updateCourse(configSettings, course, $scope.courseImage, function(response) {
-                alert  (JSON.stringify(response.data));
                 // if (response.data === 'course updated successfully') {
                 //    $rootScope.$broadcast('refreshAfterCourseStudentUpdate', {});
                 // }
@@ -97,7 +102,7 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
                 return;
             }
     
-            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : '';
+            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? 'Image larger than 5MB - actual size: ' + $scope.productImage.size + ' bytes' : '';
             $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
         }
 

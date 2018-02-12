@@ -13,14 +13,16 @@ function addProduct(product, callback) {
     spParms.push(new parmObject.spParm(product.price, false));
 
     // console.log('!!! in bl  spParms: ' + JSON.stringify(spParms));
-    dal.executeQuery('shopping', 'insert_product', spParms, function(err, rows) {
+    dal.executeQuery('shopping', 'Xinsert_product', spParms, function(err, rows) {
         if (err) {
-            callback(err);
+            callback('called by productBL.addProduct => ' + err);
         }
-        rows[0].forEach(function (row) {
-           // console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
-            callback(null, row.new_product_id);
-        });
+        else {
+            rows[0].forEach(function (row) {
+                // console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
+                 callback(null, row.new_product_id);
+            });
+        }
     });
 }
 
