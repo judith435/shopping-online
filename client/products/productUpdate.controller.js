@@ -1,4 +1,4 @@
-shoppingApp.controller('productController', function handleProducts($scope, productService, categoryService, imageService, configSettings)
+shoppingApp.controller('productUpdateController', function handleProducts($scope, productService, categoryService, imageService, configSettings)
 {
     fillCategoriesDDL();
 
@@ -38,8 +38,8 @@ shoppingApp.controller('productController', function handleProducts($scope, prod
             category: $scope.product.category
         };
 
-        // validateInput();
-        // if ($scope.errorsFound) { return; }
+        validateInput();
+        if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
