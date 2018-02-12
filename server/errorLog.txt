@@ -1,2 +1,2 @@
 
-following error occured at Mon Feb 12 2018 15:41:16 GMT+0200 (שעון רגיל ירושלים) : "called by productAPI.addProduct => called by productController.addProduct => called by productBL.addProduct => error in dal => Error: ER_SP_DOES_NOT_EXIST: PROCEDURE shopping.Xinsert_product does not exist"
+following error occured at Mon Feb 12 2018 17:38:58 GMT+0200 (שעון רגיל ירושלים) : "called by productAPI.addProduct => called by productController.addProduct => called by productBL.addProduct => error in dal => Error: ER_SP_DOES_NOT_EXIST: PROCEDURE shopping.Xinsert_product does not exist"

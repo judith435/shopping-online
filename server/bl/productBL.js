@@ -13,7 +13,7 @@ function addProduct(product, callback) {
     spParms.push(new parmObject.spParm(product.price, false));
 
     // console.log('!!! in bl  spParms: ' + JSON.stringify(spParms));
-    dal.executeQuery('shopping', 'Xinsert_product', spParms, function(err, rows) {
+    dal.executeQuery('shopping', 'insert_product', spParms, function(err, rows) {
         if (err) {
             callback('called by productBL.addProduct => ' + err);
         }

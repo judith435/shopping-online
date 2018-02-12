@@ -24,6 +24,7 @@ function addProduct(req, res) {
       }
       else {
         var response =  new sr.ServerResponse('ok', 'product added successfully => new productID = ' +  response);
+        console.log('~~~~~ response from insert ' + JSON.stringify(response));
       }
     }
     res.end(JSON.stringify(response));
