@@ -1,7 +1,7 @@
 const bl = require('../bl/productBL');
 const model = require('../models/productModel');
 const validations = require('../share/validations');
-
+//productCtrl.addProduct(req, function(err, response) {
 function addProduct(req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
@@ -17,6 +17,8 @@ function addProduct(req, callback) {
                     callback('called by productController.addProduct => ' + err);
                 }
                 else {
+                    console.log('****** gundelush ******* ');
+
                     callback(null, newProductID);
                 }
             });
@@ -56,6 +58,7 @@ function saveProductImage(req, newProductID, callback) {
             console.log('saveProductImage: error ' + err);
             callback('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
         }
+        //callback
     });
 }
 
