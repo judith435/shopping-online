@@ -5,9 +5,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema shopping
 -- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema shopping
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `shopping` DEFAULT CHARACTER SET utf8 ;
 USE `shopping` ;
 
@@ -104,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -147,6 +153,25 @@ BEGIN
 		SELECT 	id as value,
 				name  as text 
 		FROM    categories
+        order by name;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure get_products
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_products`()
+BEGIN
+
+		SELECT 	id,
+				name,
+                category,
+                price
+		FROM    products
         order by name;
 END$$
 

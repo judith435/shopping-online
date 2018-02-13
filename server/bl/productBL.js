@@ -7,11 +7,13 @@ function getProducts(callback) {
         if (err) {
             callback('called by productBL.getProducts => ' + err);
         }
-        const productsArray = [];
-        rows[0].forEach(function (row) {
-            productsArray.push(new model.Product(row));
-        });
-        callback(null, productsArray);
+        else {
+            const productsArray = [];
+            rows[0].forEach(function (row) {
+                productsArray.push(new model.Product(row));
+            });
+            callback(null, productsArray);
+        }
     });
 }
 

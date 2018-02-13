@@ -4,7 +4,7 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts($scope, pr
 
     function getProducts() {
         productService.getProducts(configSettings, function(products) {
-            if (products.data.content === 'error' ) {
+            if (products.data.status === 'error' ) {
                 alert('error occured - please contact support center');
                 return;
             }
