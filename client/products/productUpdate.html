@@ -12,13 +12,6 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="courseDescription" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Price</label>
-        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-            <input type="number" ng-model=product.price class="form-control"  max="9999.99" min="0" step=".01" placeholder="Enter new Product Price in $">
-            <label class="validationError">{{price_errorMessage}}</label>     
-        </div>
-    </div>
-    <div class="form-group row">
         <label for="categoryDDL" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Category</label>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
             <select id="categoryDDL"  class="form-control"  ng-model=product.category >
@@ -30,7 +23,14 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="courseImage" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Image</label>
+        <label for="courseDescription" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Price</label>
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+            <input type="number" ng-model=product.price class="form-control"  max="9999.99" min="0" step=".01" placeholder="Enter new Product Price in $">
+            <label class="validationError">{{price_errorMessage}}</label>     
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left">Image</label>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
             <span>valid extensions jpg, jpeg, png or gif, size up to 5 MB</span>
         </div>
@@ -38,7 +38,7 @@
     <div class="form-group row">
         <span class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-form-label text-left"></span>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-            <input type="file" class="btn btn-info pull-left" file-model='productImage'  > 
+            <input type="file" class="btn btn-info pull-left" id='productImage' file-model='productImage'  > 
         </div> 
     </div>
     <div class="form-group row">

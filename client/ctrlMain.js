@@ -1,4 +1,4 @@
-shoppingApp.controller('mainController', function handleNavigation( $scope,
+shoppingApp.controller('ctrlMain', function handleNavigation( $scope,
                                                                     $templateRequest,
                                                                     $compile) 
 {

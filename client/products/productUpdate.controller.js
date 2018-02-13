@@ -1,4 +1,4 @@
-shoppingApp.controller('productUpdateController', function handleProducts($scope, productService, categoryService, imageService, configSettings)
+shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, productService, categoryService, imageService, configSettings)
 {
     fillCategoriesDDL();
 
@@ -23,10 +23,17 @@ shoppingApp.controller('productUpdateController', function handleProducts($scope
     }
 
 
-    $scope.addProduct = function()  {
+    $scope.addProduct = function()  {//display update product panel
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
         $scope.product.id = 'ID:'
+
+        if ($scope.productImage) { //clear any previous product images
+            angular.element("#productImage").val(null);
+            $scope.productImage = null;
+            var drawingCanvas = document.getElementById('canvasProduct');
+            imageService.clearImage(drawingCanvas); 
+        }
     }  
 
     $scope.saveProduct = function()  {
@@ -38,8 +45,8 @@ shoppingApp.controller('productUpdateController', function handleProducts($scope
             price: $scope.product.price
         };
 
-        // validateInput();
-        // if ($scope.errorsFound) { return; }
+        validateInput();
+        if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {

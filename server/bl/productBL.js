@@ -2,6 +2,20 @@ const dal = require('..//dal/dal');
 const parmObject = require('..//dal/spParm');
 const model = require('../models/productModel');
 
+function getProducts(callback) {
+    dal.executeQuery('shopping', 'get_products', '',function(err, rows) {
+        if (err) {
+            callback('called by productBL.getProducts => ' + err);
+        }
+        const productsArray = [];
+        rows[0].forEach(function (row) {
+            productsArray.push(new model.Product(row));
+        });
+        callback(null, productsArray);
+    });
+}
+
+
 function addProduct(product, callback) { 
 
     // console.log('>>> productBL: ' + JSON.stringify(product));  
@@ -29,7 +43,7 @@ function addProduct(product, callback) {
 
 
 module.exports.product = {
-  //  getProducts: getProducts,
+   getProducts: getProducts,
   //  checkDuplicateProduct: checkDuplicateProduct,
   addProduct: addProduct
 

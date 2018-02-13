@@ -1,7 +1,19 @@
 const bl = require('../bl/productBL');
 const model = require('../models/productModel');
 const validations = require('../share/validations');
-//productCtrl.addProduct(req, function(err, response) {
+const logError = require('../share/errorLogging.js'); //must log product image upload errors
+
+function getProducts(callback) {
+
+    bl.product.getProducts(function(err, productArray) {
+        if (err) {
+            callback('called by productController.getProducts => ' + err);
+        }
+        callback(null, productArray);
+    })
+}
+
+
 function addProduct(req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
@@ -9,20 +21,20 @@ function addProduct(req, callback) {
     if (!inputErrorsFound) {
         bl.product.addProduct(product, function(err, newProductID) {
             if (err) {
-                callback('called by productController.addProduct => ' + err);
+                callback('called by productController.addProduct => ' + err, null, null);
             }
-
-            saveProductImage(req, newProductID, function (err) {
-                if (err) {
-                    callback('called by productController.addProduct => ' + err);
-                }
-                // console.log('****** gundelush ******* ');
-                callback(null, newProductID);
-            });
+            else {
+                saveProductImage(req, newProductID, function (err) {
+                    if (err) {
+                        callback(null, newProductID + err, null); //save product succeeded however saving image failed - send relevant message to user 
+                    }
+                    callback(null, newProductID, null);
+                }); 
+            }
         })
     }
     else {
-        callback(null, '!' + inputErrorsFound); 
+        callback(null, null, inputErrorsFound); 
     }
 }
 
@@ -48,15 +60,15 @@ function productValid(product,req) {
 function saveProductImage(req, newProductID, callback) {
 
     let imageFile = req.files.productImage;
-    console.log('#### saveProductImage: befores move ' );
-
-    imageFile.mv('product_images/image_for_productID_' + newProductID + '.jpg', function(err) {
+    imageFile.mv('product_images/image_for_product_id_' + newProductID + '.jpg', function(err) {
         if (err) {
+            logError.writeToErrorLog('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
             console.log('saveProductImage: error ' + err);
-            callback('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
+            callback('\nhowever uploading product image failed!');
         }
         callback(null); //null there was no error
     });
 }
 
+module.exports.getProducts = getProducts;
 module.exports.addProduct = addProduct;

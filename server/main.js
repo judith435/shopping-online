@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(express.static('../client'));
 app.use(express.static('../node_modules'));
+app.use(express.static('product_images'));
+
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
 
@@ -31,6 +33,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/category/ddl', apiCategory.getCategoryDDL);
+app.get('/product', apiProduct.getProducts);
 app.post('/product', apiProduct.addProduct);
 app.put('/product', apiProduct.updateProduct);
 

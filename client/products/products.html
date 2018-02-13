@@ -1,6 +1,6 @@
 <div class='flex-container' >
     <h3>Product Management</h3>
-    <section class='product-action-flex resize'  ng-controller='productUpdateController'>
+    <section class='product-action-flex resize'  ng-controller='ctrlProductUpdate'>
         <div>
             <span class='caption'>{{productName}}</span>
             <button  class='add-button' ng-click='addProduct()'>+</button>
@@ -11,6 +11,22 @@
         </div>
     </section>
     <section  class='product-list-flex resize'>
+            <div  class="container-fluid" ng-controller="ctrlProductDisplay">
+                    <div ng-repeat="product in products">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
+                            <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
+
+                            <!-- <button class="btn btn-link"  type="button" 
+                                ng-click="deleteNote($index)">   
+                                <span class="glyphicon glyphicon-trash deleteButton"></span>  id=canvas-course-{{course.id}}
+                            </button> -->
+                            <label>{{product.name}}</label>
+                            <br>
+                            <label>{{product.price}}</label>
+                        </div>                
+                    </div>
+                </div>
+        
     </section>
 </div>
     
