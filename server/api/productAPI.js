@@ -19,12 +19,14 @@ function addProduct(req, res) {
       // }
     }
     else {
-      if (response.substr(0, 13) === 'invalid input') { 
-        var response =  new sr.ServerResponse('invalid input', response);
+      //console.log('~~~~~ IMPORTANT response ' + JSON.stringify(response) + '  >>>  ' + response);
+      if (response.substr(0, 1) === '!') { //! indicates input errors were found
+        var response =  new sr.ServerResponse('invalid input', 
+          'invalid input =>  following erors were found: \n' + response.substr(1)); //remove ! error indicator
       }
       else {
         var response =  new sr.ServerResponse('ok', 'product added successfully => new productID = ' +  response);
-        console.log('~~~~~ response from insert ' + JSON.stringify(response));
+        // console.log('~~~~~ response from insert ' + JSON.stringify(response));
       }
     }
     res.end(JSON.stringify(response));
@@ -32,17 +34,6 @@ function addProduct(req, res) {
 }
 
 function updateProduct(req, res) {
-  var tala = req.body;
-  console.log('updateProduct req.body:  ' + tala);
-  console.log('updateProduct req.body:  ' + JSON.stringify(tala));
-
-  var statusCode = 0;
-  uploadProductImage(req, statusCode);
-  if (statusCode) {
-    res.status(statusCode).send('error uploading product image => product save failed');
-  }
-
-  res.send('File uploaded!');
 
 }
 

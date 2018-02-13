@@ -38,8 +38,8 @@ shoppingApp.controller('productUpdateController', function handleProducts($scope
             price: $scope.product.price
         };
 
-        validateInput();
-        if ($scope.errorsFound) { return; }
+        // validateInput();
+        // if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {

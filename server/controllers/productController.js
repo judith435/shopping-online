@@ -16,16 +16,13 @@ function addProduct(req, callback) {
                 if (err) {
                     callback('called by productController.addProduct => ' + err);
                 }
-                else {
-                    console.log('****** gundelush ******* ');
-
-                    callback(null, newProductID);
-                }
+                // console.log('****** gundelush ******* ');
+                callback(null, newProductID);
             });
         })
     }
     else {
-        callback(null, 'invalid input =>  following erors were found: \n' + inputErrorsFound); 
+        callback(null, '!' + inputErrorsFound); 
     }
 }
 
@@ -58,7 +55,7 @@ function saveProductImage(req, newProductID, callback) {
             console.log('saveProductImage: error ' + err);
             callback('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
         }
-        //callback
+        callback(null); //null there was no error
     });
 }
 
