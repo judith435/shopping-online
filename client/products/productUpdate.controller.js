@@ -1,5 +1,12 @@
-shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, productService, categoryService, imageService, configSettings)
+shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
+                                                                    $rootScope, 
+                                                                    productService, 
+                                                                    categoryService, 
+                                                                    imageService, 
+                                                                    configSettings)
 {
+
+
     fillCategoriesDDL();
 
     function fillCategoriesDDL() {
@@ -22,8 +29,16 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, prod
         imageService.uploadImage(drawingCanvas, $scope.productImage); 
     }
 
+    $scope.$on('product-selected', function(event, product) {
+        initUpdatePanel();
+        $scope.product = product;
+    });
 
     $scope.addProduct = function()  {//display update product panel
+        initUpdatePanel();
+    }  
+
+    function initUpdatePanel() {
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
         $scope.product.id = 'ID:'
@@ -34,7 +49,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, prod
             var drawingCanvas = document.getElementById('canvasProduct');
             imageService.clearImage(drawingCanvas); 
         }
-    }  
+    }
 
     $scope.saveProduct = function()  {
 
@@ -45,8 +60,8 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, prod
             price: $scope.product.price
         };
 
-        validateInput();
-        if ($scope.errorsFound) { return; }
+        // validateInput();
+        // if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
@@ -62,10 +77,14 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope, prod
             productService.addProduct(configSettings, product, $scope.productImage, function(response) {  //            if (response.data.status === 'error') {
                 if (response.data.status === 'error') {
                     alert('error occured - please contact support center');
+                    return;
                 }
-                else {
-                    alert  (response.data.content);
+                if (response.data.status === 'invalid input') {
+                    alert(response.data.content);
+                    return;
                 }
+
+                $rootScope.$broadcast('product-changed', false);
                 //courseService.updateCourse(configSettings, course, $scope.courseImage, function(response) {
                 // if (response.data === 'course updated successfully') {
                 //    $rootScope.$broadcast('refreshAfterCourseStudentUpdate', {});
