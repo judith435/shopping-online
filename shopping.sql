@@ -212,3 +212,5 @@ insert into categories (name) values ("Milk & Eggs");
 insert into categories (name) values ("Vegetables & Fruits");
 insert into categories (name) values ("Meat & Fish");
 insert into categories (name) values ("Wine & Drinks");
+insert into categories (name) values ("Chocolates & Sweets");
+insert into categories (name) values ("Bakery");

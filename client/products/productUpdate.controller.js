@@ -32,6 +32,8 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
     $scope.$on('product-selected', function(event, product) {
         initUpdatePanel();
         $scope.product = product;
+       // $scope.options = [{ name: "a", id: 1 }, { name: "b", id: 2 }];
+        $scope.product.category = product.category;
     });
 
     $scope.addProduct = function()  {//display update product panel
@@ -56,12 +58,12 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         var product = {
             id: $scope.product.id,
             name: $scope.product.name,
-            category: $scope.product.category,
+            category: $scope.product.category.value,
             price: $scope.product.price
         };
 
-        // validateInput();
-        // if ($scope.errorsFound) { return; }
+        validateInput();
+        if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
