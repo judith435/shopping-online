@@ -33,7 +33,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         initUpdatePanel();
         $scope.product = product;
        // $scope.options = [{ name: "a", id: 1 }, { name: "b", id: 2 }];
-        $scope.product.category = product.category;
+        $scope.product.category =  $scope.options[1];//product.category;
     });
 
     $scope.addProduct = function()  {//display update product panel
