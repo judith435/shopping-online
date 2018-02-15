@@ -32,25 +32,38 @@ shoppingApp.service('productService', function($http) {
     //     }
     // }
 
-    this.addProduct = function(configSettings, product, productImage, success, error) {
+    this.addUpdateProduct = function(activity, configSettings, product, productImage, success, error) {
         
         var formData = buildFormData(product, productImage);
-        $http.post(configSettings.shoppingApi + '/product', formData,
-        {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
- 
-        }).then(success, error); 
+        
+        if (activity === 'updateProduct') {
+            $http.put(configSettings.shoppingApi + '/product', formData,
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+     
+            }).then(success, error); 
+        }
+        else {
+            $http.post(configSettings.shoppingApi + '/product', formData,
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+     
+            }).then(success, error); 
+        }
     }
 
-    this.updateProduct = function(configSettings, product, productImage, success, error) {
-        $http.put(configSettings.shoppingApi + '/product', formData,
-        {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+    // this.updateProduct = function(configSettings, product, productImage, success, error) {
+
+    //     var formData = buildFormData(product, productImage);
+    //     $http.put(configSettings.shoppingApi + '/product', formData,
+    //     {
+    //         transformRequest: angular.identity,
+    //         headers: {'Content-Type': undefined}
  
-        }).then(success, error); 
-    }
+    //     }).then(success, error); 
+    // }
 
     function buildFormData(product, productImage) {
         var formData = new FormData();

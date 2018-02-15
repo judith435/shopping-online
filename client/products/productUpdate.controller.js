@@ -21,6 +21,10 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         });
     }
 
+    $scope.addProduct = function()  {//display update product panel => + add product button clicked
+        initUpdatePanel();
+        $scope.activity = 'addProduct';
+    }  
 
     $scope.productName = 'click +  to add product';
     $scope.showProductUpdate = false; //hide directive containing product cuForm
@@ -34,25 +38,29 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         initUpdatePanel();
         $scope.product = {};
         $scope.product = product;
+        $scope.productBeforeUpdate = JSON.parse(JSON.stringify(product)); //used for comparison in validation if product actually updated
         let categoryOption = $filter('filter')($scope.options, {value: product.category }, true)[0];
-        $scope.product.categoryDDL =  categoryOption;  //$scope.options[1];
-    });
+        $scope.product.categoryDDL =  categoryOption; 
+        var drawingCanvas = document.getElementById('canvasProduct');
+        imageService.setCanvas(drawingCanvas, configSettings.productImagePath + $scope.product.id,'regular'); 
+        $scope.activity = 'updateProduct';
 
-    $scope.addProduct = function()  {//display update product panel
-        initUpdatePanel();
-    }  
+      //  sessionStorage.setItem("courseBeforeChange", JSON.stringify($scope.course));   
+});
+
 
     function initUpdatePanel() {
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
-        $scope.product.id = 'ID:'
-
-        if ($scope.productImage) { //clear any previous product images
-            angular.element("#productImage").val(null);
-            $scope.productImage = null;
-            var drawingCanvas = document.getElementById('canvasProduct');
-            imageService.clearImage(drawingCanvas); 
-        }
+        $scope.name_errorMessage = '';
+        $scope.category_errorMessage = '';
+        $scope.price_errorMessage = '';
+        $scope.productImage_errorMessage = '';
+        $scope.duplicateProduct_errorMessage = '';
+        angular.element("#productImage").val(null);
+        $scope.productImage = null;
+        var drawingCanvas = document.getElementById('canvasProduct');
+        imageService.clearImage(drawingCanvas); 
     }
 
     $scope.saveProduct = function()  {
@@ -67,60 +75,49 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
             price: $scope.product.price
         };
 
+        productService.addUpdateProduct($scope.activity, configSettings, product, $scope.productImage, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            if (response.data.status === 'invalid input') {
+                alert(response.data.content);
+                return;
+            }
 
-
-        // if ($rootScope.updateCourse) {
-        //     courseService.updateCourse(configSettings, course, $scope.courseImage, function(response) {
-              
-        //         if (response.data === 'course updated successfully') {
-        //             $rootScope.$broadcast('refreshAfterCourseStudentUpdate', {});
-        //         }
-        //             //$scope.message = (JSON.stringify(response.data));
-        //     });
-        // } 
-        // else {
-            productService.addProduct(configSettings, product, $scope.productImage, function(response) {  //            if (response.data.status === 'error') {
-                if (response.data.status === 'error') {
-                    alert('error occured - please contact support center');
-                    return;
-                }
-                if (response.data.status === 'invalid input') {
-                    alert(response.data.content);
-                    return;
-                }
-
-                $rootScope.$broadcast('product-changed', false);
-                //courseService.updateCourse(configSettings, course, $scope.courseImage, function(response) {
-                // if (response.data === 'course updated successfully') {
-                //    $rootScope.$broadcast('refreshAfterCourseStudentUpdate', {});
-                // }
-                //$scope.message = (JSON.stringify(response.data));
-            });
-        // }
+            $rootScope.$broadcast('product-changed', false);
+        });
     } 
 
-    function validateInput() {
-        $scope.errorsFound = false;
+    function validateInput() {        $scope.errorsFound = false;
 
-        // if ($rootScope.updateCourse) {
-        //     var data = sessionStorage.getItem("courseBeforeChange");
-        //     var courseBeforeChange = JSON.parse(data);
+        if ($scope.activity === 'updateProduct') {
+            alert ('$scope.productBeforeUpdate: ' + JSON.stringify($scope.productBeforeUpdate));
 
-        //     if (courseBeforeChange.courseName === $scope.course.courseName && 
-        //         courseBeforeChange.courseDescription === $scope.course.courseDescription) {
-        //             $scope.duplicateCourse_errorMessage =  'no change in data - no update';  
-        //             $scope.errorsFound = true;
-        //             return;
-        //     }  
-        // }
+            if ($scope.productBeforeUpdate.name === $scope.product.name && 
+                $scope.productBeforeUpdate.category === $scope.product.categoryDDL.value &&
+                $scope.productBeforeUpdate.price === $scope.product.price &&
+                !$scope.productImage) {
+                    $scope.duplicateProduct_errorMessage =  'no change in data - no update';  
+                    $scope.errorsFound = true;
+                    return;
+            }
+            else {
+                $scope.duplicateProduct_errorMessage =  '';  
+            }  
+        }
 
         $scope.name_errorMessage = !$scope.product.name  ? 'Name required' : '';
         $scope.errorsFound = $scope.name_errorMessage !== '' || $scope.errorsFound;
+        
+        $scope.category_errorMessage = !$scope.product.categoryDDL ? 'Category  required' : '';
+        $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
+
         $scope.price_errorMessage = !$scope.product.price ? 'Price up to 9999.99 $ required' : '';
         $scope.errorsFound = $scope.price_errorMessage !== '' || $scope.errorsFound;
-        $scope.category_errorMessage = !$scope.product.categoryDDL.value ? 'Category  required' : '';
-        $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
-        $scope.productImage_errorMessage = !$scope.productImage ? 'Product Image  required' : '';
+
+        //product image required for addProduct only
+        $scope.productImage_errorMessage = !$scope.productImage && $scope.activity === 'addProduct' ? 'Product Image  required' : '';
         $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
         
         if ($scope.productImage) { //check image extensions/size => no point checking if no image uploaded

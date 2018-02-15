@@ -14,14 +14,14 @@ function getProducts(callback) {
 }
 
 
-function addProduct(req, callback) {
+function addUpdateProduct(req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
     const inputErrorsFound = productValid(product, req);
     if (!inputErrorsFound) {
-        bl.product.addProduct(product, function(err, newProductID) {
+        bl.product.addUpdateProduct(product, function(err, newProductID) {
             if (err) {
-                callback('called by productController.addProduct => ' + err, null, null);
+                callback('called by productController.addUpdateProduct => ' + err, null, null);
             }
             else {
                 saveProductImage(req, newProductID, function (err) {
@@ -71,4 +71,4 @@ function saveProductImage(req, newProductID, callback) {
 }
 
 module.exports.getProducts = getProducts;
-module.exports.addProduct = addProduct;
+module.exports.addUpdateProduct = addUpdateProduct;

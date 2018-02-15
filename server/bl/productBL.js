@@ -18,7 +18,7 @@ function getProducts(callback) {
 }
 
 
-function addProduct(product, callback) { 
+function addUpdateProduct(product, callback) { 
 
     // console.log('>>> productBL: ' + JSON.stringify(product));  
 
@@ -31,7 +31,7 @@ function addProduct(product, callback) {
     // console.log('!!! in bl  spParms: ' + JSON.stringify(spParms));
     dal.executeQuery('shopping', 'insert_product', spParms, function(err, rows) {
         if (err) {
-            callback('called by productBL.addProduct => ' + err);
+            callback('called by productBL.addUpdateProduct => ' + err);
         }
         else {
             rows[0].forEach(function (row) {
@@ -47,6 +47,6 @@ function addProduct(product, callback) {
 module.exports.product = {
    getProducts: getProducts,
   //  checkDuplicateProduct: checkDuplicateProduct,
-  addProduct: addProduct
+  addUpdateProduct: addUpdateProduct
 
 }

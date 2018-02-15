@@ -15,12 +15,12 @@ function getProducts(req, res) {
   })
 }
 
-function addProduct(req, res) {
-  console.log('addProduct req.body:  ' + req.body);
-  console.log('addProduct req.body:  ' + JSON.stringify(req.body));
-  productCtrl.addProduct(req, function(err, newProductID, invalidInputDetails) {
+function addUpdateProduct(req, res) {
+  console.log('addUpdateProduct req.body:  ' + req.body);
+  console.log('addUpdateProduct req.body:  ' + JSON.stringify(req.body));
+  productCtrl.addUpdateProduct(req, function(err, newProductID, invalidInputDetails) {
     if (err) {
-      logError.writeToErrorLog('called by productAPI.addProduct => ' + err);
+      logError.writeToErrorLog('called by productAPI.addUpdateProduct => ' + err);
       var response =  new sr.ServerResponse('error', err);
     }
     else {
@@ -36,9 +36,6 @@ function addProduct(req, res) {
   })
 }
 
-function updateProduct(req, res) {
-
-}
 
 module.exports.getProducts = getProducts;
 module.exports.addProduct = addProduct;
