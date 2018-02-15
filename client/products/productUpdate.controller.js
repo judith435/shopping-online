@@ -3,7 +3,8 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
                                                                     productService, 
                                                                     categoryService, 
                                                                     imageService, 
-                                                                    configSettings)
+                                                                    configSettings,
+                                                                    $filter)
 {
 
 
@@ -31,9 +32,10 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
 
     $scope.$on('product-selected', function(event, product) {
         initUpdatePanel();
+        $scope.product = {};
         $scope.product = product;
-       // $scope.options = [{ name: "a", id: 1 }, { name: "b", id: 2 }];
-        $scope.product.category =  $scope.options[1];//product.category;
+        let categoryOption = $filter('filter')($scope.options, {value: product.category }, true)[0];
+        $scope.product.categoryDDL =  categoryOption;  //$scope.options[1];
     });
 
     $scope.addProduct = function()  {//display update product panel
@@ -55,15 +57,16 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
 
     $scope.saveProduct = function()  {
 
+        validateInput();
+        if ($scope.errorsFound) { return; }
+
         var product = {
             id: $scope.product.id,
             name: $scope.product.name,
-            category: $scope.product.category.value,
+            category: $scope.product.categoryDDL.value,
             price: $scope.product.price
         };
 
-        validateInput();
-        if ($scope.errorsFound) { return; }
 
 
         // if ($rootScope.updateCourse) {
@@ -115,7 +118,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         $scope.errorsFound = $scope.name_errorMessage !== '' || $scope.errorsFound;
         $scope.price_errorMessage = !$scope.product.price ? 'Price up to 9999.99 $ required' : '';
         $scope.errorsFound = $scope.price_errorMessage !== '' || $scope.errorsFound;
-        $scope.category_errorMessage = !$scope.product.category ? 'Category  required' : '';
+        $scope.category_errorMessage = !$scope.product.categoryDDL.value ? 'Category  required' : '';
         $scope.errorsFound = $scope.category_errorMessage !== '' || $scope.errorsFound;
         $scope.productImage_errorMessage = !$scope.productImage ? 'Product Image  required' : '';
         $scope.errorsFound = $scope.productImage_errorMessage !== '' || $scope.errorsFound;
