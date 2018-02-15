@@ -14,22 +14,28 @@ function getProducts(callback) {
 }
 
 
-function addUpdateProduct(req, callback) {
+function addUpdateProduct(activity, req, callback) {
     console.log('>>> productController: ' + JSON.stringify(req.body));
     const product = new model.Product(req.body);
-    const inputErrorsFound = productValid(product, req);
+    const inputErrorsFound = productValid(activity, product, req);
     if (!inputErrorsFound) {
-        bl.product.addUpdateProduct(product, function(err, newProductID) {
+        bl.product.addUpdateProduct(activity, product, function(err, response) {
             if (err) {
                 callback('called by productController.addUpdateProduct => ' + err, null, null);
             }
             else {
-                saveProductImage(req, newProductID, function (err) {
-                    if (err) {
-                        callback(null, newProductID + err, null); //save product succeeded however saving image failed - send relevant message to user 
-                    }
-                    callback(null, newProductID, null);
-                }); 
+                if (activity === 'updateProduct' && !req.files) {
+                    callback(null, product.id, null);
+                }
+                else {
+                    let productID = activity === 'addProduct' ? response : product.id;
+                    saveProductImage(req, productID, function (err) {
+                        if (err) {
+                            callback(null, productID + err, null); //save product succeeded however saving image failed - send relevant message to user 
+                        }
+                        callback(null, productID, null);
+                    }); 
+                }
             }
         })
     }
@@ -38,7 +44,7 @@ function addUpdateProduct(req, callback) {
     }
 }
 
-function productValid(product,req) {
+function productValid(activity, product, req) {
     let errorsFound = '';
 
     errorsFound  = validations.inputEmpty(product.name) ?  'product name required \n' : '';
@@ -47,7 +53,7 @@ function productValid(product,req) {
 
     //check productImage sent and valid
     if (!req.files) {
-        errorsFound += 'no product image supplied and uploaded \n';
+        errorsFound += activity === 'addProduct' ?  'no product image supplied and uploaded \n' : ''; //sending product image mandatory only for add product
     }
     else {
         let prodImage = req.files.productImage;  //sampleFile.name   sampleFile.data.length
@@ -57,10 +63,10 @@ function productValid(product,req) {
     return errorsFound;
 }
 
-function saveProductImage(req, newProductID, callback) {
+function saveProductImage(req, productID, callback) {
 
     let imageFile = req.files.productImage;
-    imageFile.mv('product_images/image_for_product_id_' + newProductID + '.jpg', function(err) {
+    imageFile.mv('product_images/image_for_product_id_' + productID + '.jpg', function(err) {
         if (err) {
             logError.writeToErrorLog('called by productController.saveProductImage => moving product image to product_images folder failed: ' + err);
             console.log('saveProductImage: error ' + err);

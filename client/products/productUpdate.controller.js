@@ -44,8 +44,6 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         var drawingCanvas = document.getElementById('canvasProduct');
         imageService.setCanvas(drawingCanvas, configSettings.productImagePath + $scope.product.id,'regular'); 
         $scope.activity = 'updateProduct';
-
-      //  sessionStorage.setItem("courseBeforeChange", JSON.stringify($scope.course));   
 });
 
 
@@ -84,16 +82,18 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
                 alert(response.data.content);
                 return;
             }
-
+          //  alert(JSON.stringify(response));
             $rootScope.$broadcast('product-changed', false);
+            angular.element("#productImage").val(null);
+            $scope.productImage = null;
         });
     } 
 
-    function validateInput() {        $scope.errorsFound = false;
+    function validateInput() {    
+
+        $scope.errorsFound = false;
 
         if ($scope.activity === 'updateProduct') {
-            alert ('$scope.productBeforeUpdate: ' + JSON.stringify($scope.productBeforeUpdate));
-
             if ($scope.productBeforeUpdate.name === $scope.product.name && 
                 $scope.productBeforeUpdate.category === $scope.product.categoryDDL.value &&
                 $scope.productBeforeUpdate.price === $scope.product.price &&

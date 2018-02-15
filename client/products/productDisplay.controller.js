@@ -15,7 +15,10 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
             $scope.products = products.data.content;
             // $scope.totalCourses = 'Total number of Courses: ' + courses.data.length;
             angular.element(function () {
-                imageService.loadCanvasList($scope.products, 'canvas-product-' , configSettings.productImagePath, 'small'); 
+                $scope.$apply(function($scope) {
+                    imageService.clearCanvasList($scope.products, 'canvas-product-');
+                    imageService.loadCanvasList($scope.products, 'canvas-product-' , configSettings.productImagePath, 'small'); 
+                });
             });
     
 

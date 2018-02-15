@@ -24,6 +24,13 @@ shoppingApp.service('imageService', function() {
         });
     }
 
+    this.clearCanvasList = function (items, canvasID) {
+        items.forEach(function (item) {
+            var drawingCanvas = document.getElementById(canvasID + item.id);
+            self.clearImage(drawingCanvas);
+        });
+    }
+
     this.uploadImage = function (canvas, imageFile) {
         if (imageFile) {
               var fileRDR  = new FileReader();

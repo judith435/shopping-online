@@ -18,26 +18,34 @@ function getProducts(callback) {
 }
 
 
-function addUpdateProduct(product, callback) { 
+function addUpdateProduct(activity, product, callback) { 
 
     // console.log('>>> productBL: ' + JSON.stringify(product));  
 
     const spParms = []; 
-    
+    if (activity === 'updateProduct') {
+        spParms.push(new parmObject.spParm(product.id, false));
+    }
     spParms.push(new parmObject.spParm(product.name, true));
     spParms.push(new parmObject.spParm(product.category, false));
     spParms.push(new parmObject.spParm(product.price, false));
 
     // console.log('!!! in bl  spParms: ' + JSON.stringify(spParms));
-    dal.executeQuery('shopping', 'insert_product', spParms, function(err, rows) {
+    let spName = activity === 'addProduct' ? 'insert_product' : 'update_product';
+    dal.executeQuery('shopping', spName, spParms, function(err, rows) {
         if (err) {
-            callback('called by productBL.addUpdateProduct => ' + err);
+            callback('called by productBL.addUpdateProduct => activity: ' + activity + ' ' + err);
         }
         else {
-            rows[0].forEach(function (row) {
-                 console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
-                 callback(null, row.new_product_id);
-            });
+            if (activity === 'addProduct') {
+                rows[0].forEach(function (row) {
+                    console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
+                    callback(null, row.new_product_id);
+                });
+            }
+            else {
+                callback(null, 0);
+            }
         }
     });
 }

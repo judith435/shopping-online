@@ -15,17 +15,26 @@ function getProducts(req, res) {
   })
 }
 
-function addUpdateProduct(req, res) {
+function addProduct(req, res) {
+  addUpdateProduct('addProduct', req, res);
+}
+
+function updateProduct(req, res) {
+  addUpdateProduct('updateProduct', req, res);
+}
+
+function addUpdateProduct(activity, req, res) {
   console.log('addUpdateProduct req.body:  ' + req.body);
   console.log('addUpdateProduct req.body:  ' + JSON.stringify(req.body));
-  productCtrl.addUpdateProduct(req, function(err, newProductID, invalidInputDetails) {
+  productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
     if (err) {
       logError.writeToErrorLog('called by productAPI.addUpdateProduct => ' + err);
       var response =  new sr.ServerResponse('error', err);
     }
     else {
-      if (newProductID) { 
-        var response =  new sr.ServerResponse('ok', 'product added successfully => new productID: ' +  newProductID);
+      if (response) { //insert/update successfull
+        let content = activity === 'addProduct' ? 'product added successfully => new productID: ' +  response : 'product updated successfully' ;
+        var response =  new sr.ServerResponse('ok', content);
 
       }
       else { //invalidInputDetails
