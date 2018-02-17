@@ -1,6 +1,6 @@
 shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope, 
                                                                         $rootScope,
-                                                                        productService, 
+                                                                        productService, categoryService,
                                                                         imageService, 
                                                                         configSettings)
 {
