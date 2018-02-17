@@ -25,6 +25,20 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
         });
     }
 
+    fillCategoriesDDL();
+
+    function fillCategoriesDDL() {
+        categoryService.getCategories(configSettings, function(response) {
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+            }
+            else {
+                $scope.categories = response.data.content[0];
+            }
+        });
+    }
+
+
     $scope.$on('product-changed', function(event) {
         getProducts();
     });
