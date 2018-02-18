@@ -4,6 +4,8 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                                                                         imageService, 
                                                                         configSettings)
 {
+    $scope.tab = 0;
+
     getProducts();
 
     function getProducts() {
@@ -20,8 +22,6 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                     imageService.loadCanvasList($scope.products, 'canvas-product-' , configSettings.productImagePath, 'small'); 
                 });
             });
-    
-
         });
     }
 
@@ -40,6 +40,7 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
 
 
     $scope.$on('product-changed', function(event) {
+        $scope.tab = 0;
         getProducts();
     });
 
