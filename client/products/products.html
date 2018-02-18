@@ -28,8 +28,8 @@
                 <!-- <div class="tab-pane fade in" id="tab{{$index + 1}}" ng-repeat="name in names" ng-class="{active: $index == 0}"> -->
                         <!-- <div ng-repeat="product in products"  ng-click="productSelected(product)"> -->
                                 <!-- <div ng-repeat="category in categories" id="tab{{$index + 1}}" class="tab-pane fade in" ng-class="{active: $index == 0}"  >            -->
-                <div ng-repeat="category in categories" id="tab{{category.value}}" class="tab-pane fade in">           
-                    <div ng-repeat="product in products"  ng-click="productSelected(product)">
+                <div ng-repeat="category in categories" id="tab{{category.value}}" ng-class="{active: $index == 0}" class="tab-pane fade in">           
+                    <div ng-repeat="product in products  | selectCategory : category.value"  ng-click="productSelected(product)">
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
                             <div>
                                 <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
