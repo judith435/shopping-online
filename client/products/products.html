@@ -12,35 +12,14 @@
     </section>
     <section  class='product-list-flex resize'>
         <div  class="container-fluid" ng-controller="ctrlProductDisplay">
-
-            <ul class="nav nav-tabs">
-                <!-- <li ng-repeat="category in categories" ng-class="{active: $index == 0}"> -->
-                <li ng-repeat="category in categories">
-                                <!-- <a href="#tab{{$index + 1}}" data-toggle="tab">{{categories[$index]}}</a> -->
-                    <a href="#tab{{category.value}}" data-toggle="tab">{{category.text}}</a>
-                </li>
-            </ul>
-             
-            <div  class="tab-content">
-                    <!-- angular ng-repeat with condition use custom  filter !!!!!!! share data between controllers-->
-                    <!-- https://www.infragistics.com/community/blogs/b/dhananjay_kumar/posts/how-to-share-data-between-controllers-in-the-angularjs -->
-
-                <!-- <div class="tab-pane fade in" id="tab{{$index + 1}}" ng-repeat="name in names" ng-class="{active: $index == 0}"> -->
-                        <!-- <div ng-repeat="product in products"  ng-click="productSelected(product)"> -->
-                                <!-- <div ng-repeat="category in categories" id="tab{{$index + 1}}" class="tab-pane fade in" ng-class="{active: $index == 0}"  >            -->
-                <div ng-repeat="category in categories" id="tab{{category.value}}" ng-class="{active: tab === 0}" class="tab-pane fade in">           
+            <uib-tabset type="pills" active="active"> 
+                <uib-tab ng-repeat="category in categories" index="category.value" heading="{{category.text}}" >
                     <div ng-repeat="product in products  | selectCategory : category.value"  ng-click="productSelected(product)">
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
                             <div>
                                 <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
                             </div>  
                             <div>
-                            <!-- ng-class="{active: $index == 0}"  ng-class="{active: tab === 0}"  set active tab
-                                
-                                <button class="btn btn-link"  type="button" 
-                                ng-click="deleteNote($index)">   
-                                <span class="glyphicon glyphicon-trash deleteButton"></span>  id=canvas-course-{{course.id}}
-                            </button> -->
                                 <label>{{product.name}}</label>
                             </div>  
                             <div>
@@ -48,8 +27,8 @@
                             </div>  
                         </div>                
                     </div>
-                </div> 
-            </div>    
-        </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>    
     </section>
 </div>

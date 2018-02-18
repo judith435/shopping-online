@@ -32,6 +32,7 @@ shoppingApp.service('imageService', function() {
     }
 
     this.uploadImage = function (canvas, imageFile) {
+        self.clearImage(canvas);
         if (imageFile) {
               var fileRDR  = new FileReader();
               fileRDR .onload = function(e) {

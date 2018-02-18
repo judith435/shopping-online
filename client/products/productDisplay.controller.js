@@ -1,11 +1,10 @@
-shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope, 
+shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                                                                         $rootScope,
-                                                                        productService, categoryService,
+                                                                        productService, 
+                                                                        categoryService,
                                                                         imageService, 
                                                                         configSettings)
 {
-    $scope.tab = 0;
-
     getProducts();
 
     function getProducts() {
@@ -38,10 +37,9 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
         });
     }
 
-
-    $scope.$on('product-changed', function(event) {
-        $scope.tab = 0;
+    $scope.$on('product-changed', function(event, opt) {
         getProducts();
+        $scope.active = opt.prod.category;
     });
 
     $scope.productSelected = function(product){
