@@ -14,16 +14,21 @@ function login(req, res) {
     console.log('login req.query:  ' + req.query);
     console.log('login req.query:  ' + JSON.stringify(req.query));
       
-    loginCtrl.login(req, function(err, customerInfo) {
+    loginCtrl.login(req, function(err, customerInfo, noSuchCustomer) {
         if (err) {
           logError.writeToErrorLog('called by loginAPI.login => ' + err);
           var response =  new sr.ServerResponse('error', err);
         }
         else {
-            let sess;
-            sess = req.session;
-            sess['customerInfo'] = customerInfo;
-            var response =  new sr.ServerResponse('ok', sess);
+            if(customerInfo) { //customerInfo successfully found
+                let sess;
+                sess = req.session;
+                sess['customerInfo'] = customerInfo;
+                var response =  new sr.ServerResponse('ok', sess);
+            }
+            else { //noSuchCustomer no customer found with login info given
+                var response =  new sr.ServerResponse('noSuchCustomer', '');
+            }
         }
         res.end(JSON.stringify(response));
     })

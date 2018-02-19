@@ -42,6 +42,12 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 alert('error occured - please contact support center');
                 return;
             }
+
+            if (response.data.status === 'noSuchCustomer') {
+                alert('no customer found with login details given');
+                return;
+            }
+             
             setCustomerInfo(response.data.content.customerInfo);
             if ($scope.customer.role === 'admin') {
                 $templateRequest("products/products.html").then(function(html){
