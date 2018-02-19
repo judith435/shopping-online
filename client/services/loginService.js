@@ -1,6 +1,6 @@
 shoppingApp.service('loginService', function($http) {
 
-    this.getLoginInfo = function (configSettings, success) { 
+    this.checkUserLoggedIn = function (configSettings, success) { 
         $http.get(configSettings.shoppingApi +'/login',{}).then(success, error);
     }
 

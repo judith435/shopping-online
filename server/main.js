@@ -37,7 +37,7 @@ app.get('/', function (req, res) {
 });
 
 
-app.get('/login', apiLogin.getLoginInfo);
+app.get('/login', apiLogin.checkUserLoggedIn);
 app.post('/login', apiLogin.login);
 
 app.get('/category/ddl', apiCategory.getCategoryDDL);

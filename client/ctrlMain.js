@@ -5,7 +5,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                                                         configSettings) 
 {
 
-    loginService.getLoginInfo(configSettings, function(response) {
+    loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
             alert('error occured - please contact support center');
         }
@@ -26,6 +26,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     });
 
     $scope.login = function(){
+        
         var loginInfo = {
             userName: $scope.userName,
             password: $scope.userPassword
@@ -36,7 +37,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 alert('error occured - please contact support center');
             }
             else {
-                alert(JSON.stringify(response.data.content));
+                alert(JSON.stringify(response.data.content.customerInfo));
             }
         });
     
