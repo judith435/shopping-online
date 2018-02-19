@@ -1,0 +1,4 @@
+
+following error occured at Mon Feb 19 2018 22:54:35 GMT+0200 (Jerusalem Standard Time) : {"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true}
+following error occured at Mon Feb 19 2018 22:54:35 GMT+0200 (Jerusalem Standard Time) : "called by loginAPI.login => called by loginController.login => called by loginBL.login => error in dal => Error: connect ECONNREFUSED 127.0.0.1:3306"
+following error occured at Mon Feb 19 2018 23:01:12 GMT+0200 (Jerusalem Standard Time) : "called by productAPI.addUpdateProduct => called by productController.addUpdateProduct => called by productBL.addUpdateProduct => activity: updateProduct error in dal => Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from-client-is-undefined,\"cucumber\",16,1)' at line 1"
