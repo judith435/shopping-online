@@ -3,6 +3,14 @@ const logError = require('../share/errorLogging.js');
 const sr = require('../share/serverResponse.js');
 
 function getProducts(req, res) {
+  let sess;
+  sess = req.session;
+  if (!sess['customerInfo']) { //user not logged in
+    var response =  new sr.ServerResponse('userNotLoggedIn', '');
+    res.end(JSON.stringify(response));
+    return;
+  }
+
   productCtrl.getProducts(function(err, products) {
       if (err) {
         logError.writeToErrorLog('called by productAPI.getProducts => ' + err);

@@ -13,6 +13,10 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                 alert('error occured - please contact support center');
                 return;
             }
+            if (products.data.status === 'userNotLoggedIn' ) {
+                alert('user not logged in!!! tried to access product data');
+                return;
+            }
             $scope.products = products.data.content;
             // $scope.totalCourses = 'Total number of Courses: ' + courses.data.length;
             angular.element(function () {

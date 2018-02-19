@@ -5,20 +5,28 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                                                         configSettings) 
 {
 
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    //simulate user trying to access product data with out being logged in
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // $templateRequest("products/products.html").then(function(html){
+    //     var template = $compile(html)($scope);
+    //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+    // });
+
+    // return;
+
+
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
             alert('error occured - please contact support center');
         }
         else {
-            if ('customerInfo' in response.data.content) {
+            if ('customerInfo' in response.data.content) {//logged in user on server found
                 setCustomerInfo(response.data.content.customerInfo);
                 if ($scope.customer.role === 'admin') {
                     $scope.entryMessage = 'Login to update products';
                 }
             }
-
-            // let baba = Object.keys(response.data.content);
-            // let tata = response.data.content;
         }
     });
 
@@ -71,5 +79,13 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
      }
  
+     $scope.signUp = function() {
+        $templateRequest("signUp/step1.html").then(function(html){
+            var template = $compile(html)($scope);
+            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        });
+
+     }
+
 });
 
