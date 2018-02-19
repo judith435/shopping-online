@@ -80,7 +80,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
  
      $scope.signUp = function() {
-        $templateRequest("signUp/step1.html").then(function(html){
+        $templateRequest("signUp/signUp.html").then(function(html){
             var template = $compile(html)($scope);
             angular.element(document.querySelector('#main-placeholder')).empty().append(template);
         });
