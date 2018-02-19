@@ -219,7 +219,15 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-
+insert into customers (teudat_zehut, first_name, last_name, e_mail, password, street, city, role) 
+ values ( '313646010', 
+          'Judith', 
+          'Ilson', 
+          'judithguttmann@gmail.com', 
+          'wedding5771', 
+          'Hakablan 69 appt # 2', 
+          'Jerusalem', 
+          'admin');
 insert into categories (name) values ("Milk & Eggs");
 insert into categories (name) values ("Vegetables & Fruits");
 insert into categories (name) values ("Meat & Fish");
