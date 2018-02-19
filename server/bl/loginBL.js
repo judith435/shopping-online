@@ -13,9 +13,8 @@ function login(loginDetails, callback) {
             callback('called by loginBL.login => ' + err, null, null);
             return;
         }
-        const customerInfo; 
         if(rows[0][0]) { //customer found with login details given
-            customerInfo = new model.Customer(rows[0][0]); 
+            let customerInfo = new model.Customer(rows[0][0]); 
             callback(null, customerInfo, null);
         }
         callback(null, null, 'no customer found with login details found');

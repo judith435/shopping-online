@@ -45,6 +45,11 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
             if (response.data.status === 'noSuchCustomer') {
                 alert('no customer found with login details given');
+                $scope.customer = null;
+                $scope.customerName = '';
+                $scope.customerContactInfo = '';
+                $scope.entryMessage = '';
+
                 return;
             }
              
