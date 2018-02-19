@@ -1,7 +1,19 @@
-shoppingApp.controller('ctrlMain', function handleNavigation( $scope,
-                                                                    $templateRequest,
-                                                                    $compile) 
+shoppingApp.controller('ctrlMain', function handleMain( $scope,
+                                                        $templateRequest,
+                                                        $compile,
+                                                        loginService,
+                                                        configSettings) 
 {
+
+    loginService.getLoginInfo(configSettings, function(response) {
+        if (response.data.status === 'error') {
+            alert('error occured - please contact support center');
+        }
+        else {
+            alert(JSON.stringify(response.data.content));
+        }
+    });
+
 
     //simulate that admin logged in
     $scope.clientSummary = 'Judith Ilson';
@@ -14,10 +26,24 @@ shoppingApp.controller('ctrlMain', function handleNavigation( $scope,
     });
 
     $scope.login = function(){
-         $templateRequest("products/products.html").then(function(html){
-             var template = $compile(html)($scope);
-             angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-         });
+        var loginInfo = {
+            userName: $scope.userName,
+            password: $scope.userPassword
+        };
+    
+        loginService.login(configSettings, loginInfo, function(response) {
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+            }
+            else {
+                alert(JSON.stringify(response.data.content));
+            }
+        });
+    
+        //  $templateRequest("products/products.html").then(function(html){
+        //      var template = $compile(html)($scope);
+        //      angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        //  });
      }
  
 });
