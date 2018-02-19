@@ -25,6 +25,7 @@
         <script src="directives/fileModelDirective.js"></script>
         <script src="services/loginService.js"></script>
         <script src="services/imageService.js"></script>
+        <script src="objects/customer.js"></script>
 
 
         <!-- Products Management --> 
@@ -43,9 +44,10 @@
                     <div class="navbar-header">
                         <img src="images/logo.png" class="img-fluid img-thumbnail"  width="205" height="75" alt="School Logo">
                     </div>
-                    <div class="info-row-navigation">
-                        <div class="info-container  pull-right">
-                            <label>{{clientSummary}}</label>
+                    <div style='border: solid 2px brown'>
+                        <div class="pull-right"  style='border: solid 2px cyan'>
+                            <div style='border: solid 2px purple'><label style='border: solid 2px green'>{{customerContactInfo}}</label></div>
+                            <div style='border: solid 2px red'><label style='border: solid 2px blue'>{{customerName}}</label></div>
                         </div>
                     </div>
                 </div>
@@ -56,3 +58,14 @@
 
     </body>
 </html>
+
+
+<!-- <ul class="nav navbar-nav pull-right">
+    <div class="info-row-navigation">
+        <div class="info-container"> style='border: solid 2px cyan'
+            <label id="admr-summary"></label>
+            <a id="logout-link" class="logout-link hide" href="#">Logout</a>
+        </div>
+        <img id="admr-image" src="" class="img-fluid img-thumbnail hide"  width="66" height="75">
+    </div>
+</ul> -->

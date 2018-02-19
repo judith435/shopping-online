@@ -7,5 +7,3 @@ function Customer(customer) {
     this.city = customer['city'];
     this.role = customer['role'];
 }
-
-module.exports.Customer = Customer;

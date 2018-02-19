@@ -10,18 +10,24 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             alert('error occured - please contact support center');
         }
         else {
-            alert(JSON.stringify(response.data.content));
+            if ('customerInfo' in response.data.content) {
+                $scope.entryMessage = 'user logged!!!';
+                setCustomerInfo(response.data.content.customerInfo);
+                if ($scope.customer.role === 'admin') {
+                    $scope.entryMessage = 'Login to update products';
+                }
+            }
+
+            // let baba = Object.keys(response.data.content);
+            // let tata = response.data.content;
         }
     });
 
-
-    //simulate that admin logged in
-    $scope.clientSummary = 'Judith Ilson';
     $templateRequest("../entry.html").then(function(html){
         var template = $compile(html)($scope);
         angular.element(document.querySelector('#main-placeholder')).empty().append(template);
         // angular.element(function () {
-        //     $scope.clientSummary = 'Judith Ilson';
+        //     $scope.customerName = 'Judith Ilson';
         // });
     });
 
@@ -37,7 +43,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 alert('error occured - please contact support center');
             }
             else {
-                alert(JSON.stringify(response.data.content.customerInfo));
+                setCustomerInfo(response.data.content.customerInfo);
             }
         });
     
@@ -46,5 +52,13 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         //      angular.element(document.querySelector('#main-placeholder')).empty().append(template);
         //  });
      }
+
+     function setCustomerInfo(customerInfo) {
+        $scope.customer = new Customer(customerInfo);
+        $scope.customerName = 'Hello ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
+        $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
+
+     }
  
 });
+
