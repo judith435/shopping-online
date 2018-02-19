@@ -11,7 +11,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         }
         else {
             if ('customerInfo' in response.data.content) {
-                $scope.entryMessage = 'user logged!!!';
                 setCustomerInfo(response.data.content.customerInfo);
                 if ($scope.customer.role === 'admin') {
                     $scope.entryMessage = 'Login to update products';
@@ -41,16 +40,17 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         loginService.login(configSettings, loginInfo, function(response) {
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
+                return;
             }
-            else {
-                setCustomerInfo(response.data.content.customerInfo);
+            setCustomerInfo(response.data.content.customerInfo);
+            if ($scope.customer.role === 'admin') {
+                $templateRequest("products/products.html").then(function(html){
+                    var template = $compile(html)($scope);
+                    angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+                });
             }
         });
     
-        //  $templateRequest("products/products.html").then(function(html){
-        //      var template = $compile(html)($scope);
-        //      angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        //  });
      }
 
      function setCustomerInfo(customerInfo) {
