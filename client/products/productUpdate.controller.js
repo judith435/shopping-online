@@ -84,8 +84,6 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
             }
             $rootScope.$broadcast('product-changed', {prod: product});
             initUpdatePanel();
-            //angular.element("#productImage").val(null);
-            //$scope.productImage = null;
         });
     } 
 

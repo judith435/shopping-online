@@ -12,26 +12,6 @@ shoppingApp.service('productService', function($http) {
         }).then(success, error);
     }
 
-    // var ajaxData = new FormData();  
-    // appendInputData(inputData, ajaxData);
-
-    // function appendInputData(inputData, ajaxData) {
-    //     //because of  image upload new FormData() must be used to send data to server and thus it can no longer be sent simply as $("form").serialize() 
-    //     //the  individual input fields must be appeded to FormData() as key value pairs => statement below creates object from $("form").serialize() containing
-    //     //key value pairs of input data  
-    //     var inputDataPairs = 
-    //     JSON.parse('{"' + decodeURI(inputData.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}');
-        
-    //     for (var key in inputDataPairs) {
-    //         if (inputDataPairs.hasOwnProperty(key)) {
-    //             // if (app.debugMode) {
-    //             //     console.log("sendServerRequest parms from form data serialize  key: " + key + " -> value: " + inputDataPairs[key]);
-    //             // }
-    //             ajaxData.append(key, inputDataPairs[key]);
-    //         }
-    //     }
-    // }
-
     this.addUpdateProduct = function(activity, configSettings, product, productImage, success, error) {
         
         var formData = buildFormData(product, productImage);
@@ -53,17 +33,6 @@ shoppingApp.service('productService', function($http) {
             }).then(success, error); 
         }
     }
-
-    // this.updateProduct = function(configSettings, product, productImage, success, error) {
-
-    //     var formData = buildFormData(product, productImage);
-    //     $http.put(configSettings.shoppingApi + '/product', formData,
-    //     {
-    //         transformRequest: angular.identity,
-    //         headers: {'Content-Type': undefined}
- 
-    //     }).then(success, error); 
-    // }
 
     function buildFormData(product, productImage) {
         var formData = new FormData();

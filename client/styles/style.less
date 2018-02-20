@@ -1,3 +1,14 @@
+//less variables to set height of scrollable areas according to device height
+@small-device: ~"only screen and (max-height: 600px)";
+@medium-device: ~"only screen and (min-height: 601px) and (max-height: 850px)";
+@large-device: ~"only screen and (min-height: 851px)";
+
+@table-height--small: 200px;
+@table-height--medium: 490px; 
+@table-height--large: 530px;
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //flex container - used for layout of whole site
 .flex-container { //used for entire page layout
@@ -78,9 +89,18 @@
 h3 { margin: 0px}
 h6 { font-size: 24px; text-align: center; margin-bottom: 15px} //used in loggin
 
-.product-action-flex { background-color: #d6d6f5;  min-height: 800px; width: 510px}
+.product-action-flex { background-color: #d6d6f5;  height: 610px; width: 510px}
 // .product-list-flex  { min-height: 800px; max-width: 800px}
 
 .center-text {text-align: center; }
 .underline {border-bottom: solid 2px navy;}
 .center-div {  margin: auto; width: 95%;}
+
+
+.product_table { //scrolling for product table
+    overflow-y: auto;
+    width: 95%;
+    @media @small-device { height: @table-height--small; }
+    @media @medium-device { height: @table-height--medium; }
+    @media @large-device { height: @table-height--large; }
+}
