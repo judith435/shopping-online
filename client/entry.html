@@ -4,8 +4,8 @@
             <!-- <div class="col-md-offset-5 col-md-3"> class="col-xs-12 col-sm-10 col-md-10 col-lg-10"-->
             <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8"> 
                 <div class="form-login">
-                    <h6>{{entryMessage}}</h6>
-                    <form id="frmLogin">
+                        <button class="btn btn-link btn-md" ng-click="entryAction()" type="button">{{entryAction}}</button>
+                        <form id="frmLogin">
                         <div class="form-group row">
                             <span >Registered?</span>
                         </div>
@@ -33,7 +33,13 @@
         why you should shop in our stores
     </section>
     <section class="notifications bordered-right">
-        Available products in our store -
+        <div>
+                Available products in our store -
+        </div>
+        <div>
+                Number of orders submitted in our store -
+        </div>
+        <div>{{entryMessage}}</div>
     </section>
 </div>
 

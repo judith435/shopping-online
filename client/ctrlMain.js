@@ -22,9 +22,12 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         }
         else {
             if ('customerInfo' in response.data.content) {//logged in user on server found
-                setCustomerInfo(response.data.content.customerInfo);
-                if ($scope.customer.role === 'admin') {
-                    $scope.entryMessage = 'Login to update products';
+                setCustomerHeader(response.data.content.customerInfo);
+                if ($scope.customer.role === 'customer') {
+                    $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
+                }
+                else { //customer is admin load update product page
+                    loadProductUpdatePage();          
                 }
             }
         }
@@ -33,9 +36,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     $templateRequest("../entry.html").then(function(html){
         var template = $compile(html)($scope);
         angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        // angular.element(function () {
-        //     $scope.customerName = 'Judith Ilson';
-        // });
     });
 
     $scope.login = function(){
@@ -56,23 +56,20 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 $scope.customer = null;
                 $scope.customerName = '';
                 $scope.customerContactInfo = '';
-                $scope.entryMessage = '';
+                $scope.entryAction = '';
 
                 return;
             }
              
-            setCustomerInfo(response.data.content.customerInfo);
+            setCustomerHeader(response.data.content.customerInfo);
             if ($scope.customer.role === 'admin') {
-                $templateRequest("products/products.html").then(function(html){
-                    var template = $compile(html)($scope);
-                    angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-                });
+                loadProductUpdatePage();          
             }
         });
     
      }
 
-     function setCustomerInfo(customerInfo) {
+     function setCustomerHeader(customerInfo) {
         $scope.customer = new Customer(customerInfo);
         $scope.customerName = 'Hello ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
         $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
@@ -87,5 +84,18 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
      }
 
+    function loadProductUpdatePage() {
+        $templateRequest("products/products.html").then(function(html){
+            var template = $compile(html)($scope);
+            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        });
+    }
+
+    $scope.logout = function(){
+
+        loginService.logout(configSettings, function(response) {
+            alert(JSON.stringify(response));
+        });
+    }
 });
 

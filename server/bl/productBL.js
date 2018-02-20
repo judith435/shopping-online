@@ -38,12 +38,7 @@ function addUpdateProduct(activity, product, callback) {
         }
         else {
             if (activity === 'addProduct') {
-                callback(null, rows[0][0]);
-                
-                // rows[0].forEach(function (row) {
-                //     console.log('!!! in bl  spParms:  new_product_id: ' + row.new_product_id);
-                //     // callback(null, row.new_product_id);
-                // });
+                callback(null, rows[0][0].new_product_id);
             }
             else {
                 callback(null, 0);

@@ -12,6 +12,13 @@ shoppingApp.service('loginService', function($http) {
         }).then(success, error);
     }
 
+    this.logout = function(configSettings,  success, error) {
+        $http({
+            url: configSettings.shoppingApi + '/login',
+            method: 'DELETE' 
+        }).then(success, error);
+    }
+
     function error(response) {
         alert("Sorry Error occured in $http: " + JSON.stringify(response));
     }

@@ -15,7 +15,7 @@ function getProducts(callback) {
 
 
 function addUpdateProduct(activity, req, callback) {
-    console.log('>>> productController: ' + JSON.stringify(req.body));
+    console.log('>>> productController: ' + JSON.stringify(req.body) + '  activity=' + activity);
     const product = new model.Product(req.body);
     const inputErrorsFound = productValid(activity, product, req);
     if (!inputErrorsFound) {
