@@ -22,13 +22,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         }
         else {
             if ('customerInfo' in response.data.content) {//logged in user on server found
-                setCustomerHeader(response.data.content.customerInfo);
-                if ($scope.customer.role === 'customer') {
-                    $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
-                }
-                else { //customer is admin load update product page
-                    loadProductUpdatePage();          
-                }
+                setPageForLoggedInUser(response.data.content.customerInfo);
             }
         }
     });
@@ -61,21 +55,26 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 return;
             }
              
-            setCustomerHeader(response.data.content.customerInfo);
-            if ($scope.customer.role === 'admin') {
-                loadProductUpdatePage();          
-            }
+            setPageForLoggedInUser(response.data.content.customerInfo);
         });
     
      }
 
-     function setCustomerHeader(customerInfo) {
+     function setPageForLoggedInUser(customerInfo) {
+         
         $scope.customer = new Customer(customerInfo);
         $scope.customerName = 'Hello ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
         $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
 
+        if ($scope.customer.role === 'customer') {
+            $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
+            $scope.entryAction = 'Start Shopping';
+        }
+        else { //customer is admin load update product page
+            loadProductUpdatePage();          
+        }
      }
- 
+
      $scope.signUp = function() {
         $templateRequest("signUp/signUp.html").then(function(html){
             var template = $compile(html)($scope);

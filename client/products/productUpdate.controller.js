@@ -84,6 +84,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
             }
             $rootScope.$broadcast('product-changed', {prod: product});
             initUpdatePanel();
+            $scope.activity = 'addProduct';
         });
     } 
 

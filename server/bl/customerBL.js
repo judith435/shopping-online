@@ -8,7 +8,7 @@ function addCustomer(customer, callback) {
     spParms.push(new parmObject.spParm(customer.firstName, true));
     spParms.push(new parmObject.spParm(customer.lastName, true));
     spParms.push(new parmObject.spParm(customer.email, true));
-    spParms.push(new parmObject.spParm(customer.passWord, true));
+    spParms.push(new parmObject.spParm(customer.password, true));
     spParms.push(new parmObject.spParm(customer.street, true));
     spParms.push(new parmObject.spParm(customer.city, true));
     spParms.push(new parmObject.spParm(customer.role, true));
