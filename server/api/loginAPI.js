@@ -46,8 +46,11 @@ function logout(req, res) {
 
     req.session.destroy();
     var response =  new sr.ServerResponse('ok', '');
-    res.end(JSON.stringify(response));
+    res.send(JSON.stringify(response));
 }
 
 module.exports.checkUserLoggedIn = checkUserLoggedIn;
 module.exports.login = login;
+module.exports.logout = logout;
+
+
