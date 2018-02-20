@@ -25,8 +25,14 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
         validateInputStep2();
         if ($scope.errorsFound) { return; }
         
-        let customer = new Customer($scope.id,
-        );
+        let customer = new Customer({   teudatZehut: $scope.id,
+                                        firstName: $scope.firstName,
+                                        lastName: $scope.lastName,
+                                        email: $scope.email,
+                                        password: $scope.confirmPassword,
+                                        street: $scope.street,
+                                        city: $scope.city,
+                                        role: 'customer'});
 
         signUpService.addCustomer(configSettings, customer, function(response) {  
             if (response.data.status === 'error') {

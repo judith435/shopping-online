@@ -4,8 +4,10 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const path = require('path');
-const apiLogin = require('./api/loginAPI.js');
+
 const apiCategory = require('./api/categoryAPI.js');
+const apiCustomer = require('./api/customerAPI.js');
+const apiLogin = require('./api/loginAPI.js');
 const apiProduct = require('./api/productAPI.js');
 
 const app = express();
@@ -40,7 +42,10 @@ app.get('/', function (req, res) {
 app.get('/login', apiLogin.checkUserLoggedIn);
 app.post('/login', apiLogin.login);
 
+app.post('/customer', apiCustomer.addCustomer);
+
 app.get('/category/ddl', apiCategory.getCategoryDDL);
+
 app.get('/product', apiProduct.getProducts);
 app.post('/product', apiProduct.addProduct);
 app.put('/product', apiProduct.updateProduct);
