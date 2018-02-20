@@ -38,10 +38,16 @@ function login(req, res) {
     // sess['userInfo'] = JSON.stringify(req.query);
     // console.log('*********** session' + sess['userInfo'] );
 
-    // var response =  new sr.ServerResponse('ok', sess);
+    // var response =  new sr.ServerResponse('ok', sess);  req.session.destroy();
     // res.end(JSON.stringify(response));
 }
 
+function logout(req, res) {
+
+    req.session.destroy();
+    var response =  new sr.ServerResponse('ok', '');
+    res.end(JSON.stringify(response));
+}
 
 module.exports.checkUserLoggedIn = checkUserLoggedIn;
 module.exports.login = login;

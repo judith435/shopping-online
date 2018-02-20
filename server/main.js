@@ -41,6 +41,7 @@ app.get('/', function (req, res) {
 
 app.get('/login', apiLogin.checkUserLoggedIn);
 app.post('/login', apiLogin.login);
+app.delete('/login', apiLogin.logout);
 
 app.post('/customer', apiCustomer.addCustomer);
 
