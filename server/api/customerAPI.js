@@ -11,7 +11,7 @@ function addCustomer(req, res) {
         }
         else {
             if(response) { //insert/update successfull
-                var response = new sr.ServerResponse('ok', 'customer added successfully => new customerID: ' + response);
+                var response = new sr.ServerResponse('ok', response);
             }
             else { //invalidInputDetails
                 var response =  new sr.ServerResponse('invalid input', 'invalid input =>  following erors were found: \n' + invalidInputDetails); 
