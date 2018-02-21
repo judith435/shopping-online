@@ -3,12 +3,18 @@ const logError = require('../share/errorLogging.js');
 const sr = require('../share/serverResponse.js');
 
 function getProducts(req, res) {
+  // req.session.destroy();
+
   let sess;
   sess = req.session;
   if (!sess['customerInfo']) { //user not logged in
     var response =  new sr.ServerResponse('userNotLoggedIn', '');
     res.end(JSON.stringify(response));
     return;
+  }
+  else {
+    console.log('sess[customerInfo]:  ' + JSON.stringify(sess['customerInfo']));
+    console.log('userInfo from client :  ' + JSON.stringify(JSON.parse(req.query.user)));
   }
 
   productCtrl.getProducts(function(err, products) {
@@ -32,7 +38,6 @@ function updateProduct(req, res) {
 }
 
 function addUpdateProduct(activity, req, res) {
-  console.log('addUpdateProduct req.body:  ' + req.body);
   console.log('addUpdateProduct req.body:  ' + JSON.stringify(req.body));
   productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
     if (err) {

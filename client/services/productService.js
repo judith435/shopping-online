@@ -1,7 +1,18 @@
 shoppingApp.service('productService', function($http) {
     
     this.getProducts = function (configSettings, success) { 
-        $http.get(configSettings.shoppingApi +'/product',{}).then(success, error);
+        var userInfo = {
+            id: 'meir@mommy',
+            password: 'year5778'
+        };
+
+        $http.get(configSettings.shoppingApi + '/product', {
+            params: {
+                user: userInfo 
+            }
+        }).then(success, error);
+
+        // $http.get(configSettings.shoppingApi +'/product',{}).then(success, error);
     }
 
     this.checkDuplicateProduct = function (configSettings, product, success) { 

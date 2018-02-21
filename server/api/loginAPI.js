@@ -11,8 +11,8 @@ function checkUserLoggedIn(req, res) {
 }
 
 function login(req, res) {
-    console.log('login req.query:  ' + req.query);
-    console.log('login req.query:  ' + JSON.stringify(req.query));
+    // console.log('login req.query:  ' + req.query);
+    // console.log('login req.query:  ' + JSON.stringify(req.query));
       
     loginCtrl.login(req, function(err, customerInfo, noSuchCustomer) {
         if (err) {
