@@ -85,7 +85,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             var template = $compile(html)($scope);
             angular.element(document.querySelector('#main-placeholder')).empty().append(template);
         });
-
      }
 
     $scope.$on('customer-added', function(event, customer) {
@@ -99,8 +98,14 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         });
     }
 
-    $scope.logout = function(){
+    $scope.shop = function(){
+        $templateRequest("shopping-cart/shoppingCart.html").then(function(html){
+            var template = $compile(html)($scope);
+            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        });
+    }
 
+    $scope.logout = function(){
         loginService.logout(configSettings, function(response) {
             alert(JSON.stringify(response));
         });
