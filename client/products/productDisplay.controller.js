@@ -48,16 +48,6 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
 
     $scope.productSelected = function(product){
         $rootScope.$broadcast('product-selected', product);
-
-        //$scope.product = product;
-
-        // $templateRequest("../view-course.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector('#mainPlaceHolder')).empty().append(template);
-        //     angular.element(function () {
-        //         $rootScope.$broadcast('handleCourseSelection', {course: course, studentsForCourse: $scope.studentsForCourse});
-        //     });
-        // });
     }
 
 
