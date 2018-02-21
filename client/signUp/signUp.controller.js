@@ -1,4 +1,5 @@
 shoppingApp.controller('ctrlSignUp', function signUp(   $scope, 
+                                                        $rootScope,
                                                         configSettings, 
                                                         $templateRequest, 
                                                         $compile,
@@ -43,6 +44,8 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
                 alert(response.data.content);
                 return;
             }
+            //after successfull sign up dispay entry page
+            $rootScope.$broadcast('customer-added', customer);
         });
         
 
