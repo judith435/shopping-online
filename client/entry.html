@@ -10,18 +10,17 @@
                             <span >Registered?</span>
                         </div>
                         <div class="form-group row">
-                        <input type="text" ng-model=userName maxlength="45"  class="form-control input-sm chat-input margin_bottom" 
+                        <input type="text" ng-model=loginInfo.email maxlength="45"  class="form-control input-sm chat-input margin_bottom" 
                             placeholder="User Name"  />
                         </div>
                         <div class="form-group row">
-                            <input type="password" ng-model="userPassword" maxlength="15"  class="form-control input-sm chat-input margin_bottom" 
+                            <input type="password" ng-model="loginInfo.password" maxlength="15"  class="form-control input-sm chat-input margin_bottom" 
                                 placeholder="Password" />
                         </div>
                         <div class="wrapper">
                             <span class="group-btn"> 
-                                <button class="btn btn-primary btn-md" ng-click="login()" type="button">Login<i class="fa fa-sign-in"></i></button>
+                                <button class="btn btn-primary btn-md" ng-click="submit(loginInfo)" type="button">Login<i class="fa fa-sign-in"></i></button>
                                 <button class="btn btn-link btn-md" ng-click="signUp()" type="button">Sign Up</button>
-                                <!-- <a  ng-click="signUp()" >Sign Up</a> -->
                             </span>
                         </div>
                     </form>

@@ -1,6 +1,7 @@
 shoppingApp.controller('ctrlMain', function handleMain( $scope,
-                                                        $templateRequest,
-                                                        $compile,
+                                                        $location,
+                                                        // $templateRequest,
+                                                        // $compile,
                                                         loginService,
                                                         configSettings) 
 {
@@ -31,19 +32,17 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     });
 
     function loadEntryPage() {
-        $templateRequest("../entry.html").then(function(html){
-            var template = $compile(html)($scope);
-            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        });
+        $location.path("/entry");
+
+        // $templateRequest("../entry.html").then(function(html){
+        //     var template = $compile(html)($scope);
+        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        // });
     }
 
-    $scope.login = function(){
+    $scope.submit = function(loginInfo) {
+  //  $scope.login = function(){
         
-        var loginInfo = {
-            userName: $scope.userName,
-            password: $scope.userPassword
-        };
-    
         loginService.login(configSettings, loginInfo, function(response) {
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
@@ -81,10 +80,11 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
      $scope.signUp = function() {
-        $templateRequest("signUp/signUp.html").then(function(html){
-            var template = $compile(html)($scope);
-            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        });
+        $location.path("/signUp");
+        // $templateRequest("signUp/signUp.html").then(function(html){
+        //     var template = $compile(html)($scope);
+        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        // });
      }
 
     $scope.$on('customer-added', function(event, customer) {
@@ -92,17 +92,19 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     });
      
     function loadProductUpdatePage() {
-        $templateRequest("products/products.html").then(function(html){
-            var template = $compile(html)($scope);
-            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        });
+        $location.path("/products");
+        // $templateRequest("products/products.html").then(function(html){
+        //     var template = $compile(html)($scope);
+        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        // });
     }
 
     $scope.shop = function(){
-        $templateRequest("shopping-cart/shoppingCart.html").then(function(html){
-            var template = $compile(html)($scope);
-            angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        });
+        $location.path("/shop");
+        // $templateRequest("shopping-cart/shoppingCart.html").then(function(html){
+        //     var template = $compile(html)($scope);
+        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
+        // });
     }
 
     $scope.logout = function(){
