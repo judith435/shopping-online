@@ -1,6 +1,7 @@
 shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     // $rootScope, 
-                                                                $modal,
+                                                            //    $modal,
+                                                                $uibModal,
                                                                 // productService, 
                                                                 imageService, 
                                                                 configSettings,
@@ -10,30 +11,22 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     $scope.cartOwner = 'My Cart: ' + $scope.customer.firstName + ' ' + $scope.customer.lastName
 
     $scope.$on('product-selected', function(event, product) {
-        alert ('in ctrlCartUpdate => product: ' + JSON.stringify(product));
-        var productDialog = $modal.open({
-            templateUrl: 'popup.html',
-            controller: 'productDialogCtrl',
+       // alert ('in ctrlCartUpdate => product: ' + JSON.stringify(product));
+
+        var productDialog = $uibModal.open({
+            templateUrl: 'shopping-cart/productDialog.html',
+            controller: 'ctrlProductDialog',
             size: 'lg',
             resolve: {
-              selectedUsr: function () {
-                return $scope.usr;
+            product: function () {
+               return product;
               }
             }
-          });
-
-          productDialog.result.then(function (newusr) {
-            $scope.usrs.push(newusr);
-            $scope.usr = {name: '', job: '', age: '', sal: '', addr:''};
         });
 
-
-
-
+        productDialog.result.then(function (productQuantity) {
+            alert ('dialogresult: ' + JSON.stringify(productQuantity));
+        });
     });
-
-
-
 });
-
 
