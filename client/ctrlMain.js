@@ -33,15 +33,9 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
     function loadEntryPage() {
         $location.path("/entry");
-
-        // $templateRequest("../entry.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        // });
     }
 
     $scope.login = function(loginInfo) {
-  //  $scope.login = function(){
         
         loginService.login(configSettings, loginInfo, function(response) {
             if (response.data.status === 'error') {
@@ -82,23 +76,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      $scope.signUp = function() {
 
         $location.path("/signUp");
-       
-        // let customer = {
-        //     id: '',
-        //     email: '',
-        //     password: '',
-        //     confirmPassword: '',
-        //     city: '',
-        //     street: '',
-        //     firstName: '',
-        //     lastName: ''
-        // };
-        //$location.path('/signUpPage1/').search({param: customer});
-
-        // $templateRequest("signUp/signUp.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        // });
      }
 
     $scope.$on('customer-added', function(event, customer) {
@@ -107,18 +84,10 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      
     function loadProductUpdatePage() {
         $location.path("/products");
-        // $templateRequest("products/products.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        // });
     }
 
     $scope.shop = function(){
         $location.path("/shop");
-        // $templateRequest("shopping-cart/shoppingCart.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-        // });
     }
 
     $scope.logout = function(){
