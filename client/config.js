@@ -10,13 +10,18 @@ shoppingApp.constant('configSettings', {
             templateUrl: 'entry.html'
         })
         .when('/signUp', {
-            templateUrl: 'signUp/signUp.html'
+            templateUrl: 'signUp/signUp.html'  
         })
+        // .when('/signUpPage1', {
+        //     templateUrl: 'signUp/step1.html'  
+        // })
+        // .when('/signUpPage2', {
+        //     templateUrl: 'signUp/step2.html'
+        // })
         .when('/products', {
             templateUrl: 'products/products.html'
         })
         .when('/shop', {
             templateUrl: 'shopping-cart/shoppingCart.html'
         })
-        .otherwise({ redirectTo: 'home' });
 });

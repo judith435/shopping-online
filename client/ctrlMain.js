@@ -40,7 +40,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         // });
     }
 
-    $scope.submit = function(loginInfo) {
+    $scope.login = function(loginInfo) {
   //  $scope.login = function(){
         
         loginService.login(configSettings, loginInfo, function(response) {
@@ -80,7 +80,21 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
      $scope.signUp = function() {
+
         $location.path("/signUp");
+       
+        // let customer = {
+        //     id: '',
+        //     email: '',
+        //     password: '',
+        //     confirmPassword: '',
+        //     city: '',
+        //     street: '',
+        //     firstName: '',
+        //     lastName: ''
+        // };
+        //$location.path('/signUpPage1/').search({param: customer});
+
         // $templateRequest("signUp/signUp.html").then(function(html){
         //     var template = $compile(html)($scope);
         //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
