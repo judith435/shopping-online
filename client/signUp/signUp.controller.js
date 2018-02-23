@@ -13,7 +13,7 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
 
         validateInputStep1();
         if ($scope.errorsFound) { return; }
-        
+
         $templateRequest("signUp/step2.html").then(function(html){
             var template = $compile(html)($scope);
             angular.element(document.querySelector('#signUP')).empty().append(template);
