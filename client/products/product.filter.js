@@ -1,6 +1,7 @@
 shoppingApp.filter("selectCategory", function($filter) {
 
-    return function(allProducts, category) {
+    return function(allProducts, category, productSearch) {
+        productSearch = false;
         if (!allProducts) {return;}
         var filteredProducts = [];
         for (let i = 0; i < allProducts.length; i++) { 
@@ -8,25 +9,8 @@ shoppingApp.filter("selectCategory", function($filter) {
                 filteredProducts.push(allProducts[i]);
             }
         }
+        productSearch = false;
         return filteredProducts;
-        // return $filter('filter')(allProducts,{$ : category}); 
-    }
-
-
-});
-
-
-shoppingApp.filter("productSearch", function($filter) {
-
-    return function(allProducts, productSearchParm) {
-        if (!allProducts || !productSearchParm ) {return;}
-        var foundProducts = [];
-        for (let i = 0; i < allProducts.length; i++) { 
-            if (allProducts[i].name.includes(productSearchParm)) { 
-                foundProducts.push(allProducts[i]);
-            }
-        }
-        return foundProducts;
     }
 
 
