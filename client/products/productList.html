@@ -31,7 +31,8 @@
                             <div ng-repeat="product in foundProducts | filter: productFilter" ng-click="productSelected(product)" >
                                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
                                     <div> 
-                                        <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
+                                        <!--  ng-src="{{product.id}}"      <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas> -->
+                                        <img ng-src='image_for_product_id_30'  class="img-fluid image-margin"  width="40" height="50" >
                                     </div>  
                                     <div>
                                         <label>{{product.name}}</label>

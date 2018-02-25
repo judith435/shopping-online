@@ -21,8 +21,8 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
             // $scope.totalCourses = 'Total number of Courses: ' + courses.data.length;
             angular.element(function () {
                 $scope.$apply(function($scope) {
-                   imageService.clearCanvasList($scope.products, 'canvas-product-');
                    imageService.loadCanvasList($scope.products, 'canvas-product-' , configSettings.productImagePath, 'small'); 
+                   imageService.clearCanvasList($scope.products, 'canvas-product-');
                 });
             });
         });
@@ -42,6 +42,12 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
         });
     }
 
+    $scope.productFilter = function() {
+        if ($scope.active === 0) {
+            return $scope.foundProducts;
+        }
+    }
+
     $scope.searchProduct = function()  {//display update product panel => + add product button clicked
         alert('search product with: ' +  $scope.productSearchParm);
 
@@ -57,6 +63,7 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                 $scope.foundProducts.push($scope.products[i]);
             }
         }
+        // imageService.loadCanvasList($scope.foundProducts, 'canvas-product-' , configSettings.productImagePath, 'small'); 
         alert(JSON.stringify($scope.foundProducts));
     }  
 
