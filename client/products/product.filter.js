@@ -14,3 +14,20 @@ shoppingApp.filter("selectCategory", function($filter) {
 
 
 });
+
+
+shoppingApp.filter("productSearch", function($filter) {
+
+    return function(allProducts, productSearchParm) {
+        if (!allProducts || !productSearchParm ) {return;}
+        var foundProducts = [];
+        for (let i = 0; i < allProducts.length; i++) { 
+            if (allProducts[i].name.includes(productSearchParm)) { 
+                foundProducts.push(allProducts[i]);
+            }
+        }
+        return foundProducts;
+    }
+
+
+});
