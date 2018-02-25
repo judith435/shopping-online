@@ -49,7 +49,6 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
     }
 
     $scope.searchProduct = function()  {//display update product panel => + add product button clicked
-        alert('search product with: ' +  $scope.productSearchParm);
 
         $scope.productSearch = true;
         $scope.active = 0;
@@ -63,8 +62,6 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
                 $scope.foundProducts.push($scope.products[i]);
             }
         }
-        // imageService.loadCanvasList($scope.foundProducts, 'canvas-product-' , configSettings.productImagePath, 'small'); 
-        alert(JSON.stringify($scope.foundProducts));
     }  
 
     $scope.$on('product-changed', function(event, opt) {

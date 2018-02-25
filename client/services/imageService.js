@@ -14,7 +14,7 @@ shoppingApp.service('imageService', function() {
             imageObj.onload = function() {
                 context.drawImage(imageObj, 0, 0, canvasSize[size][0], canvasSize[size][1]);
             };
-            imageObj.src = imgPath + '.jpg';
+            imageObj.src = imgPath + '.jpg?' + new Date().getTime();
     }
 
     this.loadCanvasList = function (items, canvasID , imagePath, size) {
