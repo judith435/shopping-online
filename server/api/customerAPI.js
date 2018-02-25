@@ -4,14 +4,17 @@ const customerCtrl = require('../controllers/customerController');
 
 function addCustomer(req, res) {
                                             
-    customerCtrl.addCustomer(req, function(err, response, invalidInputDetails) {
+    customerCtrl.addCustomer(req, function(err, customerInfo, invalidInputDetails) {
         if (err) {
           logError.writeToErrorLog('called by customerAPI.addCustomer => ' + err);
           var response =  new sr.ServerResponse('error', err);
         }
         else {
-            if(response) { //insert/update successfull
-                var response = new sr.ServerResponse('ok', response);
+            if(customerInfo) { //insert customer successfull - customer info (minus password) sent back to clieaclient as login info
+                let sess;
+                sess = req.session;
+                sess['customerInfo'] = customerInfo;
+                var response =  new sr.ServerResponse('ok', customerInfo);
             }
             else { //invalidInputDetails
                 var response =  new sr.ServerResponse('invalid input', 'invalid input =>  following erors were found: \n' + invalidInputDetails); 

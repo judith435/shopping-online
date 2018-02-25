@@ -1,11 +1,12 @@
 <div class='flex-container' >
     <h3>Product Management</h3>
     <section class='product-action-flex resize'  ng-controller='ctrlProductUpdate'>
+        <div class='searchProducts'></div>
         <div>
             <span class='caption'>{{productName}}</span>
             <button  class='add-button' ng-click='addProduct()'>+</button>
         </div>
-        <div class='clear'></div>
+        <div class='clear bordered-bottom'></div>
         <div>
             <product-update ng-show="showProductUpdate"></product-update>
         </div>

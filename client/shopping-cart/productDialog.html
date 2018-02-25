@@ -1,4 +1,4 @@
-<form class="form-horizontal">
+<form class="form-horizontal" name='frmProductDialog'>
     <div class="modal-header">
       <h3 class="modal-title">Add {{productName}} to Cart</h3>
     </div>
@@ -7,8 +7,11 @@
       <div class="form-group row">
         <label class="col-xs-12 col-sm-1 col-md-1 col-lg-1 text-left">Quantity</label>
         <div class="col-xs-12 col-sm-11 col-md-11 col-lg-11 text-left">
-          <input type="number" ng-model=productQuantity class="form-control"  max="999" min="1" step="1" maxlength='3'>
-          <label class="validationError">{{quantity_errorMessage}}</label>     
+          <input type="number" name='productQuantity' ng-model=productQuantity class="form-control"  max="999" min="1" step="1" maxlength='3' ng-required="true">
+          <!-- <label class="validationError" ng-show="productQuantity.$invalid">enter quantity between 1 and 999</label> -->
+          <label class="validationError"  ng-show="frmProductDialog.productQuantity.$invalid">enter quantity between 1 and 999</label>
+
+          <!-- <label class="validationError">{{quantity_errorMessage}}</label>      -->
         </div>
       </div>
       <div class="modal-footer">
@@ -17,9 +20,3 @@
       </div>
     </div>
   </form>
-
-  <!-- .modal-footer {
-    padding: 15px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
-} -->

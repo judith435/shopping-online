@@ -5,16 +5,12 @@ shoppingApp.controller('ctrlProductDialog', function($scope, $uibModalInstance, 
 
     $scope.addToCart = function () {
 
-        if (!$scope.productQuantity) {
-            $scope.quantity_errorMessage = 'enter quantity between 1 and 999'; 
-            return;
+        if ($scope.frmProductDialog.$valid) {
+            $uibModalInstance.close($scope.productQuantity);
         }
-
-        $uibModalInstance.close($scope.productQuantity);
     };
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 });
-

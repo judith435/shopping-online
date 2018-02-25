@@ -6,6 +6,9 @@ const loginCtrl = require('../controllers/loginController');
 function checkUserLoggedIn(req, res) {
     let sess;
     sess = req.session;
+    console.log('checkUserLoggedIn sess[customerInfo]:  ' + JSON.stringify(sess['customerInfo']));
+    console.log('checkUserLoggedIn sess:  ' + JSON.stringify(sess));
+
     var response =  new sr.ServerResponse('ok', sess);
     res.end(JSON.stringify(response));
 }
@@ -24,7 +27,7 @@ function login(req, res) {
                 let sess;
                 sess = req.session;
                 sess['customerInfo'] = customerInfo;
-                var response =  new sr.ServerResponse('ok', sess);
+                var response =  new sr.ServerResponse('ok', customerInfo);
             }
             else { //noSuchCustomer no customer found with login info given
                 var response =  new sr.ServerResponse('noSuchCustomer', '');
@@ -33,13 +36,6 @@ function login(req, res) {
         res.end(JSON.stringify(response));
     })
   
-    // let sess;
-    // sess = req.session;
-    // sess['userInfo'] = JSON.stringify(req.query);
-    // console.log('*********** session' + sess['userInfo'] );
-
-    // var response =  new sr.ServerResponse('ok', sess);  req.session.destroy();
-    // res.end(JSON.stringify(response));
 }
 
 function logout(req, res) {

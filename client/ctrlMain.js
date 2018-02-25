@@ -53,7 +53,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 return;
             }
              
-            setPageForLoggedInUser(response.data.content.customerInfo);
+            setPageForLoggedInUser(response.data.content); //.customerInfo)
         });
     
      }

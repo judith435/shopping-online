@@ -24,6 +24,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
     $scope.addProduct = function()  {//display update product panel => + add product button clicked
         initUpdatePanel();
         $scope.activity = 'addProduct';
+        $scope.productName = 'click +  to add product';
     }  
 
     $scope.productName = 'click +  to add product';
@@ -38,6 +39,7 @@ shoppingApp.controller('ctrlProductUpdate', function updateProducts($scope,
         initUpdatePanel();
         $scope.product = {};
         $scope.product = product;
+        $scope.productName = product.name;
         $scope.productBeforeUpdate = JSON.parse(JSON.stringify(product)); //used for comparison in validation if product actually updated
         let categoryOption = $filter('filter')($scope.options, {value: product.category }, true)[0];
         $scope.product.categoryDDL =  categoryOption; 

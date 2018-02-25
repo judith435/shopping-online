@@ -14,7 +14,10 @@ function addCustomer(req, callback) {
                 callback('called by productController.addUpdateProduct => ' + err, null, null);
             }
             else {
-                callback(null, response, null);
+                 //send back customer info to be used as login info when new customer clicks start shoppin
+                 //must 'star out' password first -> this can NEVER be sent back to client
+                customer.password = '***************';
+                callback(null, customer, null);
             }
         })
     }

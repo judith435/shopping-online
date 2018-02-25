@@ -28,15 +28,16 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
         });
     }
 
-    fillCategoriesDDL();
+    getCategories();
 
-    function fillCategoriesDDL() {
+    function getCategories() {
         categoryService.getCategories(configSettings, function(response) {
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
             }
             else {
                 $scope.categories = response.data.content[0];
+                $scope.categories.push({value: 0, text: "Search Results"});//add category/tab for product search result
             }
         });
     }
