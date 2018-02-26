@@ -66,7 +66,7 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
 
     $scope.$on('product-changed', function(event, opt) {
         getProducts();
-        opt.prod.category;
+        $scope.active = opt.prod.category;
     });
 
     $scope.productSelected = function(product){

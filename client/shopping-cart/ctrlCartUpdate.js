@@ -14,13 +14,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
         addCart(); 
     }
     else {//get last cart items
-        cartService.getCartItems(configSettings, $scope.cart.id, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
-                return;
-            }
-            $scope.cartItems = response.data.content;
-        });
+        getCartItems();
     }
 
     function addCart() {
@@ -37,6 +31,19 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                     }) 
         });
     }
+
+    function getCartItems() {
+
+        cartService.getCartItems(configSettings, $scope.cart.id, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            $scope.cartItems = response.data.content;
+        });
+    }
+
+
 
     $scope.$on('product-selected', function(event, product) {
 
@@ -78,9 +85,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                 alert('error occured - please contact support center');
                 return;
             }
-            if (response.data.content === 1) {
-                alert('item deleted !!!');
-            }
+            getCartItems();
         });
     }
 });

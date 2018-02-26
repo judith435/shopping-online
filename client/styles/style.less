@@ -7,6 +7,10 @@
 @table-height--medium: 490px; 
 @table-height--large: 530px;
 
+@table-height-cart--small: 230px;
+@table-height-cart--medium: 520px; 
+@table-height-cart--large: 560px;
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,18 +50,6 @@
 }
 
 .extra-padding {padding-top: 5px}
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-//style to display image with text aligned horizontally next to image - used in entire site:  examples navigation bar displaying admin info next to admin image 
- //mixin for info rows
-//  .info-row {  
-//     display: flex;
-//     flex-direction: row;
-// }
-
-// .info-row-navigation { //used in navigation bar
-//     .info-row;
-//     height: 75px;
-// }
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //genral styles 
 * {
@@ -122,3 +114,12 @@ h6 { font-size: 24px; text-align: center; margin-bottom: 15px} //used in loggin
     @media @medium-device { height: @table-height--medium; }
     @media @large-device { height: @table-height--large; }
 }
+
+.cart_items_table { //scrolling for cart_items_table
+    overflow-y: auto;
+    width: 95%;
+    @media @small-device { height: @table-height-cart--small; }
+    @media @medium-device { height: @table-height-cart--medium; }
+    @media @large-device { height: @table-height-cart--large; }
+}
+
