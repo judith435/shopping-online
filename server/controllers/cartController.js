@@ -11,7 +11,18 @@ function getLastCart(teudatZehut, callback) {
     })
 }
 
+function getCartItems(cartID, callback) {
 
+    bl.getCartItems(cartID, function(err, cartItems) {
+        if (err) {
+            callback('called by cartController.getCartItems => ' + err, null);
+        }
+        else {
+            callback(null, cartItems);
+        }
+    })
+}
+   
 function addCart(teudatZehut, callback) {
 
  //   const cart = new model.Cart(JSON.parse(req.query.cart));
@@ -39,7 +50,21 @@ function addCartItem(req, callback) {
         }
     })
 }
-   
+
+function deleteCartItem(cartItemID, callback) {
+
+    bl.deleteCartItem(cartItemID, function(err, affectedRows) {
+        if (err) {
+            callback('called by cartController.deleteCartItem => ' + err, null);
+        }
+        else {
+            callback(null, affectedRows);
+        }
+    })
+}
+
 module.exports.getLastCart = getLastCart;
+module.exports.getCartItems = getCartItems;
 module.exports.addCart = addCart;
 module.exports.addCartItem = addCartItem;
+module.exports.deleteCartItem = deleteCartItem;

@@ -16,6 +16,19 @@ function getLastCart(req, res) {
     })
 }
 
+function getCartItems(req, res) {
+    
+    cartCtrl.getCartItems(req.query.cartID, function(err, cartItems) {
+        if (err) { 
+            logError.writeToErrorLog('called by cartAPI.getCartItems => ' + err);
+            var response =  new sr.ServerResponse('error', err);
+        }
+        else {
+            var response =  new sr.ServerResponse('ok', cartItems);
+        }
+        res.end(JSON.stringify(response));
+    })
+}
 
 function addCart(req, res) {
                                             
@@ -45,7 +58,23 @@ function addCartItem(req, res) {
     })
 }
 
+function deleteCartItem(req, res) {
+                                            
+    cartCtrl.deleteCartItem(req.query.cartItemID, function(err, affectedRows) {
+        if (err) {
+          logError.writeToErrorLog('called by cartAPI.deleteCartItem => ' + err);
+          var response =  new sr.ServerResponse('error', err);
+        }
+        else {
+            var response =  new sr.ServerResponse('ok', affectedRows);
+        }
+        res.end(JSON.stringify(response));
+    })
+}
+
 
 module.exports.getLastCart = getLastCart;
+module.exports.getCartItems = getCartItems;
 module.exports.addCart = addCart;
 module.exports.addCartItem = addCartItem;
+module.exports.deleteCartItem = deleteCartItem;

@@ -138,10 +138,25 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
+
+-- -----------------------------------------------------
+-- procedure delete_cart_item
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_cart_item`(IN cartItemID int)
+BEGIN
+
+	delete from shopping_cart_items where id = cartItemID;
+    
+END$$
+
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- procedure get_categories_for_ddl
@@ -205,6 +220,32 @@ BEGIN
 		on tblCustomerCartHistory.customer = shopping_carts.customer
         where shopping_carts.customer = teudatZehut
         and tblCustomerCartHistory.last_cart_creation_date = shopping_carts.creation_date; 
+
+        
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure get_last_cart_items
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_last_cart_items`(in cartID int)
+BEGIN
+
+		SELECT 	shopping_cart_items.id,
+				shopping_cart_items.product as productID,
+                products.name as productName,
+                products.price as productPrice,
+                shopping_cart_items.quantity,
+                shopping_cart_items.price,
+                shopping_cart_items.shopping_cart as shoppingCart
+		FROM    shopping_cart_items 
+        inner join products
+        on products.id = shopping_cart_items.product
+        where shopping_cart_items.shopping_cart = cartID;
 
         
 END$$

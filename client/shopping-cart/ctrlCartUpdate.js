@@ -13,6 +13,15 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     if (!$scope.cart) { //no cart found for customer - create one
         addCart(); 
     }
+    else {//get last cart items
+        cartService.getCartItems(configSettings, $scope.cart.id, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            $scope.cartItems = response.data.content;
+        });
+    }
 
     function addCart() {
 
@@ -30,16 +39,15 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.$on('product-selected', function(event, product) {
-       // alert ('in ctrlCartUpdate => product: ' + JSON.stringify(product));
 
         var productDialog = $uibModal.open({
             templateUrl: 'shopping-cart/productDialog.html',
             controller: 'ctrlProductDialog',
             size: 'lg',
             resolve: {
-            product: function () {
-               return product;
-              }
+                product: function () {
+                    return product;
+                }
             }
         });
 
@@ -63,4 +71,16 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
             });
         });
     });
+
+    $scope.deleteCartItem = function(cartItem) { 
+        cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            if (response.data.content === 1) {
+                alert('item deleted !!!');
+            }
+        });
+    }
 });

@@ -16,11 +16,28 @@ shoppingApp.service('cartService', function($http) {
         }).then(success, error);
     }
 
+    this.getCartItems = function(configSettings, cartID, success, error) {
+        $http({
+            url: configSettings.shoppingApi + '/cartItem',
+            method: 'GET',
+            params: { cartID: cartID }
+        }).then(success, error);
+    }
+
+
     this.addCartItem = function(configSettings, cartItem, success, error) {
         $http({
             url: configSettings.shoppingApi + '/cartItem',
             method: 'POST',
             params: { cartItem: cartItem }
+        }).then(success, error);
+    }
+
+    this.deleteCartItem = function(configSettings, cartItemID, success, error) {
+        $http({
+            url: configSettings.shoppingApi + '/cartItem',
+            method: 'DELETE',
+            params: { cartItemID: cartItemID }
         }).then(success, error);
     }
 

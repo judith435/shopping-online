@@ -1,6 +1,7 @@
 const dal = require('..//dal/dal');
 const parmObject = require('..//dal/spParm');
-const model = require('../models/cartModel');
+const cartModel = require('../models/cartModel');
+const cartItemModel = require('../models/cartItemModel');
 
 function getLastCart(teudatZehut, callback) {
 
@@ -12,10 +13,28 @@ function getLastCart(teudatZehut, callback) {
         }
         else {
             if(rows[0][0]) { //cart info found for customer
-                let lastCart = new model.Cart(rows[0][0]); 
+                let lastCart = new cartModel.Cart(rows[0][0]); 
                 callback(null, lastCart);
             }
             callback(null, 'no cart found for customer');
+        }
+    });
+}
+
+function getCartItems(cartID, callback) {
+
+    const spParms = []; 
+    spParms.push(new parmObject.spParm(cartID, false));
+    dal.executeQuery('shopping', 'get_last_cart_items', spParms, function(err, rows) {
+        if (err) {
+            callback('called by cartBL.getCartItems => ' + err);
+        }
+        else {
+            const cartItemsArray = [];
+            rows[0].forEach(function (row) {
+                cartItemsArray.push(new cartItemModel.CartItem(row));
+            });
+            callback(null, cartItemsArray);
         }
     });
 }
@@ -53,6 +72,22 @@ function addCartItem(cartItem, callback) {
     });
 }
 
+function deleteCartItem(cartItemID, callback) {
+
+    const spParms = []; 
+    spParms.push(new parmObject.spParm(cartItemID, false));
+    dal.executeQuery('shopping', 'delete_cart_item', spParms, function(err, response) {
+        if (err) {
+            callback('called by cartBL.deleteCartItem => ' + err);
+        }
+        else {
+            callback(null, response.affectedRows);
+        }
+    });
+}
+
 module.exports.getLastCart = getLastCart;
+module.exports.getCartItems = getCartItems;
 module.exports.addCart = addCart;
 module.exports.addCartItem = addCartItem;
+module.exports.deleteCartItem = deleteCartItem;
