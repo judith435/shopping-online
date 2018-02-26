@@ -44,13 +44,13 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
         });
 
         productDialog.result.then(function (productQuantity) {
-            // alert ('dialogresult: ' + JSON.stringify(productQuantity));
-            // alert ('product: ' + JSON.stringify(product));
-            let cartItem = new CartItem({   id: 0,//response.data.content,
-                                            product: product.id,
+            let cartItem = new CartItem({   id: 0,
+                                            productID: product.id,
+                                            productName: product.name,
+                                            productPrice: product.price,
                                             quantity: productQuantity,
-                                            price: productQuantity * product.price ,
-                                            shopping_cart: $scope.cart.id 
+                                            price: Math.round(productQuantity * product.price * 100) / 100,
+                                            shoppingCart: $scope.cart.id 
                                         })
             $scope.cartItems.push(cartItem);
         });

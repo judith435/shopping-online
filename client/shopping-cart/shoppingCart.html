@@ -4,22 +4,25 @@
         <div>
             <span class='caption'>{{cartOwner}}</span>
         </div>
-        <div class='clear'></div>
+        <div class='clear  bordered-bottom'></div>
         <div ng-repeat="cartItem in cartItems">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
+            <br>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
+                <button class="btn btn-link pull-right"  type="button" 
+                    ng-click="deleteCartItem(cartItem)">   
+                    <span class="glyphicon glyphicon-trash deleteButton"></span>
+                </button>
                 <div>
-                    <canvas id=canvas-product-{{cartItem.prodID}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
+                    <img ng-src='image_for_product_id_{{cartItem.productID}}.jpg'
+                                                class="img-fluid image-margin"  width="52" height="65" >
                 </div>  
                 <div>
-                    <label>{{cartItem.prodName}}</label>
+                    <label>{{cartItem.productName}}:</label>
+                    <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
+                    <label> => Total for item {{cartItem.price}}$</label>
                 </div>  
-                <div>
-                    <label>{{cartItem.quantity}}$</label>
-                </div>  
-                <div>
-                    <label>{{cartItem.price}}$</label>
-                </div>  
-            </div>                
+            </div>  
+            <br>
         </div>
     </section>
     <section  class='product-list-flex resize'>

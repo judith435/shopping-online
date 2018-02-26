@@ -1,9 +1,10 @@
 function CartItem(cartItem) {
     this.id = cartItem['id'];
-    this.product = cartItem['product'];
+    this.productID = cartItem['productID'];
+    this.productName = cartItem['productName'];
+    this.productPrice = cartItem['productPrice'];
     this.quantity = cartItem['quantity'];
     this.price = cartItem['price'];
-    this.shopping_cart = cartItem['shopping_cart'];
-
+    this.shoppingCart = cartItem['shoppingCart'];
 }
 
