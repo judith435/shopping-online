@@ -3,6 +3,7 @@ const logError = require('../share/errorLogging.js');
 const cartCtrl = require('../controllers/cartController');
 
 function getLastCart(req, res) {
+    
     cartCtrl.getLastCart(req.query.teudat_zehut, function(err, lastCart) {
         if (err) { 
             logError.writeToErrorLog('called by cartAPI.getLastCart => ' + err);

@@ -1,8 +1,12 @@
 const dal = require('..//dal/dal');
 const parmObject = require('..//dal/spParm');
+const model = require('../models/cartModel');
 
-function getLastCart(callback) {
-    dal.executeQuery('shopping', 'get_last_cart', '',function(err, rows) {
+function getLastCart(teudat_zehut, callback) {
+
+    const spParms = []; 
+    spParms.push(new parmObject.spParm(teudat_zehut, false));
+    dal.executeQuery('shopping', 'get_last_cart', spParms, function(err, rows) {
         if (err) {
             callback('called by cartBL.getLastCart => ' + err);
         }
@@ -31,4 +35,5 @@ function addCart(teudat_zehut, callback) {
     });
 }
 
+module.exports.getLastCart = getLastCart;
 module.exports.addCart = addCart;

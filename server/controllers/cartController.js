@@ -1,13 +1,12 @@
 const bl = require('../bl/cartBL');
-const model = require('../models/cartModel');
 
-function getLastCart(req, callback) {
+function getLastCart(teudat_zehut, callback) {
 
-    bl.category.getLastCart(function(err, lastCart) {
+    bl.getLastCart(teudat_zehut, function(err, lastCart) {
         if (err) {
             callback('called by cartController.getLastCart => ' + err);
         }
-        callback(null, categoryArray);
+        callback(null, lastCart);
     })
 }
 

@@ -3,6 +3,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                                                         // $templateRequest,
                                                         // $compile,
                                                         loginService,
+                                                        cartService, 
                                                         configSettings) 
 {
 
@@ -16,6 +17,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
     // return;
 
+    $scope.cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
 
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
@@ -65,11 +67,30 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
         if ($scope.customer.role === 'customer') {
             loadEntryPage(); 
-            $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
-            $scope.entryAction = 'Start Shopping';
-            if (action === 'newCustomer') {
-                $scope.entryMessage += ' to your first purchase';
-            }
+            cartService.getLastCart(configSettings, $scope.customer.teudatZehut, function(response) {  
+                if (response.data.status === 'error') {
+                    alert('error occured - please contact support center');
+                    return;
+                }
+
+                if (response.data.content !== 'no cart found for customer') {
+                    $scope.cart = new Cart(response.data.content);
+                }
+
+                if (action === 'newCustomer' || response.data.content === 'no cart found for customer' ) {
+                    $scope.entryAction = 'Start Shopping';
+                    $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName +
+                                          ' to your first purchase';
+                }
+                else { //existing customer
+                    $scope.entryAction = 'Resume Shopping';
+                    $scope.entryMessage = 'Notification: you have an open cart from ' + 
+                    $scope.cart.creation_date.substring(8,10) + '/' 
+                        + $scope.cart.creation_date.substring(5,7) + '/'
+                        + $scope.cart.creation_date.substring(0,4) ;
+                }
+    
+            });
         }
         else { //customer is admin load update product page
             loadProductUpdatePage();          
@@ -82,6 +103,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
     $scope.$on('customer-added', function(event, customer) {
+        $scope.cart = ''; //reset cart info for new customer
         setPageForLoggedInUser(customer, 'newCustomer');
     });
      
@@ -89,7 +111,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         $location.path("/products");
     }
 
-    $scope.shop = function(){
+    $scope.shop = function() {
         $location.path("/shop");
     }
 

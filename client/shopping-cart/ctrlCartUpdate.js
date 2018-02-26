@@ -1,23 +1,20 @@
 shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     // $rootScope, 
-                                                            //    $modal,
+                                                                $routeParams,
                                                                 $uibModal,
                                                                 cartService, 
                                                                 imageService, 
                                                                 configSettings)
                                                                 // $filter)
 {
-
     $scope.cartOwner = 'My Cart: ' + $scope.customer.firstName + ' ' + $scope.customer.lastName
+    $scope.cartItems = [];
 
-    //add cart
-    //addCart();
+    if (!$scope.cart) { //no cart found for customer - create one
+        addCart(); 
+    }
 
     function addCart() {
-
-        // let cart = new Cart({   id: 0,
-        //     customer: $scope.customer.teudatZehut,
-        //     creation_date: Date()});
 
         cartService.addCart(configSettings, $scope.customer.teudatZehut, function(response) {  
             if (response.data.status === 'error') {
@@ -25,11 +22,11 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                 return;
             }
 
-         alert (JSON.stringify(response));   
-
+            $scope.cart = new Cart ({   id: response.data.content,
+                                        customer: $scope.customer.teudatZehut,
+                                        creation_date: new Date() 
+                                    }) 
         });
-         
-
     }
 
     $scope.$on('product-selected', function(event, product) {
@@ -47,10 +44,15 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
         });
 
         productDialog.result.then(function (productQuantity) {
-            alert ('dialogresult: ' + JSON.stringify(productQuantity));
-            alert ('product: ' + JSON.stringify(product));
-            //create shopping cart and first item
+            // alert ('dialogresult: ' + JSON.stringify(productQuantity));
+            // alert ('product: ' + JSON.stringify(product));
+            let cartItem = new CartItem({   id: 0,//response.data.content,
+                                            product: product.id,
+                                            quantity: productQuantity,
+                                            price: productQuantity * product.price ,
+                                            shopping_cart: $scope.cart.id 
+                                        })
+            $scope.cartItems.push(cartItem);
         });
     });
 });
-
