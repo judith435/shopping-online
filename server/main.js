@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const path = require('path');
 
+const apiCart = require('./api/cartAPI.js');
 const apiCategory = require('./api/categoryAPI.js');
 const apiCustomer = require('./api/customerAPI.js');
 const apiLogin = require('./api/loginAPI.js');
@@ -44,6 +45,9 @@ app.post('/login', apiLogin.login);
 app.delete('/login', apiLogin.logout);
 
 app.post('/customer', apiCustomer.addCustomer);
+
+app.get('/cart', apiCart.getLastCart);
+app.post('/cart', apiCart.addCart);
 
 app.get('/category/ddl', apiCategory.getCategoryDDL);
 

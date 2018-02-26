@@ -24,7 +24,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         }
 
         if ('customerInfo' in response.data.content) {//logged in user on server found
-            setPageForLoggedInUser(response.data.content.customerInfo);
+            setPageForLoggedInUser(response.data.content.customerInfo, 'loggedIn');
         }
         else {//NO logged in user on server found
             loadEntryPage(); 
@@ -53,12 +53,12 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 return;
             }
              
-            setPageForLoggedInUser(response.data.content); //.customerInfo)
+            setPageForLoggedInUser(response.data.content, 'afterLogin'); //.customerInfo)
         });
     
      }
 
-     function setPageForLoggedInUser(customerInfo) {
+     function setPageForLoggedInUser(customerInfo, action) {
         $scope.customer = new Customer(customerInfo);
         $scope.customerName = 'Hello ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
         $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
@@ -67,6 +67,9 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             loadEntryPage(); 
             $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
             $scope.entryAction = 'Start Shopping';
+            if (action === 'newCustomer') {
+                $scope.entryMessage += ' to your first purchase';
+            }
         }
         else { //customer is admin load update product page
             loadProductUpdatePage();          
@@ -79,7 +82,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
     $scope.$on('customer-added', function(event, customer) {
-        setPageForLoggedInUser(customer);
+        setPageForLoggedInUser(customer, 'newCustomer');
     });
      
     function loadProductUpdatePage() {

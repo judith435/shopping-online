@@ -47,8 +47,6 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
             //after successfull sign up dispay entry page
             $rootScope.$broadcast('customer-added', customer);
         });
-        
-
     }
 
     function validateInputStep1() {    

@@ -8,13 +8,16 @@
         <div ng-repeat="cartItem in cartItems">
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-background"> 
                 <div>
-                    <canvas id=canvas-product-{{product.id}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
+                    <canvas id=canvas-product-{{cartItem.prodID}}  class="img-fluid image-margin"  width="40" height="50" ></canvas>
                 </div>  
                 <div>
-                    <label>{{product.name}}</label>
+                    <label>{{cartItem.prodName}}</label>
                 </div>  
                 <div>
-                    <label>{{product.price}}$</label>
+                    <label>{{cartItem.quantity}}$</label>
+                </div>  
+                <div>
+                    <label>{{cartItem.price}}$</label>
                 </div>  
             </div>                
         </div>
