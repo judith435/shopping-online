@@ -52,7 +52,15 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                             price: Math.round(productQuantity * product.price * 100) / 100,
                                             shoppingCart: $scope.cart.id 
                                         })
-            $scope.cartItems.push(cartItem);
+                                        
+            cartService.addCartItem(configSettings, cartItem, function(response) {  
+                if (response.data.status === 'error') {
+                    alert('error occured - please contact support center');
+                    return;
+                }
+                cartItem.id = response.data.content;
+                $scope.cartItems.push(cartItem);
+            });
         });
     });
 });

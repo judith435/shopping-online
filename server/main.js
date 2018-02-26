@@ -49,6 +49,9 @@ app.post('/customer', apiCustomer.addCustomer);
 app.get('/cart', apiCart.getLastCart);
 app.post('/cart', apiCart.addCart);
 
+app.post('/cartItem', apiCart.addCartItem);
+
+
 app.get('/category/ddl', apiCategory.getCategoryDDL);
 
 app.get('/product', apiProduct.getProducts);

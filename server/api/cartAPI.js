@@ -4,7 +4,7 @@ const cartCtrl = require('../controllers/cartController');
 
 function getLastCart(req, res) {
     
-    cartCtrl.getLastCart(req.query.teudat_zehut, function(err, lastCart) {
+    cartCtrl.getLastCart(req.query.teudatZehut, function(err, lastCart) {
         if (err) { 
             logError.writeToErrorLog('called by cartAPI.getLastCart => ' + err);
             var response =  new sr.ServerResponse('error', err);
@@ -19,7 +19,7 @@ function getLastCart(req, res) {
 
 function addCart(req, res) {
                                             
-    cartCtrl.addCart(req.query.teudat_zehut, function(err, cartID) {
+    cartCtrl.addCart(req.query.teudatZehut, function(err, cartID) {
         if (err) {
           logError.writeToErrorLog('called by cartAPI.addCart => ' + err);
           var response =  new sr.ServerResponse('error', err);
@@ -31,5 +31,21 @@ function addCart(req, res) {
     })
 }
 
+function addCartItem(req, res) {
+                                            
+    cartCtrl.addCartItem(req, function(err, cartItemID) {
+        if (err) {
+          logError.writeToErrorLog('called by cartAPI.addCartItem => ' + err);
+          var response =  new sr.ServerResponse('error', err);
+        }
+        else {
+            var response =  new sr.ServerResponse('ok', cartItemID);
+        }
+        res.end(JSON.stringify(response));
+    })
+}
+
+
 module.exports.getLastCart = getLastCart;
 module.exports.addCart = addCart;
+module.exports.addCartItem = addCartItem;

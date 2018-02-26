@@ -1,8 +1,9 @@
 const bl = require('../bl/cartBL');
+const model = require('../models/cartItemModel');
 
-function getLastCart(teudat_zehut, callback) {
+function getLastCart(teudatZehut, callback) {
 
-    bl.getLastCart(teudat_zehut, function(err, lastCart) {
+    bl.getLastCart(teudatZehut, function(err, lastCart) {
         if (err) {
             callback('called by cartController.getLastCart => ' + err);
         }
@@ -11,11 +12,11 @@ function getLastCart(teudat_zehut, callback) {
 }
 
 
-function addCart(teudat_zehut, callback) {
+function addCart(teudatZehut, callback) {
 
  //   const cart = new model.Cart(JSON.parse(req.query.cart));
 
-    bl.addCart(teudat_zehut, function(err, cartID) {
+    bl.addCart(teudatZehut, function(err, cartID) {
         if (err) {
             callback('called by cartController.addCart => ' + err, null);
         }
@@ -25,5 +26,20 @@ function addCart(teudat_zehut, callback) {
     })
 }
 
+function addCartItem(req, callback) {
+
+    const cartItem = new model.CartItem(JSON.parse(req.query.cartItem));
+   
+    bl.addCartItem(cartItem, function(err, cartItemID) {
+        if (err) {
+            callback('called by cartController.addCartItem => ' + err, null);
+        }
+        else {
+            callback(null, cartItemID);
+        }
+    })
+}
+   
 module.exports.getLastCart = getLastCart;
 module.exports.addCart = addCart;
+module.exports.addCartItem = addCartItem;
