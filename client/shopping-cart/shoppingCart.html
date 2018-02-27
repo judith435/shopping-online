@@ -3,6 +3,7 @@
     <section class='product-action-flex resize'  ng-controller='ctrlCartUpdate'>
         <div>
             <span class='caption'>{{cartOwner}}</span>
+            <button  class='btn btn-link btn-md pull-right' ng-click='clearCart()'>Clear Cart</button>
         </div>
         <div class='clear bordered-bottom'></div>
         <div class='cart_items_table'>
@@ -27,7 +28,11 @@
                         <br>
                     </div>
                 </tbody>    
-            </table>    
+            </table>
+        </div>
+        <div>
+            <label class='caption'>Total: {{cartTotal}}$</label>
+            <button  class='btn btn-link btn-md pull-right' ng-click='order()'>Order</button>
         </div>
     </section>
     <section  class='product-list-flex resize'>

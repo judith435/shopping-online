@@ -40,6 +40,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                 return;
             }
             $scope.cartItems = response.data.content;
+            calcCartTotal();
         });
     }
 
@@ -75,6 +76,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                 }
                 cartItem.id = response.data.content;
                 $scope.cartItems.push(cartItem);
+                calcCartTotal();
             });
         });
     });
@@ -88,4 +90,33 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
             getCartItems();
         });
     }
+
+    function calcCartTotal() {
+        $scope.cartTotal = 0;
+        for (let i = 0; i < $scope.cartItems.length; i++) { 
+            $scope.cartTotal += $scope.cartItems[i].price;
+        }
+        $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100
+    }
+
+    $scope.clearCart = function() { 
+        alert ('clear cart');
+        // cartService.clearCart(configSettings, $scope.cart.id, function(response) {  
+        //     if (response.data.status === 'error') {
+        //         alert('error occured - please contact support center');
+        //         return;
+        //     }
+        // });
+    }
+
+    $scope.order = function() { 
+        alert ('order');
+        // cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
+        //     if (response.data.status === 'error') {
+        //         alert('error occured - please contact support center');
+        //         return;
+        //     }
+        // });
+    }
+
 });
