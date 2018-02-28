@@ -16,6 +16,9 @@ shoppingApp.constant('configSettings', {
             templateUrl: 'products/products.html'
         })
         .when('/shop', {
-            templateUrl: 'shopping-cart/shoppingCart.html'
+            templateUrl: 'shopping-cart/shopping.html'
+        })
+        .when('/order', {
+            templateUrl: 'order/order.html'
         })
 });

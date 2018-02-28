@@ -1,10 +1,11 @@
 shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
-    // $rootScope, 
+        // $rootScope, 
                                                                 $routeParams,
                                                                 $uibModal,
                                                                 cartService, 
                                                                 imageService, 
-                                                                configSettings)
+                                                                configSettings,
+                                                                $location)
                                                                 // $filter)
 {
     $scope.cartOwner = 'My Cart: ' + $scope.customer.firstName + ' ' + $scope.customer.lastName
@@ -110,7 +111,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.order = function() { 
-        alert ('order');
+        $location.path("/order");
+
         // cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
         //     if (response.data.status === 'error') {
         //         alert('error occured - please contact support center');
