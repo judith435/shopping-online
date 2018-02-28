@@ -111,7 +111,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     }
 
     $scope.shop = function() {
-        $location.path("/shop");
+        $location.path("/shop").search({cartStatus: 'shop'});;
     }
 
     $scope.logout = function(){

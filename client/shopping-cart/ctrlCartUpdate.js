@@ -8,6 +8,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                                                 $location)
                                                                 // $filter)
 {
+    $scope.ordering = $routeParams.cartStatus === 'order';
+
     $scope.cartOwner = 'My Cart: ' + $scope.customer.firstName + ' ' + $scope.customer.lastName
     $scope.cartItems = [];
 
@@ -111,14 +113,11 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.order = function() { 
-        $location.path("/order");
+        $location.path("/order").search({cartStatus: 'order'});
+    }
 
-        // cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
-        //     if (response.data.status === 'error') {
-        //         alert('error occured - please contact support center');
-        //         return;
-        //     }
-        // });
+    $scope.returnToShopping = function() { 
+        $location.path("/shop").search({cartStatus: 'shop'});
     }
 
 });

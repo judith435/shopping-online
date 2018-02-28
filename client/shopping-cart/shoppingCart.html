@@ -1,7 +1,8 @@
 <div ng-controller='ctrlCartUpdate'>
     <div>
         <span class='caption'>{{cartOwner}}</span>
-        <button  class='btn btn-link btn-md pull-right' ng-click='clearCart()'>Clear Cart</button>
+        <button  class='btn btn-link btn-md pull-right' ng-if=!ordering ng-click='clearCart()'>Clear Cart</button>
+        <button  class='btn btn-link btn-md pull-right' ng-if=ordering ng-click='returnToShopping()'>Return to Shopping</button>
     </div>
     <div class='clear bordered-bottom'></div>
     <div class='cart_items_table'>
@@ -10,7 +11,7 @@
                 <div ng-repeat="cartItem in cartItems">
                     <br>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
-                        <button class="btn btn-link pull-right"  type="button" ng-click="deleteCartItem(cartItem)">   
+                        <button class="btn btn-link pull-right"  type="button" ng-if=!ordering ng-click="deleteCartItem(cartItem)">   
                             <span class="glyphicon glyphicon-trash deleteButton"></span>
                         </button>
                         <div>
@@ -30,6 +31,6 @@
     </div>
     <div>
         <label class='caption'>Total: {{cartTotal}}$</label>
-        <button  class='btn btn-link btn-md pull-right' ng-click='order()'>Order</button>
+        <button  class='btn btn-link btn-md pull-right' ng-if=!ordering ng-click='order()'>Order</button>
     </div>
 </div>

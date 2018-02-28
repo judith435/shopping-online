@@ -1,9 +1,18 @@
 shoppingApp.controller('ctrlOrder', function signUp(   $scope ){ 
+    alert ('customer: ' + JSON.stringify($scope.customer));
     // $rootScope,
     // configSettings, 
     // $templateRequest, 
     // $compile,
     // signUpService) {
+
+    $scope.inputDoubleClick = function(inputCtrl)  {
+        alert('inputDoubleClick order: ' + inputCtrl.name);
+    }
+
+    $scope.order = function()  {
+        alert('submit order: ' );
+    }
 
 // $scope.showStep1 = true;  //show step 1
 // $scope.showStep2 = false; //hide step 2

@@ -2,39 +2,6 @@
         <h3>Shopping Cart</h3>
         <section class='product-action-flex resize'>
             <shopping-cart></shopping-cart>
-            <!-- <div>
-                <span class='caption'>{{cartOwner}}</span>
-                <button  class='btn btn-link btn-md pull-right' ng-click='clearCart()'>Clear Cart</button>
-            </div>
-            <div class='clear bordered-bottom'></div>
-            <div class='cart_items_table'>
-                <table class="table table-hover table-responsive">
-                    <tbody>
-                        <div ng-repeat="cartItem in cartItems">
-                            <br>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
-                                <button class="btn btn-link pull-right"  type="button" ng-click="deleteCartItem(cartItem)">   
-                                    <span class="glyphicon glyphicon-trash deleteButton"></span>
-                                </button>
-                                <div>
-                                    <img ng-src='image_for_product_id_{{cartItem.productID}}.jpg'
-                                                                class="img-fluid image-margin"  width="52" height="65" >
-                                </div>  
-                                <div>
-                                    <label>{{cartItem.productName}}:</label>
-                                    <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
-                                    <label> => Total for item {{cartItem.price}}$</label>
-                                </div>  
-                            </div>  
-                            <br>
-                        </div>
-                    </tbody>    
-                </table>
-            </div>
-            <div>
-                <label class='caption'>Total: {{cartTotal}}$</label>
-                <button  class='btn btn-link btn-md pull-right' ng-click='order()'>Order</button>
-            </div> -->
         </section>
         <section  class='product-list-flex resize'>
             <product-list></product-list>

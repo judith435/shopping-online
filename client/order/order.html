@@ -2,86 +2,36 @@
         <h3>Order</h3>
         <section class='product-action-flex resize'>
             <shopping-cart></shopping-cart>
-            <!-- <div>
-                <span class='caption'>{{cartOwner}}</span>
-                <button  class='btn btn-link btn-md pull-right' ng-click='clearCart()'>Clear Cart</button>
-            </div>
-            <div class='clear bordered-bottom'></div>
-            <div class='cart_items_table'>
-                <table class="table table-hover table-responsive">
-                    <tbody>
-                        <div ng-repeat="cartItem in cartItems">
-                            <br>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
-                                <button class="btn btn-link pull-right"  type="button" ng-click="deleteCartItem(cartItem)">   
-                                    <span class="glyphicon glyphicon-trash deleteButton"></span>
-                                </button>
-                                <div>
-                                    <img ng-src='image_for_product_id_{{cartItem.productID}}.jpg'
-                                                                class="img-fluid image-margin"  width="52" height="65" >
-                                </div>  
-                                <div>
-                                    <label>{{cartItem.productName}}:</label>
-                                    <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
-                                    <label> => Total for item {{cartItem.price}}$</label>
-                                </div>  
-                            </div>  
-                            <br>
-                        </div>
-                    </tbody>    
-                </table>
-            </div>
-            <div>
-                <label class='caption'>Total: {{cartTotal}}$</label>
-                <button  class='btn btn-link btn-md pull-right' ng-click='order()'>Order</button>
-            </div> -->
         </section>
         <section class='product-list-flex resize'>
-            <!-- <div class='flex-container center-div'> -->
-                <div class='underline'>
-                    <span class='caption'>Shipping Details</span>
+            <div class='underline'>
+                <span class='caption'>Shipping Details</span>
+            </div>
+            <div class='clear'></div>
+            <br><br>
+            <form ng-controller='ctrlOrder'>
+                <div class="form-group row">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        <select class="form-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)' ng-options="o as o for o in options" ng-model="city"></select>
+                        <label class="validationError">{{city_errorMessage}}</label>     
+                    </div>
                 </div>
-                <div class='clear'></div>
-                <br><br>
-                <form ng-controller='ctrlOrder'>
-                    <div class="form-group row">
-                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
-                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                            <select class="form-control" ng-options="o as o for o in options" ng-model="city"></select>
-                            <label class="validationError">{{city_errorMessage}}</label>     
-                        </div>
+                <div class="form-group row">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        <input type="text" name='street' ng-model=street ng-dblclick='inputDoubleClick($event.currentTarget)' class="form-control" maxlength="45" placeholder="Enter Street">
+                        <label class="validationError">{{street_errorMessage}}</label>     
                     </div>
-                    <div class="form-group row">
-                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
-                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                            <input type="text" ng-model=street   class="form-control" maxlength="45" placeholder="Enter Street">
-                            <label class="validationError">{{street_errorMessage}}</label>     
-                        </div>
+                </div>
+                <div class="row button-row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <span class="float-md-right">
+                            <button class="btn btn-primary" ng-click='order()'  type="button">Order</button>
+                        </span>
                     </div>
-                    <!-- <div class="form-group row">
-                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">First Name</label>
-                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                            <input type="text" ng-model=firstName   class="form-control" maxlength="15" placeholder="Enter First Name">
-                            <label class="validationError">{{firstName_errorMessage}}</label>     
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Last Name</label>
-                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                            <input type="text" ng-model=lastName   class="form-control" maxlength="15" placeholder="Enter Last Name">
-                            <label class="validationError">{{lastName_errorMessage}}</label>     
-                        </div>
-                    </div> -->
-                        
-                    <div class="row button-row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <span class="float-md-right">
-                                <button class="btn btn-primary"   ng-click='completeSignUp()'  type="button">Submit</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            <!-- </div> -->
+                </div>
+            </form>
         </section>
     </div>
     
