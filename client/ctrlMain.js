@@ -29,12 +29,12 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             setPageForLoggedInUser(response.data.content.customerInfo, 'loggedIn');
         }
         else {//NO logged in user on server found
-            loadEntryPage(); 
+            loadHomePage(); 
         }
     });
 
-    function loadEntryPage() {
-        $location.path("/entry");
+    function loadHomePage() {
+        $location.path("/home");
     }
 
     $scope.login = function(loginInfo) {
@@ -66,7 +66,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
 
         if ($scope.customer.role === 'customer') {
-            loadEntryPage(); 
+            loadHomePage(); 
             cartService.getLastCart(configSettings, $scope.customer.teudatZehut, function(response) {  
                 if (response.data.status === 'error') {
                     alert('error occured - please contact support center');
@@ -98,7 +98,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
      $scope.signUp = function() {
-
         $location.path("/signUp");
      }
 

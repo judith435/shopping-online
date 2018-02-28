@@ -52,6 +52,7 @@ app.post('/cart', apiCart.addCart);
 app.get('/cartItem', apiCart.getCartItems);
 app.post('/cartItem', apiCart.addCartItem);
 app.delete('/cartItem', apiCart.deleteCartItem);
+app.delete('/cartItem/all', apiCart.clearCart);
 
 app.get('/category/ddl', apiCategory.getCategoryDDL);
 

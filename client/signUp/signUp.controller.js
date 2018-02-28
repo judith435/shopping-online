@@ -44,7 +44,7 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
                 alert(response.data.content);
                 return;
             }
-            //after successfull sign up dispay entry page
+            //after successfull sign up dispay home page
             $rootScope.$broadcast('customer-added', customer);
         });
     }

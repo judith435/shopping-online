@@ -72,9 +72,24 @@ function deleteCartItem(req, res) {
     })
 }
 
+function clearCart(req, res) {
+                                            
+    cartCtrl.clearCart(req.query.cartID, function(err, affectedRows) {
+        if (err) {
+          logError.writeToErrorLog('called by cartAPI.clearCart => ' + err);
+          var response =  new sr.ServerResponse('error', err);
+        }
+        else {
+            var response =  new sr.ServerResponse('ok', affectedRows);
+        }
+        res.end(JSON.stringify(response));
+    })
+}
+
 
 module.exports.getLastCart = getLastCart;
 module.exports.getCartItems = getCartItems;
 module.exports.addCart = addCart;
 module.exports.addCartItem = addCartItem;
 module.exports.deleteCartItem = deleteCartItem;
+module.exports.clearCart = clearCart;

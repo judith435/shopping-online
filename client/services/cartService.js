@@ -41,6 +41,14 @@ shoppingApp.service('cartService', function($http) {
         }).then(success, error);
     }
 
+    this.clearCart = function(configSettings, cartID, success, error) {
+        $http({
+            url: configSettings.shoppingApi + '/cartItem/all',
+            method: 'DELETE',
+            params: { cartID: cartID }
+        }).then(success, error);
+    }
+
     function error(response) {
         alert("Sorry Error occured in $http: " + JSON.stringify(response));
     }

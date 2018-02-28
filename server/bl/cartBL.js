@@ -86,8 +86,23 @@ function deleteCartItem(cartItemID, callback) {
     });
 }
 
+function clearCart(cartID, callback) {
+
+    const spParms = []; 
+    spParms.push(new parmObject.spParm(cartID, false));
+    dal.executeQuery('shopping', 'clear_cart', spParms, function(err, response) {
+        if (err) {
+            callback('called by cartBL.clearCart => ' + err);
+        }
+        else {
+            callback(null, response.affectedRows);
+        }
+    });
+}
+
 module.exports.getLastCart = getLastCart;
 module.exports.getCartItems = getCartItems;
 module.exports.addCart = addCart;
 module.exports.addCartItem = addCartItem;
 module.exports.deleteCartItem = deleteCartItem;
+module.exports.clearCart = clearCart;

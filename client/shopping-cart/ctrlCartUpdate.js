@@ -100,13 +100,13 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.clearCart = function() { 
-        alert ('clear cart');
-        // cartService.clearCart(configSettings, $scope.cart.id, function(response) {  
-        //     if (response.data.status === 'error') {
-        //         alert('error occured - please contact support center');
-        //         return;
-        //     }
-        // });
+        cartService.clearCart(configSettings, $scope.cart.id, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            $scope.cartItems = [];
+        });
     }
 
     $scope.order = function() { 
