@@ -7,7 +7,7 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
 
     $scope.showStep1 = true;  //show step 1
     $scope.showStep2 = false; //hide step 2
-    $scope.options  = ['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego','Dallas','	San Jose'];
+    $scope.options  = configSettings.citiesList;
 
     $scope.continueSignUp = function()  {
 

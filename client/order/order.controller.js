@@ -1,13 +1,19 @@
-shoppingApp.controller('ctrlOrder', function signUp(   $scope ){ 
+shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){ 
     alert ('customer: ' + JSON.stringify($scope.customer));
     // $rootScope,
-    // configSettings, 
     // $templateRequest, 
     // $compile,
     // signUpService) {
 
+    $scope.options  = configSettings.citiesList;
+
     $scope.inputDoubleClick = function(inputCtrl)  {
-        alert('inputDoubleClick order: ' + inputCtrl.name);
+        if (inputCtrl.name === 'city') {
+            $scope.city = $scope.customer.city;
+        }
+        else {
+            $scope.street = $scope.customer.street;
+        }
     }
 
     $scope.order = function()  {
