@@ -24,6 +24,23 @@
                         <label class="validationError">{{street_errorMessage}}</label>     
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Shipping Date</label>
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        <input type="text" class="dt-picker pull-left form-control" uib-datepicker-popup="{{format}}" 
+                            ng-model="deliveryDate" is-open="DatePicker.opened" datepicker-options="dateOptions" close-text="Close" />
+                        <button type="button" class="btn btn-default pull-left" ng-click="openDatePicker()"
+                                title='Dates with more than 3 scheduled deliveries are automatically disabled'>
+                                <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                        <label class="validationError">{{street_errorMessage}}</label>     
+                    </div>
+                </div>
+                <div>
+                    <span class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left"></span>
+                    <span class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        Dates with more than 3 scheduled deliveries are automatically disabled</span>
+                </div>
                 <div class="row button-row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <span class="float-md-right">
@@ -34,4 +51,6 @@
             </form>
         </section>
     </div>
+
     
+    <!-- alt-input-formats="altInputFormats" -->

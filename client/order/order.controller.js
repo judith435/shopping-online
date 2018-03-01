@@ -1,5 +1,4 @@
 shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){ 
-    alert ('customer: ' + JSON.stringify($scope.customer));
     // $rootScope,
     // $templateRequest, 
     // $compile,
@@ -16,99 +15,50 @@ shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){
         }
     }
 
+
     $scope.order = function()  {
-        alert('submit order: ' );
+        let dati = $scope.deliveryDate.getDate() + '/' + 
+        ($scope.deliveryDate.getMonth() + 1) + '/' +
+        $scope.deliveryDate.getFullYear();
+        alert('submit order date selected: ' + dati);
     }
 
-// $scope.showStep1 = true;  //show step 1
-// $scope.showStep2 = false; //hide step 2
-// $scope.options  = ['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego','Dallas','	San Jose'];
+    //datepicker functions
+    $scope.openDatePicker = function() {
+        $scope.DatePicker.opened = true;
+    };
 
-// $scope.continueSignUp = function()  {
+    $scope.setDate = function(year, month, day) {
+        $scope.deliveryDate = new Date(year, month, day);
+    };
 
-// validateInputStep1();
-// if ($scope.errorsFound) { return; }
+    // $scope.today = function() {
+    //     // alert ('clicked today');
+    //     $scope.deliveryDate = new Date();
+    // };
 
-// $templateRequest("signUp/step2.html").then(function(html){
-// var template = $compile(html)($scope);
-// angular.element(document.querySelector('#signUP')).empty().append(template);
-// });
+    $scope.clear = function() {
+        $scope.deliveryDate = null;
+    };
 
-// }
+    //$scope.today();
+    $scope.format = 'dd/MM/yyyy';
+    $scope.dateOptions = {
+        dateDisabled: disabled,
+        maxDate: new Date().setMonth(new Date().getMonth() + 2),
+        minDate: new Date(),
+        startingDay: 7
+    };
 
-// $scope.completeSignUp = function()  {
+    // // Disable days with more than 3 orders
+    function disabled(data) {
+        let date = data.date, mode = data.mode;
+            //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '1/3/2018');
+    }
 
-// validateInputStep2();
-// if ($scope.errorsFound) { return; }
-
-// let customer = new Customer({   teudatZehut: $scope.id,
-// firstName: $scope.firstName,
-// lastName: $scope.lastName,
-// email: $scope.email,
-// password: $scope.confirmPassword,
-// street: $scope.street,
-// city: $scope.city,
-// role: 'customer'});
-
-// signUpService.addCustomer(configSettings, customer, function(response) {  
-// if (response.data.status === 'error') {
-// alert('error occured - please contact support center');
-// return;
-// }
-// if (response.data.status === 'invalid input') {
-// alert(response.data.content);
-// return;
-// }
-// //after successfull sign up dispay home page
-// $rootScope.$broadcast('customer-added', customer);
-// });
-// }
-
-// function validateInputStep1() {    
-
-// $scope.errorsFound = false;
-
-// $scope.id_errorMessage = !$scope.id  ? 'ID required' : '';
-// $scope.errorsFound = $scope.id_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.email_errorMessage = !$scope.email ? 'Email  required' : '';
-// $scope.errorsFound = $scope.email_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.password_errorMessage = !$scope.password ? 'Password required' : '';
-// $scope.errorsFound = $scope.password_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? 'Confirm Password' : '';
-// $scope.errorsFound = $scope.confirmPassword_errorMessage !== '' || $scope.errorsFound;
-
-
-// if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { //product name missing - no point checking duplicate product
-// return;
-// }
-
-// // courseService.checkDuplicateProduct(configSettings, $scope.course, function(response) {
-// //     let duplicateCourseID = parseInt(response.data);
-// //     $scope.errorsFound = duplicateCourseID !== -1;
-// //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
-// //             ? 'course with same name already exists (courseID: ' + duplicateCourseID + ')' : '' ;
-// // });
-// }    
-
-// function validateInputStep2() {    
-
-// $scope.errorsFound = false;
-
-// $scope.city_errorMessage = !$scope.city  ? 'City required' : '';
-// $scope.errorsFound = $scope.city_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.street_errorMessage = !$scope.street ? 'Email  required' : '';
-// $scope.errorsFound = $scope.street_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.firstName_errorMessage = !$scope.firstName ? 'First Name required' : '';
-// $scope.errorsFound = $scope.firstName_errorMessage !== '' || $scope.errorsFound;
-
-// $scope.lastName_errorMessage = !$scope.lastName ? 'Last Name required' : '';
-// $scope.errorsFound = $scope.lastName_errorMessage !== '' || $scope.errorsFound;
-// }    
-
+    $scope.DatePicker = {
+        opened: false
+    };
 
 });
