@@ -65,21 +65,15 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         $scope.deliveryDate = new Date(year, month, day);
     };
 
-    // $scope.today = function() {
-    //     // alert ('clicked today');
-    //     $scope.deliveryDate = new Date();
-    // };
-
     $scope.clear = function() {
         $scope.deliveryDate = null;
     };
 
-    //$scope.today();
     $scope.format = 'dd/MM/yyyy';
     $scope.dateOptions = {
         dateDisabled: disabled,
         maxDate: new Date().setMonth(new Date().getMonth() + 2),
-        minDate: new Date(),
+        minDate: new Date().setDate(new Date().getDate() + 1),
         startingDay: 7
     };
 
@@ -87,7 +81,8 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     function disabled(data) {
         let date = data.date, mode = data.mode;
             //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '1/3/2018');
+            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '12/3/2018')
+            ||     mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '14/3/2018');
     }
 
     $scope.DatePicker = {
