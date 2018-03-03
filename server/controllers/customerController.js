@@ -11,7 +11,7 @@ function addCustomer(req, callback) {
     if (!inputErrorsFound) {
         bl.addCustomer(customer, function(err, response) {
             if (err) {
-                callback('called by productController.addUpdateProduct => ' + err, null, null);
+                callback('called by customerController.addCustomer => ' + err, null, null);
             }
             else {
                  //send back customer info to be used as login info when new customer clicks start shoppin

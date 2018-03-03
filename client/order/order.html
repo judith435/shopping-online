@@ -27,7 +27,7 @@
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Shipping Date</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        <input type="text" class="dt-picker pull-left form-control" uib-datepicker-popup="{{format}}" 
+                        <input type="text" class="inline-control pull-left form-control" uib-datepicker-popup="{{format}}" 
                             ng-model="deliveryDate" is-open="DatePicker.opened" datepicker-options="dateOptions" close-text="Close" />
                         <button type="button" class="btn btn-default pull-left" ng-click="openDatePicker()"
                                 title='Dates with more than 3 scheduled deliveries are automatically disabled'>
@@ -36,10 +36,19 @@
                         <label class="validationError">{{shipping_date_errorMessage}}</label>     
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <span class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left"></span>
                     <span class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         Dates with more than 3 scheduled deliveries are automatically disabled</span>
+                </div> -->
+                <div class="form-group row">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Credit Card</label>
+                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        <input placeholder="Enter Credit Card" type="text" class="form-control" 
+                            ng-model='creditCard' ng-keyup='editCreditCard()' maxlength="19">
+                            <!-- ng-pattern="((?:(?:4\d{3})|(?:5[1-5]\d{2})|6(?:011|5[0-9]{2}))(?:-?|\040?)(?:\d{4}(?:-?|\040?)){3}|(?:3[4,7]\d{2})(?:-?|\040?)\d{6}(?:-?|\040?)\d{5})"> -->
+                        <label class="validationError">{{creditCard_errorMessage}}</label>     
+                    </div>
                 </div>
                 <div class="row button-row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

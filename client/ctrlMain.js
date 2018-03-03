@@ -51,6 +51,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 $scope.customerName = '';
                 $scope.customerContactInfo = '';
                 $scope.entryAction = '';
+                $scope.entryMessage = '';
 
                 return;
             }

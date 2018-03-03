@@ -1,4 +1,6 @@
-shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){ 
+shoppingApp.controller('ctrlOrder', function signUp($scope, 
+                                                    configSettings,
+                                                    $uibModal)   { 
     // $rootScope,
     // $templateRequest, 
     // $compile,
@@ -21,6 +23,18 @@ shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){
         ($scope.deliveryDate.getMonth() + 1) + '/' +
         $scope.deliveryDate.getFullYear();
         alert('submit order date selected: ' + dati);
+
+        var confirmationDialog = $uibModal.open({
+            templateUrl: 'order/orderConfirmation.html',
+            controller: 'orderConfirmationController',
+            size: 'md',
+            // resolve: {
+            //     product: function () {
+            //         return product;
+            //     }
+            // }
+        });
+
     }
 
     //datepicker functions
@@ -59,6 +73,21 @@ shoppingApp.controller('ctrlOrder', function signUp($scope, configSettings){
 
     $scope.DatePicker = {
         opened: false
+    };
+    //datepicker functions end
+
+    $scope.editCreditCard = function() {
+
+        var ccIN = $scope.creditCard;
+        var ccOUT = '';
+        ccIN = ccIN.replace(/\s/g, '');
+        for (var i=0; i < ccIN.length; i++) {
+            if (i%4 == 0 && i > 0) {
+                ccOUT = ccOUT.concat(' ');
+            }
+            ccOUT = ccOUT.concat(ccIN[i]);
+        }
+        $scope.creditCard = ccOUT;
     };
 
 });
