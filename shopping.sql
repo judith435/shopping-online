@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_carts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
+AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`orders` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
+AUTO_INCREMENT = 16
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 71
+AUTO_INCREMENT = 81
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
@@ -228,12 +228,12 @@ BEGIN
 		SELECT 	shopping_carts.id,
 				shopping_carts.customer,
                 shopping_carts.creation_date as creationDate,
-                IFNULL(orders.order_date, "no order date") as orderDate
+                IFNULL(orders.order_date, "") as orderDate
 		FROM    shopping_carts 
         left outer  join (select max(creation_date) as last_cart_creation_date,
 						  customer	
 						  from	shopping_carts
-                          where customer = teudatZehut ) as tblCustomerCartHistory
+                          where customer = teudatZehut) as tblCustomerCartHistory
 		on tblCustomerCartHistory.customer = shopping_carts.customer
         left outer join orders
         on orders.shopping_cart = shopping_carts.id

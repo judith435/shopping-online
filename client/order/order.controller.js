@@ -1,5 +1,6 @@
 shoppingApp.controller('ctrlOrder', function signUp($scope, 
                                                     configSettings,
+                                                    customerInfo,
                                                     cartInfo,
                                                     orderService,
                                                     $uibModal)   { 
@@ -9,13 +10,15 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     // signUpService) {
 
     $scope.options  = configSettings.citiesList;
+    const customer = customerInfo.getCustomerInfo();
+                                                    
 
     $scope.inputDoubleClick = function(inputCtrl)  {
         if (inputCtrl.name === 'city') {
-            $scope.order.city = $scope.customer.city;
+            $scope.order.city = customer.city;
         }
         else {
-            $scope.order.street = $scope.customer.street;
+            $scope.order.street = customer.street;
         }
     }
 
@@ -26,7 +29,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo();
-        let order = new Order({ customer: $scope.customer.teudatZehut,
+        let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,

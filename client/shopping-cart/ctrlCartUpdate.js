@@ -1,5 +1,6 @@
 shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                                                 $routeParams,
+                                                                customerInfo,
                                                                 $uibModal,
                                                                 cartService, 
                                                                 imageService, 
@@ -9,11 +10,14 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                                                 // $filter)
 {
     $scope.ordering = $routeParams.cartStatus === 'order';
+    const customer = customerInfo.getCustomerInfo();
+    const cart  = cartInfo.getCartInfo();
 
-    $scope.cartOwner = 'My Cart: ' + $scope.customer.firstName + ' ' + $scope.customer.lastName
+    $scope.cartOwner = 'My Cart: ' + customer.firstName + ' ' + customer.lastName
     $scope.cartItems = [];
 
-    if (!$scope.cart) { //no cart found for customer - create one
+    //no cart found for customer - create one / or cart order submitted => in both cases create new cart
+    if (!cart || cart.orderDate) { 
         addCart(); 
     }
     else {//get last cart items
@@ -22,22 +26,23 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
     function addCart() {
 
-        cartService.addCart(configSettings, $scope.customer.teudatZehut, function(response) {  
+        cartService.addCart(configSettings, customer.teudatZehut, function(response) {  
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
                 return;
             }
 
-            $scope.cart = new Cart ({   id: response.data.content,
-                                        customer: $scope.customer.teudatZehut,
+            cart = new Cart ({   id: response.data.content,
+                                        customer: customer.teudatZehut,
                                         creationDate: new Date() 
-                                    }) 
+                            });
+            cartInfo.addCartInfo(cart);
         });
     }
 
     function getCartItems() {
 
-        cartService.getCartItems(configSettings, $scope.cart.id, function(response) {  
+        cartService.getCartItems(configSettings, cart.id, function(response) {  
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
                 return;
@@ -69,7 +74,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                             productPrice: product.price,
                                             quantity: productQuantity,
                                             price: Math.round(productQuantity * product.price * 100) / 100,
-                                            shoppingCart: $scope.cart.id 
+                                            shoppingCart: cart.id 
                                         })
                                         
             cartService.addCartItem(configSettings, cartItem, function(response) {  
@@ -104,7 +109,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.clearCart = function() { 
-        cartService.clearCart(configSettings, $scope.cart.id, function(response) {  
+        cartService.clearCart(configSettings, cart.id, function(response) {  
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
                 return;
@@ -114,10 +119,13 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.order = function() { 
-        
-        $scope.cart.cartItems = $scope.cartItems;
-        $scope.cart.cartTotal = $scope.cartTotal;
-        cartInfo.addCartInfo($scope.cart);
+        if ($scope.cartItems.length === 0) {
+            alert ('cart empty');
+            return;
+        }
+        cart.cartItems = $scope.cartItems;
+        cart.cartTotal = $scope.cartTotal;
+        cartInfo.addCartInfo(cart);
 
         $location.path("/order").search({cartStatus: 'order'});
     }

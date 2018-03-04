@@ -1,10 +1,12 @@
 shoppingApp.controller('ctrlMain', function handleMain( $scope,
+                                                        configSettings,
                                                         $location,
                                                         // $templateRequest,
                                                         // $compile,
                                                         loginService,
-                                                        cartService, 
-                                                        configSettings) 
+                                                        customerInfo,
+                                                        cartInfo,
+                                                        cartService) 
 {
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -17,7 +19,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
     // return;
 
-    $scope.cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
+    var cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
 
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
@@ -61,14 +63,16 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     
      }
 
-     function setPageForLoggedInUser(customerInfo, action) {
-        $scope.customer = new Customer(customerInfo);
-        $scope.customerName = 'Hello ' + $scope.customer.firstName + ' ' + $scope.customer.lastName;
-        $scope.customerContactInfo = 'Contact: ' + $scope.customer.email;
+     function setPageForLoggedInUser(cust, action) { //$scope.customer.
+        const customer = new Customer(cust);
+        customerInfo.addCustomerInfo(customer);
 
-        if ($scope.customer.role === 'customer') {
+        $scope.customerName = 'Hello ' + customer.firstName + ' ' + customer.lastName;
+        $scope.customerContactInfo = 'Contact: ' + customer.email;
+
+        if (customer.role === 'customer') {
             loadHomePage(); 
-            cartService.getLastCart(configSettings, $scope.customer.teudatZehut, function(response) {  
+            cartService.getLastCart(configSettings, customer.teudatZehut, function(response) {  
                 if (response.data.status === 'error') {
                     alert('error occured - please contact support center');
                     return;
@@ -78,19 +82,23 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 //existing customer without cart => never started shopping
                 if (action === 'newCustomer' || response.data.content === 'no cart found for customer' ) {
                     $scope.entryAction = 'Start Shopping';
-                    $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName +
+                    $scope.entryMessage = 'Welcome ' + customer.firstName + ' ' + customer.lastName +
                                           ' to your first purchase';
                     return;                      
                 }
 
                 //existing customer with existing cart
-                $scope.cart = new Cart(response.data.content);
-                //in case order date exists customer placed order for last open cart and is now startin a new cart => Start Shopping
-                $scope.entryAction = $scope.cart.orderDate === 'no order date' ? 'Resume Shopping' : 'Start Shopping';
-                let displayDate = buildDisplayDate($scope.cart.orderDate === 'no order date' ?
-                    $scope.cart.creationDate : $scope.cart.orderDate);
-                $scope.entryMessage = 'Notification: ' +  $scope.cart.orderDate === 'no order date' ? 
-                    'You have an open cart from' : 'Your last purchase was on'   + displayDate;
+
+                cart = new Cart(response.data.content);
+                cartInfo.addCartInfo(cart);
+
+                //in case order date exists customer placed order for last open cart and is now starting a new cart => Start Shopping
+                $scope.entryAction = !cart.orderDate ? 'Resume Shopping' : 'Start Shopping';
+
+                let displayDate = buildDisplayDate(!cart.orderDate ?
+                    cart.creationDate : cart.orderDate);
+                let notification = !cart.orderDate  ? 'You have an open cart from ' : 'Your last purchase was on ';    
+                $scope.entryMessage = 'Notification: ' +  notification + displayDate;
             });
         }
         else { //customer is admin load update product page
@@ -107,7 +115,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
     $scope.$on('customer-added', function(event, customer) {
-        $scope.cart = ''; //reset cart info for new customer
+        // $scope.cart = ''; //reset cart info for new customer
         setPageForLoggedInUser(customer, 'newCustomer');
     });
      
