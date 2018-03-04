@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`customers` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `e_mail` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(15) NOT NULL,
+  `pass_word` VARCHAR(15) NOT NULL,
   `street` VARCHAR(45) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
   `role` VARCHAR(8) CHARACTER SET 'big5' NOT NULL,
@@ -61,19 +61,19 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_carts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `shopping`.`order`
+-- Table `shopping`.`orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopping`.`order` (
+CREATE TABLE IF NOT EXISTS `shopping`.`orders` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `customer` INT(11) NOT NULL,
   `shopping_cart` INT(11) NOT NULL,
-  `price` DECIMAL(10,0) NOT NULL,
-  `delivery_town` VARCHAR(45) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `delivery_city` VARCHAR(45) NOT NULL,
   `delivery_street` VARCHAR(45) NOT NULL,
   `delivery_date` DATE NOT NULL,
   `order_date` DATE NOT NULL,
@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`order` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -111,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 64
+AUTO_INCREMENT = 74
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -138,10 +139,25 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
+AUTO_INCREMENT = 71
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
+
+-- -----------------------------------------------------
+-- procedure clear_cart
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clear_cart`(IN cartID int)
+BEGIN
+
+	delete from shopping_cart_items where shopping_cart = cartID;
+    
+END$$
+
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- procedure delete_cart_item
@@ -194,7 +210,7 @@ BEGIN
                 role
 		from    customers
         where e_mail = email
-        and password = passWord;
+        and pass_word = passWord;
         
 END$$
 
@@ -312,9 +328,49 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_customer`(in teudatZehut int
 BEGIN
 
     INSERT INTO customers
-    (teudat_zehut, first_name, last_name, e_mail, password, street, city, role) 
+    (teudat_zehut, first_name, last_name, e_mail, pass_word, street, city, role) 
     VALUES 
     (teudatZehut, firstName, lastName, email, password, street, city, role);     
+    
+ 
+    
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure insert_order
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_order`(in customer int(11),
+															in shoppingCart int(11),
+                                                            in price decimal(10,2),
+                                                            in deliveryCity  varchar(45),
+                                                            in deliveryStreet  varchar(45),
+                                                            in deliveryDate  date,
+                                                            in ccInfo  smallint)
+BEGIN
+
+    INSERT INTO orders
+    (	customer, 
+		shopping_cart, 
+        price, 
+        delivery_city, 
+        delivery_street, 
+        delivery_date, 
+        order_date, 
+        credit_card_info) 
+    VALUES 
+    (	customer, 
+		shoppingCart, 
+        price, 
+        deliveryCity, 
+        deliveryStreet, 
+        deliveryDate, 
+        now(), #order_date
+        ccInfo);     
     
  
     

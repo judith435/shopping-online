@@ -9,6 +9,7 @@ const apiCart = require('./api/cartAPI.js');
 const apiCategory = require('./api/categoryAPI.js');
 const apiCustomer = require('./api/customerAPI.js');
 const apiLogin = require('./api/loginAPI.js');
+const apiOrder = require('./api/orderAPI.js');
 const apiProduct = require('./api/productAPI.js');
 
 const app = express();
@@ -59,6 +60,8 @@ app.get('/category/ddl', apiCategory.getCategoryDDL);
 app.get('/product', apiProduct.getProducts);
 app.post('/product', apiProduct.addProduct);
 app.put('/product', apiProduct.updateProduct);
+
+app.post('/order', apiOrder.addOrder);
 
 var server = app.listen(8085, function () {
 })
