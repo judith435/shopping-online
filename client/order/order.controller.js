@@ -57,11 +57,6 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     
             });
         });
-                        
-        // let dati = $scope.order.deliveryDate.getDate() + '/' + 
-        // ($scope.order.deliveryDate.getMonth() + 1) + '/' +
-        // $scope.order.deliveryDate.getFullYear();
-        // alert('submit order date selected: ' + dati);
 
     }
 

@@ -74,28 +74,32 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                     return;
                 }
 
-                if (response.data.content !== 'no cart found for customer') {
-                    $scope.cart = new Cart(response.data.content);
-                }
-
+                //action === 'newCustomer' => state after sign up of new customer or 
+                //existing customer without cart => never started shopping
                 if (action === 'newCustomer' || response.data.content === 'no cart found for customer' ) {
                     $scope.entryAction = 'Start Shopping';
                     $scope.entryMessage = 'Welcome ' + $scope.customer.firstName + ' ' + $scope.customer.lastName +
                                           ' to your first purchase';
+                    return;                      
                 }
-                else { //existing customer
-                    $scope.entryAction = 'Resume Shopping';
-                    $scope.entryMessage = 'Notification: you have an open cart from ' + 
-                    $scope.cart.creation_date.substring(8,10) + '/' 
-                        + $scope.cart.creation_date.substring(5,7) + '/'
-                        + $scope.cart.creation_date.substring(0,4) ;
-                }
-    
+
+                //existing customer with existing cart
+                $scope.cart = new Cart(response.data.content);
+                //in case order date exists customer placed order for last open cart and is now startin a new cart => Start Shopping
+                $scope.entryAction = $scope.cart.orderDate === 'no order date' ? 'Resume Shopping' : 'Start Shopping';
+                let displayDate = buildDisplayDate($scope.cart.orderDate === 'no order date' ?
+                    $scope.cart.creationDate : $scope.cart.orderDate);
+                $scope.entryMessage = 'Notification: ' +  $scope.cart.orderDate === 'no order date' ? 
+                    'You have an open cart from' : 'Your last purchase was on'   + displayDate;
             });
         }
         else { //customer is admin load update product page
             loadProductUpdatePage();          
         }
+     }
+
+     function buildDisplayDate(date) {
+        return date.substring(8,10) + '/' +   date.substring(5,7) + '/' +   date.substring(0,4);
      }
 
      $scope.signUp = function() {

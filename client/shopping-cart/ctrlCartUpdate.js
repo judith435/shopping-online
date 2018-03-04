@@ -30,7 +30,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
             $scope.cart = new Cart ({   id: response.data.content,
                                         customer: $scope.customer.teudatZehut,
-                                        creation_date: new Date() 
+                                        creationDate: new Date() 
                                     }) 
         });
     }
