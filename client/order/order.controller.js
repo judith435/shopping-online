@@ -1,5 +1,7 @@
 shoppingApp.controller('ctrlOrder', function signUp($scope, 
                                                     configSettings,
+                                                    cartInfo,
+                                                    orderService,
                                                     $uibModal)   { 
     // $rootScope,
     // $templateRequest, 
@@ -10,10 +12,10 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
 
     $scope.inputDoubleClick = function(inputCtrl)  {
         if (inputCtrl.name === 'city') {
-            $scope.city = $scope.customer.city;
+            $scope.order.city = $scope.customer.city;
         }
         else {
-            $scope.street = $scope.customer.street;
+            $scope.order.street = $scope.customer.street;
         }
     }
 
@@ -23,31 +25,60 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         validateInput();
         if ($scope.errorsFound) { return; }
 
-        let dati = $scope.deliveryDate.getDate() + '/' + 
-        ($scope.deliveryDate.getMonth() + 1) + '/' +
-        $scope.deliveryDate.getFullYear();
-        alert('submit order date selected: ' + dati);
+        let cart = cartInfo.getCartInfo();
+        let order = new Order({ customer: $scope.customer.teudatZehut,
+                                shoppingCart: cart.id,
+                                price: cart.cartTotal,
+                                deliveryCity: $scope.order.city,
+                                deliveryStreet: $scope.order.street,
+                                deliveryDate: $scope.order.deliveryDate,
+                                ccInfo: $scope.order.creditCard.substring(15)});
 
-        var confirmationDialog = $uibModal.open({
-            templateUrl: 'order/orderConfirmation.html',
-            controller: 'orderConfirmationController',
-            size: 'md',
-            // resolve: {
-            //     product: function () {
-            //         return product;
-            //     }
-            // }
+        orderService.addOrder(configSettings, order, function(response) {  
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+                return;
+            }
+            if (response.data.status === 'invalid input') {
+                alert(response.data.content);
+                return;
+            }
+            //after successfull save of order dispay order popup
+            var confirmationDialog = $uibModal.open({
+                templateUrl: 'order/orderConfirmation.html',
+                controller: 'orderConfirmationController',
+                size: 'md',
+            });
         });
+                        
+        // let dati = $scope.order.deliveryDate.getDate() + '/' + 
+        // ($scope.order.deliveryDate.getMonth() + 1) + '/' +
+        // $scope.order.deliveryDate.getFullYear();
+        // alert('submit order date selected: ' + dati);
+
     }
 
     function validateInput() {    
 
         $scope.errorsFound = false;
 
-        if ($scope.creditCard) {
+        //city
+        $scope.city_errorMessage = !$scope.order.city ? 'city  required' : '';
+        $scope.errorsFound = $scope.city_errorMessage !== '' || $scope.errorsFound;
+
+        //street
+        $scope.street_errorMessage = !$scope.order.street ? 'street  required' : '';
+        $scope.errorsFound = $scope.street_errorMessage !== '' || $scope.errorsFound;
+        
+        //delivery date
+        $scope.delivery_date_errorMessage = !$scope.order.deliveryDate ? 'delivery date  required' : '';
+        $scope.errorsFound = $scope.delivery_date_errorMessage !== '' || $scope.errorsFound;
+        
+        //credit card
+        if ($scope.order.creditCard) {
             var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
-            var ccValid = ccRegex.test($scope.creditCard.replace(/\s/g, ''));
-            $scope.creditCard_errorMessage = !ccValid  ? 'Invalid Credit Card' : 'Credit Card Valid';
+            var ccValid = ccRegex.test($scope.order.creditCard.replace(/\s/g, ''));
+            $scope.creditCard_errorMessage = !ccValid  ? 'Invalid Credit Card' : '';
             $scope.errorsFound = !ccValid;
         }
         else {
@@ -56,24 +87,24 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         }
     }
 
-    //datepicker functions
+    //datepicker functions start
+    $scope.DatePicker = {
+        opened: false
+    };
+
     $scope.openDatePicker = function() {
         $scope.DatePicker.opened = true;
     };
 
     $scope.setDate = function(year, month, day) {
-        $scope.deliveryDate = new Date(year, month, day);
+        $scope.order.deliveryDate = new Date(year, month, day);
     };
-
-    $scope.clear = function() {
-        $scope.deliveryDate = null;
-    };
-
     $scope.format = 'dd/MM/yyyy';
+  
     $scope.dateOptions = {
         dateDisabled: disabled,
         maxDate: new Date().setMonth(new Date().getMonth() + 2),
-        minDate: new Date().setDate(new Date().getDate() + 1),
+        minDate: new Date(),
         startingDay: 7
     };
 
@@ -81,18 +112,14 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     function disabled(data) {
         let date = data.date, mode = data.mode;
             //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '12/3/2018')
+            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '4/3/2018')
             ||     mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '14/3/2018');
     }
-
-    $scope.DatePicker = {
-        opened: false
-    };
     //datepicker functions end
 
     $scope.editCreditCard = function() {  
 
-        var ccIN = $scope.creditCard;
+        var ccIN = $scope.order.creditCard;
         var ccOUT = '';
         ccIN = ccIN.replace(/\s/g, '');
         for (var i=0; i < ccIN.length; i++) {
@@ -101,7 +128,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
             }
             ccOUT = ccOUT.concat(ccIN[i]);
         }
-        $scope.creditCard = ccOUT;
+        $scope.order.creditCard = ccOUT;
     };
 
 });

@@ -5,6 +5,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                                                 cartService, 
                                                                 imageService, 
                                                                 configSettings,
+                                                                cartInfo,
                                                                 $location)
                                                                 // $filter)
 {
@@ -100,6 +101,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
             $scope.cartTotal += $scope.cartItems[i].price;
         }
         $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100
+
     }
 
     $scope.clearCart = function() { 
@@ -113,6 +115,10 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     }
 
     $scope.order = function() { 
+        
+        $scope.cart.cartTotal = $scope.cartTotal;
+        cartInfo.addCartInfo($scope.cart);
+
         $location.path("/order").search({cartStatus: 'order'});
     }
 
