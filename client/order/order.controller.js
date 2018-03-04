@@ -25,10 +25,10 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         validateInput();
         if ($scope.errorsFound) { return; }
 
-        let cart = cartInfo.getCartInfo();
+        let cartDetails = cartInfo.getCartInfo();
         let order = new Order({ customer: $scope.customer.teudatZehut,
-                                shoppingCart: cart.id,
-                                price: cart.cartTotal,
+                                shoppingCart: cartDetails.id,
+                                price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,
                                 deliveryStreet: $scope.order.street,
                                 deliveryDate: $scope.order.deliveryDate,
@@ -43,11 +43,18 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
                 alert(response.data.content);
                 return;
             }
+
             //after successfull save of order dispay order popup
             var confirmationDialog = $uibModal.open({
                 templateUrl: 'order/orderConfirmation.html',
                 controller: 'orderConfirmationController',
                 size: 'md',
+                resolve: {
+                    cartDetails: function () {
+                        return cartDetails;
+                    }
+                }
+    
             });
         });
                         

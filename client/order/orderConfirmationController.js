@@ -1,11 +1,24 @@
-shoppingApp.controller('orderConfirmationController', function($scope, $uibModalInstance, $location) {
+shoppingApp.controller('orderConfirmationController', function($scope, $uibModalInstance, $location, cartDetails) {
 
     $scope.downloadReceipt = function () {
-        var fileText = "receipt for purchase on 28/02/2018\r\nList of Items\r\nguavas\r\nIce Cream";
-        var fileName = "receipt.txt"
+        var purchaseDate =  cartDetails.creation_date.substring(8,10) + '/' + 
+                            cartDetails.creation_date.substring(5,7) + '/' +
+                            cartDetails.creation_date.substring(0,4);
+        var fileText = 'Receipt for purchase on ' + purchaseDate + '\r\nList of Items' + buildItemList();
+        fileText += '\r\nTotal: ' + cartDetails.cartTotal + '$';
+        var fileName = 'receipt_'  + purchaseDate + '.txt';
         saveTextAsFile(fileText, fileName);
-
     };
+
+    function buildItemList() {
+        var items = '';
+        for (let i = 0; i < cartDetails.cartItems.length; i++) { 
+            items +=  '\r\n' + cartDetails.cartItems[i].productName + ' ' + cartDetails.cartItems[i].quantity +
+                      ' unit(s) at ' + cartDetails.cartItems[i].productPrice +
+                      '$  => Total for item: ' + cartDetails.cartItems[i].price + '$';
+        }
+        return items;
+    }
 
     $scope.confirm = function () {
 

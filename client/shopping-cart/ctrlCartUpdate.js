@@ -1,5 +1,4 @@
 shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
-        // $rootScope, 
                                                                 $routeParams,
                                                                 $uibModal,
                                                                 cartService, 
@@ -116,6 +115,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
     $scope.order = function() { 
         
+        $scope.cart.cartItems = $scope.cartItems;
         $scope.cart.cartTotal = $scope.cartTotal;
         cartInfo.addCartInfo($scope.cart);
 
