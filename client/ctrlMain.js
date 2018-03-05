@@ -53,6 +53,14 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         $location.path("/home");
     }
 
+    function init() { 
+        $scope.customer = null;
+        $scope.customerName = '';
+        $scope.customerContactInfo = '';
+        $scope.entryAction = '';
+        $scope.entryMessage = '';
+    }
+
     $scope.login = function(loginInfo) {
         
         loginService.login(configSettings, loginInfo, function(response) {
@@ -63,12 +71,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
             if (response.data.status === 'noSuchCustomer') {
                 alert('no customer found with login details given');
-                $scope.customer = null;
-                $scope.customerName = '';
-                $scope.customerContactInfo = '';
-                $scope.entryAction = '';
-                $scope.entryMessage = '';
-
+                init();
                 return;
             }
              
@@ -147,7 +150,8 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
     $scope.logout = function(){
         loginService.logout(configSettings, function(response) {
-            alert(JSON.stringify(response));
+            loadHomePage(); 
+            init();
         });
     }
 });
