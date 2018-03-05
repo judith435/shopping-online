@@ -1,5 +1,22 @@
 const dal = require('..//dal/dal');
 const parmObject = require('..//dal/spParm');
+const model = require('../models/deliveryDateModel');
+
+function getDeliveryDates(callback) {
+    dal.executeQuery('shopping', 'get_filled_delivery_dates', '',function(err, rows) {
+        if (err) {
+            callback('called by orderBL.getDeliveryDates => ' + err);
+        }
+        else {
+            const deliveryDates = [];
+            rows[0].forEach(function (row) {
+                deliveryDates.push(new model.DeliveryDate(row));
+            });
+            callback(null, deliveryDates);
+        }
+    });
+}
+
 
 function addOrder(order, callback) {
     const spParms = []; 
@@ -20,4 +37,5 @@ function addOrder(order, callback) {
     });
 }
 
+module.exports.getDeliveryDates = getDeliveryDates;
 module.exports.addOrder = addOrder;

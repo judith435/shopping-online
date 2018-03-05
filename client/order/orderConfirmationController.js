@@ -1,10 +1,10 @@
 shoppingApp.controller('orderConfirmationController', function($scope, $uibModalInstance, $location, cartDetails) {
 
     $scope.downloadReceipt = function () {
-        var purchaseDate =  cartDetails.creationDate.substring(8,10) + '/' + 
-                            cartDetails.creationDate.substring(5,7) + '/' +
-                            cartDetails.creationDate.substring(0,4);
-        var fileText = 'Receipt for purchase on ' + purchaseDate + '\r\nList of Items' + buildItemList();
+        var purchaseDate =  String(new Date()).substring(1,24);//cartDetails.creationDate.substring(8,10) + '/' + 
+                            //cartDetails.creationDate.substring(5,7) + '/' +
+                           // cartDetails.creationDate.substring(0,4);
+        var fileText = 'Receipt for purchase ' + purchaseDate + '\r\nList of Items' + buildItemList();
         fileText += '\r\nTotal: ' + cartDetails.cartTotal + '$';
         var fileName = 'receipt_'  + purchaseDate + '.txt';
         saveTextAsFile(fileText, fileName);

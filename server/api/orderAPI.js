@@ -2,6 +2,20 @@ const sr = require('../share/serverResponse.js');
 const logError = require('../share/errorLogging.js');
 const orderCtrl = require('../controllers/orderController');
 
+function getDeliveryDates(req, res) {
+
+    orderCtrl.getDeliveryDates(function(err, deliveryDates) {
+        if (err) {
+          logError.writeToErrorLog('called by orderAPI.getDeliveryDates => ' + err);
+          var response =  new sr.ServerResponse('error', err);
+        }
+        else {
+                var response =  new sr.ServerResponse('ok', deliveryDates);
+        }
+        res.end(JSON.stringify(response));
+    })
+}
+
 function addOrder(req, res) {
                                             
     orderCtrl.addOrder(req, function(err, response, invalidInputDetails) {
@@ -21,4 +35,5 @@ function addOrder(req, res) {
     })
 }
 
+module.exports.getDeliveryDates = getDeliveryDates;
 module.exports.addOrder = addOrder;

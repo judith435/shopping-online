@@ -11,7 +11,7 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 {
     $scope.ordering = $routeParams.cartStatus === 'order';
     const customer = customerInfo.getCustomerInfo();
-    const cart  = cartInfo.getCartInfo();
+    var cart  = cartInfo.getCartInfo();
 
     $scope.cartOwner = 'My Cart: ' + customer.firstName + ' ' + customer.lastName
     $scope.cartItems = [];

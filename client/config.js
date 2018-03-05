@@ -1,7 +1,7 @@
 shoppingApp.constant('configSettings', {
     'shoppingApi': 'http://localhost:8085',
     'productImagePath': 'image_for_product_id_', 
-    'citiesList': ['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego','Dallas','	San Jose']
+    'citiesList': ['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego','Dallas','San Jose']
  }); 
 
 

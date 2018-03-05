@@ -2,6 +2,18 @@ const bl = require('../bl/orderBL');
 const model = require('../models/orderModel');
 const validations = require('../share/validations');
 
+function getDeliveryDates(callback) {
+
+    bl.getDeliveryDates(function(err, deliveryDates) {
+        if (err) {
+            callback('called by orderController.getDeliveryDates => ' + err);
+        }
+        else {
+            callback(null, deliveryDates);
+        }
+    })
+}
+
 
 function addOrder(req, callback) {
 
@@ -32,4 +44,5 @@ function orderValid(order) {
     return errorsFound;
 }
 
+module.exports.getDeliveryDates = getDeliveryDates;
 module.exports.addOrder = addOrder;

@@ -11,7 +11,17 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
-                                                    
+    var filledDeliveryDates;
+
+    orderService.getDeliveryDates(configSettings, function(response) {  
+        if (response.data.status === 'error') {
+            alert('error occured - please contact support center');
+            return;
+        }
+        alert (JSON.stringify(response.data.content));
+        filledDeliveryDates = response.data.content.map(record => record.deliveryDate);
+    });
+
 
     $scope.inputDoubleClick = function(inputCtrl)  {
         if (inputCtrl.name === 'city') {
@@ -28,13 +38,16 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         validateInput();
         if ($scope.errorsFound) { return; }
 
-        let cartDetails = cartInfo.getCartInfo();
+        let cartDetails = cartInfo.getCartInfo(); //2018-03-12
+        let deliveryDate =  $scope.order.deliveryDate.getFullYear() + '-' +
+                            ($scope.order.deliveryDate.getMonth() + 1) + '-' +
+                            $scope.order.deliveryDate.getDate();
         let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,
                                 deliveryStreet: $scope.order.street,
-                                deliveryDate: $scope.order.deliveryDate,
+                                deliveryDate: deliveryDate,
                                 ccInfo: $scope.order.creditCard.substring(15)});
 
         orderService.addOrder(configSettings, order, function(response) {  
@@ -116,9 +129,8 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     // // Disable days with more than 3 orders
     function disabled(data) {
         let date = data.date, mode = data.mode;
-            //return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-            return mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '4/3/2018')
-            ||     mode === 'day' && (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() === '14/3/2018');
+        return mode === 'day' && 
+            (filledDeliveryDates.indexOf(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()) >= 0);
     }
     //datepicker functions end
 

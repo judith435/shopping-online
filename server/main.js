@@ -61,6 +61,7 @@ app.get('/product', apiProduct.getProducts);
 app.post('/product', apiProduct.addProduct);
 app.put('/product', apiProduct.updateProduct);
 
+app.get('/order', apiOrder.getDeliveryDates);
 app.post('/order', apiOrder.addOrder);
 
 var server = app.listen(8085, function () {
