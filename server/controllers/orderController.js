@@ -38,10 +38,10 @@ function addOrder(req, callback) {
 function orderValid(order) {
     let errorsFound = '';
 
-    errorsFound  = validations.inputEmpty(order.deliveryCity) ?  'City required \n' : '';
-    errorsFound += validations.inputEmpty(order.deliveryStreet) ? 'Street required \n' : '';
-    errorsFound += validations.inputEmpty(order.deliveryDate) ? 'Delivery Date required \n' : '';
-    errorsFound += validations.inputEmpty(order.ccInfo) ? 'Credit Card required \n' : '';
+    errorsFound  =  validations.inputEmpty(order.deliveryCity) ?  'city required \n' : '';
+    errorsFound +=  validations.inputEmpty(order.deliveryStreet) ? 'street required \n' : '';
+    errorsFound += !validations.dateValid(order.deliveryDate) ? 'valid delivery date required \n' : '';
+    errorsFound += !validations.creditCardValid(order.ccInfo) ? 'valid credit card required \n' : '';
 
     return errorsFound;
 }

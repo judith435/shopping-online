@@ -26,7 +26,7 @@ function addOrder(order, callback) {
     spParms.push(new parmObject.spParm(order.deliveryCity, true));
     spParms.push(new parmObject.spParm(order.deliveryStreet, true));
     spParms.push(new parmObject.spParm(order.deliveryDate, true));
-    spParms.push(new parmObject.spParm(order.ccInfo, false));
+    spParms.push(new parmObject.spParm(order.ccInfo.substring(12), false));
 
     dal.executeQuery('shopping', 'insert_order', spParms, function(err, rows) {
         if (err) {

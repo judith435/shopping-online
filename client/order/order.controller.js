@@ -39,17 +39,19 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         // if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
-        let deliveryDate =  $scope.order.deliveryDate.getFullYear() + '-' +
-                            ($scope.order.deliveryDate.getMonth() + 1) + '-' +
-                            $scope.order.deliveryDate.getDate();
+        let deliveryDate = '';
+        if ($scope.order.deliveryDate) {
+            deliveryDate =  $scope.order.deliveryDate.getFullYear() + '-' +
+            ($scope.order.deliveryDate.getMonth() + 1) + '-' +
+            $scope.order.deliveryDate.getDate();
+        }
         let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,
                                 deliveryStreet: $scope.order.street,
                                 deliveryDate: deliveryDate,
-                                ccInfo: $scope.order.creditCard.substring(15)});
-
+                                ccInfo: $scope.order.creditCard});
         orderService.addOrder(configSettings, order, function(response) {  
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
@@ -108,7 +110,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
             $scope.errorsFound = !ccValid || $scope.errorsFound;
         }
         else {
-            $scope.creditCard_errorMessage = 'Credit Card required';
+            $scope.creditCard_errorMessage = 'credit card required';
             $scope.errorsFound = true;
         }
     }

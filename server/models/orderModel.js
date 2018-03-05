@@ -9,3 +9,7 @@ function Order(order) {
 }
 
 module.exports.Order = Order;
+
+
+
+                                //ccInfo: $scope.order.creditCard.replace(/\s/g, '')});

@@ -74,7 +74,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 init();
                 return;
             }
-             
             setPageForLoggedInUser(response.data.content); //.customerInfo)
         });
     
