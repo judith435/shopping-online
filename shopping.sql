@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_carts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`orders` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 31
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 74
+AUTO_INCREMENT = 75
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 81
+AUTO_INCREMENT = 115
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
@@ -175,12 +175,12 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
--- procedure get_categories_for_ddl
+-- procedure get_categories
 -- -----------------------------------------------------
 
 DELIMITER $$
 USE `shopping`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_categories_for_ddl`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_categories`()
 BEGIN
 
 		SELECT 	id as value,
@@ -211,6 +211,26 @@ BEGIN
 		from    customers
         where e_mail = email
         and pass_word = passWord;
+        
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure get_filled_delivery_dates
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_filled_delivery_dates`()
+BEGIN
+
+        SELECT 	DATE_FORMAT(delivery_date,  "%e/%c/%Y") as deliveryDate, 
+        count(*) as occurrences
+		FROM    orders
+        group by delivery_date
+        having occurrences > 2;
+
         
 END$$
 
@@ -286,6 +306,24 @@ BEGIN
                 price
 		FROM    products
         order by name;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure get_store_statistics
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_store_statistics`()
+BEGIN
+
+		select count(*) as numberProducts, orders.numberOrders  
+        from products
+		left outer  join (select count(*) as numberOrders FROM orders) as orders
+        on 1 = 1;
+
 END$$
 
 DELIMITER ;
@@ -459,9 +497,6 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-
 
 
 insert into customers (teudat_zehut, first_name, last_name, e_mail, password, street, city, role) 

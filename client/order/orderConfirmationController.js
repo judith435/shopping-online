@@ -1,21 +1,27 @@
-shoppingApp.controller('orderConfirmationController', function($scope, $uibModalInstance, $location, cartDetails) {
+shoppingApp.controller('orderConfirmationController', function( $scope, 
+                                                                $uibModalInstance, 
+                                                                $rootScope, 
+                                                                orderDetails) {
 
+    const  customer = orderDetails[0];  
+    const  order = orderDetails[1];                                                                
+                                                              
     $scope.downloadReceipt = function () {
-        var purchaseDate =  String(new Date()).substring(1,24);//cartDetails.creationDate.substring(8,10) + '/' + 
-                            //cartDetails.creationDate.substring(5,7) + '/' +
-                           // cartDetails.creationDate.substring(0,4);
+        var purchaseDate =  String(new Date()).substring(1,24);//order.creationDate.substring(8,10) + '/' + 
+                            //order.creationDate.substring(5,7) + '/' +
+                           // order.creationDate.substring(0,4);
         var fileText = 'Receipt for purchase ' + purchaseDate + '\r\nList of Items' + buildItemList();
-        fileText += '\r\nTotal: ' + cartDetails.cartTotal + '$';
+        fileText += '\r\nTotal: ' + order.cartTotal + '$';
         var fileName = 'receipt_'  + purchaseDate + '.txt';
         saveTextAsFile(fileText, fileName);
     };
 
     function buildItemList() {
         var items = '';
-        for (let i = 0; i < cartDetails.cartItems.length; i++) { 
-            items +=  '\r\n' + cartDetails.cartItems[i].productName + ' ' + cartDetails.cartItems[i].quantity +
-                      ' unit(s) at ' + cartDetails.cartItems[i].productPrice +
-                      '$  => Total for item: ' + cartDetails.cartItems[i].price + '$';
+        for (let i = 0; i < order.cartItems.length; i++) { 
+            items +=  '\r\n' + order.cartItems[i].productName + ' ' + order.cartItems[i].quantity +
+                      ' unit(s) at ' + order.cartItems[i].productPrice +
+                      '$  => Total for item: ' + order.cartItems[i].price + '$';
         }
         return items;
     }
@@ -23,7 +29,7 @@ shoppingApp.controller('orderConfirmationController', function($scope, $uibModal
     $scope.confirm = function () {
 
         $uibModalInstance.close();
-        $location.path("/home");
+        $rootScope.$broadcast('order-submitted', customer);
 
     };
 

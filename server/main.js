@@ -11,6 +11,7 @@ const apiCustomer = require('./api/customerAPI.js');
 const apiLogin = require('./api/loginAPI.js');
 const apiOrder = require('./api/orderAPI.js');
 const apiProduct = require('./api/productAPI.js');
+const apiStore = require('./api/storeAPI.js');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +41,7 @@ app.get('/', function (req, res) {
    
 });
 
+app.get('/store', apiStore.getStatistics);
 
 app.get('/login', apiLogin.checkUserLoggedIn);
 app.post('/login', apiLogin.login);
@@ -55,7 +57,7 @@ app.post('/cartItem', apiCart.addCartItem);
 app.delete('/cartItem', apiCart.deleteCartItem);
 app.delete('/cartItem/all', apiCart.clearCart);
 
-app.get('/category/ddl', apiCategory.getCategoryDDL);
+app.get('/category', apiCategory.getCategories);
 
 app.get('/product', apiProduct.getProducts);
 app.post('/product', apiProduct.addProduct);

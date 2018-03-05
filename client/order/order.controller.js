@@ -38,7 +38,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
         validateInput();
         if ($scope.errorsFound) { return; }
 
-        let cartDetails = cartInfo.getCartInfo(); //2018-03-12
+        let cartDetails = cartInfo.getCartInfo(); 
         let deliveryDate =  $scope.order.deliveryDate.getFullYear() + '-' +
                             ($scope.order.deliveryDate.getMonth() + 1) + '-' +
                             $scope.order.deliveryDate.getDate();
@@ -60,14 +60,18 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
                 return;
             }
 
+            var orderDetails = [];
+            orderDetails.push(customer);
+            orderDetails.push(cartDetails);
+
             //after successfull save of order dispay order popup
             var confirmationDialog = $uibModal.open({
                 templateUrl: 'order/orderConfirmation.html',
                 controller: 'orderConfirmationController',
                 size: 'md',
                 resolve: {
-                    cartDetails: function () {
-                        return cartDetails;
+                    orderDetails: function () {
+                        return orderDetails;
                     }
                 }
     

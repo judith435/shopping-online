@@ -2,10 +2,10 @@ const categoryCtrl = require('../controllers/categoryController');
 const sr = require('../share/serverResponse.js');
 const logError = require('../share/errorLogging.js');
 
-function getCategoryDDL(req, res) {
-    categoryCtrl.getCategoryDDL(function(err, categories) {
+function getCategories(req, res) {
+    categoryCtrl.getCategories(function(err, categories) {
         if (err) { 
-            logError.writeToErrorLog('called by categoryAPI.getCategoryDDL => ' + err);
+            logError.writeToErrorLog('called by categoryAPI.getCategories => ' + err);
             var response =  new sr.ServerResponse('error', err);
         }
         else {
@@ -15,6 +15,4 @@ function getCategoryDDL(req, res) {
     })
 }
 
-
-
-module.exports.getCategoryDDL = getCategoryDDL;
+module.exports.getCategories = getCategories;

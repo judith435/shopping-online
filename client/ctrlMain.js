@@ -1,12 +1,13 @@
 shoppingApp.controller('ctrlMain', function handleMain( $scope,
                                                         configSettings,
-                                                        $location,
+                                                        storeService,
+                                                        cartService,
                                                         // $templateRequest,
                                                         // $compile,
                                                         loginService,
+                                                        $location,
                                                         customerInfo,
-                                                        cartInfo,
-                                                        cartService) 
+                                                        cartInfo)
 {
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -18,8 +19,21 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     // });
 
     // return;
-
     var cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
+
+    getStoreStatistics();
+
+    function getStoreStatistics() {
+        storeService.getStoreStatistics(configSettings, function(response) {
+            if (response.data.status === 'error') {
+                alert('error occured - please contact support center');
+            }
+            else {
+                $scope.numberProducts = response.data.content.numberProducts;
+                $scope.numberOrders = response.data.content.numberOrders;
+            }
+        });
+    }
 
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
@@ -28,7 +42,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         }
 
         if ('customerInfo' in response.data.content) {//logged in user on server found
-            setPageForLoggedInUser(response.data.content.customerInfo, 'loggedIn');
+            setPageForLoggedInUser(response.data.content.customerInfo);
         }
         else {//NO logged in user on server found
             loadHomePage(); 
@@ -58,12 +72,12 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                 return;
             }
              
-            setPageForLoggedInUser(response.data.content, 'afterLogin'); //.customerInfo)
+            setPageForLoggedInUser(response.data.content); //.customerInfo)
         });
     
      }
 
-     function setPageForLoggedInUser(cust, action) { //$scope.customer.
+     function setPageForLoggedInUser(cust) { //$scope.customer.
         const customer = new Customer(cust);
         customerInfo.addCustomerInfo(customer);
 
@@ -78,9 +92,8 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
                     return;
                 }
 
-                //action === 'newCustomer' => state after sign up of new customer or 
-                //existing customer without cart => never started shopping
-                if (action === 'newCustomer' || response.data.content === 'no cart found for customer' ) {
+                //customer without cart => never started shopping
+                if (response.data.content === 'no cart found for customer' ) {
                     $scope.entryAction = 'Start Shopping';
                     $scope.entryMessage = 'Welcome ' + customer.firstName + ' ' + customer.lastName +
                                           ' to your first purchase';
@@ -116,9 +129,14 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
 
     $scope.$on('customer-added', function(event, customer) {
         // $scope.cart = ''; //reset cart info for new customer
-        setPageForLoggedInUser(customer, 'newCustomer');
+        setPageForLoggedInUser(customer);
     });
-     
+  
+    $scope.$on('order-submitted', function(event, customer) {
+        getStoreStatistics();
+        setPageForLoggedInUser(customer);
+    });
+
     function loadProductUpdatePage() {
         $location.path("/products");
     }

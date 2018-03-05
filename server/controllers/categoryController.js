@@ -1,13 +1,13 @@
 const bl = require('../bl/categoryBL');
 
-function getCategoryDDL(callback) {
+function getCategories(callback) {
 
-    bl.category.getCategoryDDL(function(err, categoryArray) {
+    bl.getCategories(function(err, categoryArray) {
         if (err) {
-            callback('called by categoryController.getCategoryDDL => ' + err);
+            callback('called by categoryController.getCategories => ' + err);
         }
         callback(null, categoryArray);
     })
 }
 
-module.exports.getCategoryDDL = getCategoryDDL;
+module.exports.getCategories = getCategories;
