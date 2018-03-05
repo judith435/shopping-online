@@ -18,7 +18,24 @@ function getDeliveryDates(callback) {
 function addOrder(req, callback) {
 
     const order = new model.Order(JSON.parse(req.query.order));
+
+    // getDeliveryDates(function(err, deliveryDates) {
+    //     if (err) {
+    //       logError.writeToErrorLog('called by orderAPI.getDeliveryDates => ' + err);
+    //       var response =  new sr.ServerResponse('error', err);
+    //     }
+    //     else {
+    //             var response =  new sr.ServerResponse('ok', deliveryDates);
+    //     }
+    //     res.end(JSON.stringify(response));
+    // })
+
+
     const inputErrorsFound = orderValid(order);
+
+
+
+
 
     if (!inputErrorsFound) {
         bl.addOrder(order, function(err, response) {
