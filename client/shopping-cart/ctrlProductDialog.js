@@ -1,5 +1,5 @@
 
-shoppingApp.controller('ctrlProductDialog', function($scope, $uibModalInstance, product) {
+shoppingApp.controller("ctrlProductDialog", function($scope, $uibModalInstance, product) {
 
     $scope.productName = product.name;
     $scope.productQuantity = 1;
@@ -12,6 +12,6 @@ shoppingApp.controller('ctrlProductDialog', function($scope, $uibModalInstance, 
     };
 
     $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss("cancel");
     };
 });

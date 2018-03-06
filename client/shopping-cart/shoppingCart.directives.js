@@ -1,6 +1,6 @@
-shoppingApp.directive('shoppingCart', function () {
+shoppingApp.directive("shoppingCart", function () {
     return {
-              templateUrl: 'shopping-cart/shoppingCart.html'      
+              templateUrl: "shopping-cart/shoppingCart.html"      
            } 
   });
   

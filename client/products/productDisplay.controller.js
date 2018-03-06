@@ -1,4 +1,4 @@
-shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
+shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         $rootScope,
                                                                         productService, 
                                                                         categoryService,
@@ -9,20 +9,20 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
 
     function getProducts() {
         productService.getProducts(configSettings, function(products) {
-            if (products.data.status === 'error' ) {
-                alert('error occured - please contact support center');
+            if (products.data.status === "error" ) {
+                alert("error occured - please contact support center");
                 return;
             }
-            if (products.data.status === 'userNotLoggedIn' ) {
-                alert('user not logged in!!! tried to access product data');
+            if (products.data.status === "userNotLoggedIn" ) {
+                alert("user not logged in!!! tried to access product data");
                 return;
             }
             $scope.products = products.data.content;
-            // $scope.totalCourses = 'Total number of Courses: ' + courses.data.length;
+            // $scope.totalCourses = "Total number of Courses: " + courses.data.length;
             angular.element(function () {
                 $scope.$apply(function($scope) {
-                   imageService.loadCanvasList($scope.products, 'canvas-product-' , configSettings.productImagePath, 'small'); 
-                   imageService.clearCanvasList($scope.products, 'canvas-product-');
+                   imageService.loadCanvasList($scope.products, "canvas-product-" , configSettings.productImagePath, "small"); 
+                   imageService.clearCanvasList($scope.products, "canvas-product-");
                 });
             });
         });
@@ -32,8 +32,8 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
 
     function getCategories() {
         categoryService.getCategories(configSettings, function(response) {
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
             }
             else {
                 $scope.categories = response.data.content[0];
@@ -64,13 +64,13 @@ shoppingApp.controller('ctrlProductDisplay', function displayProducts(  $scope,
         }
     }  
 
-    $scope.$on('product-changed', function(event, opt) {
+    $scope.$on("product-changed", function(event, opt) {
         getProducts();
         $scope.active = opt.prod.category;
     });
 
     $scope.productSelected = function(product){
-        $rootScope.$broadcast('product-selected', product);
+        $rootScope.$broadcast("product-selected", product);
     }
 
 

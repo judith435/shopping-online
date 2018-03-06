@@ -1,4 +1,4 @@
-shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
+shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                                                                 $routeParams,
                                                                 customerInfo,
                                                                 $uibModal,
@@ -9,11 +9,11 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                                                 $location)
                                                                 // $filter)
 {
-    $scope.ordering = $routeParams.cartStatus === 'order';
+    $scope.ordering = $routeParams.cartStatus === "order";
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
 
-    $scope.cartOwner = 'My Cart: ' + customer.firstName + ' ' + customer.lastName
+    $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName
     $scope.cartItems = [];
 
     //no cart found for customer - create one / or cart order submitted => in both cases create new cart
@@ -27,8 +27,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     function addCart() {
 
         cartService.addCart(configSettings, customer.teudatZehut, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
                 return;
             }
 
@@ -43,8 +43,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
     function getCartItems() {
 
         cartService.getCartItems(configSettings, cart.id, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
                 return;
             }
             $scope.cartItems = response.data.content;
@@ -54,12 +54,12 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
 
 
-    $scope.$on('product-selected', function(event, product) {
+    $scope.$on("product-selected", function(event, product) {
 
         var productDialog = $uibModal.open({
-            templateUrl: 'shopping-cart/productDialog.html',
-            controller: 'ctrlProductDialog',
-            size: 'lg',
+            templateUrl: "shopping-cart/productDialog.html",
+            controller: "ctrlProductDialog",
+            size: "lg",
             resolve: {
                 product: function () {
                     return product;
@@ -78,8 +78,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
                                         })
                                         
             cartService.addCartItem(configSettings, cartItem, function(response) {  
-                if (response.data.status === 'error') {
-                    alert('error occured - please contact support center');
+                if (response.data.status === "error") {
+                    alert("error occured - please contact support center");
                     return;
                 }
                 cartItem.id = response.data.content;
@@ -91,8 +91,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
     $scope.deleteCartItem = function(cartItem) { 
         cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
                 return;
             }
             getCartItems();
@@ -110,8 +110,8 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
     $scope.clearCart = function() { 
         cartService.clearCart(configSettings, cart.id, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
                 return;
             }
             $scope.cartItems = [];
@@ -120,18 +120,18 @@ shoppingApp.controller('ctrlCartUpdate', function updateProducts($scope,
 
     $scope.order = function() { 
         if ($scope.cartItems.length === 0) {
-            alert ('cart empty');
+            alert ("cart empty");
             return;
         }
         cart.cartItems = $scope.cartItems;
         cart.cartTotal = $scope.cartTotal;
         cartInfo.addCartInfo(cart);
 
-        $location.path("/order").search({cartStatus: 'order'});
+        $location.path("/order").search({cartStatus: "order"});
     }
 
     $scope.returnToShopping = function() { 
-        $location.path("/shop").search({cartStatus: 'shop'});
+        $location.path("/shop").search({cartStatus: "shop"});
     }
 
 });

@@ -1,4 +1,4 @@
-shoppingApp.controller('ctrlSignUp', function signUp(   $scope, 
+shoppingApp.controller("ctrlSignUp", function signUp(   $scope, 
                                                         $rootScope,
                                                         configSettings, 
                                                         $templateRequest, 
@@ -16,7 +16,7 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
 
         $templateRequest("signUp/step2.html").then(function(html){
             var template = $compile(html)($scope);
-            angular.element(document.querySelector('#signUP')).empty().append(template);
+            angular.element(document.querySelector("#signUP")).empty().append(template);
         });
 
     }
@@ -33,19 +33,19 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
                                         password: $scope.confirmPassword,
                                         street: $scope.street,
                                         city: $scope.city,
-                                        role: 'customer'});
+                                        role: "customer"});
 
         signUpService.addCustomer(configSettings, customer, function(response) {  
-            if (response.data.status === 'error') {
-                alert('error occured - please contact support center');
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
                 return;
             }
-            if (response.data.status === 'invalid input') {
+            if (response.data.status === "invalid input") {
                 alert(response.data.content);
                 return;
             }
             //after successfull sign up dispay home page
-            $rootScope.$broadcast('customer-added', customer);
+            $rootScope.$broadcast("customer-added", customer);
         });
     }
 
@@ -54,19 +54,19 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
         $scope.errorsFound = false;
 
         //ID
-        $scope.id_errorMessage = !$scope.id  ? 'ID required' : '';
-        $scope.errorsFound = $scope.id_errorMessage !== '' || $scope.errorsFound;
+        $scope.id_errorMessage = !$scope.id  ? "ID required" : "";
+        $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
         
         //Email
-        $scope.email_errorMessage = !$scope.email ? 'Email  required' : '';
-        $scope.errorsFound = $scope.email_errorMessage !== '' || $scope.errorsFound;
+        $scope.email_errorMessage = !$scope.email ? "Email  required" : "";
+        $scope.errorsFound = $scope.email_errorMessage !== "" || $scope.errorsFound;
 
         //Passwords
-        $scope.password_errorMessage = !$scope.password ? 'Password required' : '';
-        $scope.errorsFound = $scope.password_errorMessage !== '' || $scope.errorsFound;
+        $scope.password_errorMessage = !$scope.password ? "Password required" : "";
+        $scope.errorsFound = $scope.password_errorMessage !== "" || $scope.errorsFound;
         
-        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? 'Confirm Password' : '';
-        $scope.errorsFound = $scope.confirmPassword_errorMessage !== '' || $scope.errorsFound;
+        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "Confirm Password" : "";
+        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
 
 
         if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { //product name missing - no point checking duplicate product
@@ -77,7 +77,7 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
         //     let duplicateCourseID = parseInt(response.data);
         //     $scope.errorsFound = duplicateCourseID !== -1;
         //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
-        //             ? 'course with same name already exists (courseID: ' + duplicateCourseID + ')' : '' ;
+        //             ? "course with same name already exists (courseID: " + duplicateCourseID + ")" : "" ;
         // });
     }    
 
@@ -85,17 +85,17 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
 
         $scope.errorsFound = false;
 
-        $scope.city_errorMessage = !$scope.city  ? 'City required' : '';
-        $scope.errorsFound = $scope.city_errorMessage !== '' || $scope.errorsFound;
+        $scope.city_errorMessage = !$scope.city  ? "City required" : "";
+        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
         
-        $scope.street_errorMessage = !$scope.street ? 'Email  required' : '';
-        $scope.errorsFound = $scope.street_errorMessage !== '' || $scope.errorsFound;
+        $scope.street_errorMessage = !$scope.street ? "Email  required" : "";
+        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
 
-        $scope.firstName_errorMessage = !$scope.firstName ? 'First Name required' : '';
-        $scope.errorsFound = $scope.firstName_errorMessage !== '' || $scope.errorsFound;
+        $scope.firstName_errorMessage = !$scope.firstName ? "First Name required" : "";
+        $scope.errorsFound = $scope.firstName_errorMessage !== "" || $scope.errorsFound;
         
-        $scope.lastName_errorMessage = !$scope.lastName ? 'Last Name required' : '';
-        $scope.errorsFound = $scope.lastName_errorMessage !== '' || $scope.errorsFound;
+        $scope.lastName_errorMessage = !$scope.lastName ? "Last Name required" : "";
+        $scope.errorsFound = $scope.lastName_errorMessage !== "" || $scope.errorsFound;
     }    
 
 

@@ -1,7 +1,7 @@
-shoppingApp.service('signUpService', function($http) {
+shoppingApp.service("signUpService", function($http) {
     
     this.checkDuplicateCustomer = function (configSettings, customer, success) { 
-        $http.get(configSettings.shoppingApi + '/customer/duplicate', {
+        $http.get(configSettings.shoppingApi + "/customer/duplicate", {
             params: {
                 product: product 
             }
@@ -10,8 +10,8 @@ shoppingApp.service('signUpService', function($http) {
 
     this.addCustomer = function(configSettings, customer, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/customer',
-            method: 'POST',
+            url: configSettings.shoppingApi + "/customer",
+            method: "POST",
             params: { customer: customer }
         }).then(success, error);
     }

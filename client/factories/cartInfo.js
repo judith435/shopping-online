@@ -1,5 +1,5 @@
-shoppingApp.factory('cartInfo', function() {
-  var cartInfo = '';
+shoppingApp.factory("cartInfo", function() {
+  var cartInfo = "";
 
   return {
     addCartInfo: addCartInfo,

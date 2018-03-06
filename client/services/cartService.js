@@ -1,25 +1,25 @@
-shoppingApp.service('cartService', function($http) {
+shoppingApp.service("cartService", function($http) {
 
     this.getLastCart = function(configSettings, teudatZehut, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cart',
-            method: 'GET',
+            url: configSettings.shoppingApi + "/cart",
+            method: "GET",
             params: { teudatZehut: teudatZehut }
         }).then(success, error);
     }
 
     this.addCart = function(configSettings, teudatZehut, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cart',
-            method: 'POST',
+            url: configSettings.shoppingApi + "/cart",
+            method: "POST",
             params: { teudatZehut: teudatZehut }
         }).then(success, error);
     }
 
     this.getCartItems = function(configSettings, cartID, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cartItem',
-            method: 'GET',
+            url: configSettings.shoppingApi + "/cartItem",
+            method: "GET",
             params: { cartID: cartID }
         }).then(success, error);
     }
@@ -27,24 +27,24 @@ shoppingApp.service('cartService', function($http) {
 
     this.addCartItem = function(configSettings, cartItem, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cartItem',
-            method: 'POST',
+            url: configSettings.shoppingApi + "/cartItem",
+            method: "POST",
             params: { cartItem: cartItem }
         }).then(success, error);
     }
 
     this.deleteCartItem = function(configSettings, cartItemID, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cartItem',
-            method: 'DELETE',
+            url: configSettings.shoppingApi + "/cartItem",
+            method: "DELETE",
             params: { cartItemID: cartItemID }
         }).then(success, error);
     }
 
     this.clearCart = function(configSettings, cartID, success, error) {
         $http({
-            url: configSettings.shoppingApi + '/cartItem/all',
-            method: 'DELETE',
+            url: configSettings.shoppingApi + "/cartItem/all",
+            method: "DELETE",
             params: { cartID: cartID }
         }).then(success, error);
     }
