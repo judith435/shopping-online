@@ -68,8 +68,12 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "Confirm Password" : "";
         $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
 
+        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "Confirm Password" : "";
+        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
 
-        if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { //product name missing - no point checking duplicate product
+
+        //id/email/passwords missing - no point checking duplicate customer
+        if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { 
             return;
         }
 

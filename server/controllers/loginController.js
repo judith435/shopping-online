@@ -1,5 +1,5 @@
-const bl = require('../bl/loginBL');
-const model = require('../models/loginModel');
+const bl = require("../bl/loginBL");
+const model = require("../models/loginModel");
 
 function login(req, callback) {
     
@@ -7,7 +7,7 @@ function login(req, callback) {
 
     bl.login(loginDetails, function(err, customerInfo, noSuchCustomer) {
         if (err) {
-          callback('called by loginController.login => ' + err, null, null);
+          callback("called by loginController.login => " + err, null, null);
         }
         else {
             if (customerInfo) {

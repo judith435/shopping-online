@@ -1,5 +1,5 @@
-const dal = require('..//dal/dal');
-const parmObject = require('..//dal/spParm');
+const dal = require("..//dal/dal");
+const parmObject = require("..//dal/spParm");
 
 function addCustomer(customer, callback) {
     //req.body
@@ -13,12 +13,12 @@ function addCustomer(customer, callback) {
     spParms.push(new parmObject.spParm(customer.city, true));
     spParms.push(new parmObject.spParm(customer.role, true));
 
-    dal.executeQuery('shopping', 'insert_customer', spParms, function(err, rows) {
+    dal.executeQuery("shopping", "insert_customer", spParms, function(err, rows) {
         if (err) {
-            callback('called by customerBL.addCustomer => ' + err, null, null);
+            callback("called by customerBL.addCustomer => " + err, null, null);
             return;
         }
-        callback(null, 'customer added successfully', null);
+        callback(null, "customer added successfully", null);
     });
 }
 

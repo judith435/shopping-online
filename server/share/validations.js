@@ -1,5 +1,5 @@
 function inputEmpty(input) {
-    if (!input) { //no value sent from client - field undefined or empty => ''
+    if (!input) { //no value sent from client - field undefined or empty => ""
         return true;
     }
 } 
@@ -30,13 +30,13 @@ function fileTooLarge(file) {
 
 function fileExtensionInvalid(file) {
     var extension = file.name.split(".").pop().toLowerCase();
-    return extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png' && extension !== 'gif'; 
+    return extension !== "jpg" && extension !== "jpeg" && extension !== "png" && extension !== "gif"; 
 }  
 
 
 //credit card validations start
 function creditCardValid(cc) {
-    if (!cc) { //no value sent from client - field undefined or empty => ''
+    if (!cc) { //no value sent from client - field undefined or empty => ""
         return false;
     }
     var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
@@ -51,7 +51,7 @@ function validateCC(cc) {
     // accept only digits, dashes or spaces
       if (/[^0-9-\s]+/.test(cc)) return false;
   
-      // The Luhn Algorithm. It's so pretty.
+      // The Luhn Algorithm. It"s so pretty.
       var nCheck = 0, nDigit = 0, bEven = false;
       cc = cc.replace(/\D/g, "");
   
@@ -67,7 +67,7 @@ function validateCC(cc) {
           bEven = !bEven;
       }
   
-      return (nCheck % 10) == 0;
+      return (nCheck % 10) === 0;
   }
 //credit card validations end
 

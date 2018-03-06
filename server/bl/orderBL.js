@@ -1,11 +1,11 @@
-const dal = require('..//dal/dal');
-const parmObject = require('..//dal/spParm');
-const model = require('../models/deliveryDateModel');
+const dal = require("..//dal/dal");
+const parmObject = require("..//dal/spParm");
+const model = require("../models/deliveryDateModel");
 
 function getDeliveryDates(callback) {
-    dal.executeQuery('shopping', 'get_filled_delivery_dates', '',function(err, rows) {
+    dal.executeQuery("shopping", "get_filled_delivery_dates", "",function(err, rows) {
         if (err) {
-            callback('called by orderBL.getDeliveryDates => ' + err);
+            callback("called by orderBL.getDeliveryDates => " + err);
         }
         else {
             const deliveryDates = [];
@@ -28,12 +28,12 @@ function addOrder(order, callback) {
     spParms.push(new parmObject.spParm(order.deliveryDate, true));
     spParms.push(new parmObject.spParm(order.ccInfo.substring(12), false));
 
-    dal.executeQuery('shopping', 'insert_order', spParms, function(err, rows) {
+    dal.executeQuery("shopping", "insert_order", spParms, function(err, rows) {
         if (err) {
-            callback('called by orderBL.addOrder => ' + err, null, null);
+            callback("called by orderBL.addOrder => " + err, null, null);
             return;
         }
-        callback(null, 'order added successfully', null);
+        callback(null, "order added successfully", null);
     });
 }
 

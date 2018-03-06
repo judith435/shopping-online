@@ -1,6 +1,6 @@
-const bl = require('../bl/customerBL');
-const model = require('../models/customerModel');
-const validations = require('../share/validations');
+const bl = require("../bl/customerBL");
+const model = require("../models/customerModel");
+const validations = require("../share/validations");
 
 
 function addCustomer(req, callback) {
@@ -11,12 +11,12 @@ function addCustomer(req, callback) {
     if (!inputErrorsFound) {
         bl.addCustomer(customer, function(err, response) {
             if (err) {
-                callback('called by customerController.addCustomer => ' + err, null, null);
+                callback("called by customerController.addCustomer => " + err, null, null);
             }
             else {
                  //send back customer info to be used as login info when new customer clicks start shoppin
-                 //must 'star out' password first -> this can NEVER be sent back to client
-                customer.password = '***************';
+                 //must "star out" password first -> this can NEVER be sent back to client
+                customer.password = "***************";
                 callback(null, customer, null);
             }
         })
@@ -27,10 +27,10 @@ function addCustomer(req, callback) {
 }
 
 function customerValid(customer) {
-    let errorsFound = '';
+    let errorsFound = "";
 
-    errorsFound  = validations.inputEmpty(customer.firstName) ?  'First Name required \n' : '';
-    errorsFound += validations.inputEmpty(customer.city) ? 'city required \n' : '';
+    errorsFound  = validations.inputEmpty(customer.firstName) ?  "First Name required \n" : "";
+    errorsFound += validations.inputEmpty(customer.city) ? "city required \n" : "";
 
     return errorsFound;
 }
