@@ -25,9 +25,9 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
 
         if(!filename) filename = "console.json"
 
-        var blob = new Blob([data], {type: "text/plain"}),
-            e    = document.createEvent("MouseEvents"),
-            a    = document.createElement("a")
+        var blob = new Blob([data], {type: "text/plain"});
+        var e    = document.createEvent("MouseEvents");
+        var a    = document.createElement("a");
     // FOR IE:
 
         if (window.navigator && window.navigator.msSaveOrOpenBlob) {

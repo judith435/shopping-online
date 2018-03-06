@@ -1,0 +1,2 @@
+
+following error occured at Tue Mar 06 2018 14:45:49 GMT+0200 (Jerusalem Standard Time) : "called by cartAPI.addCart => called by cartController.addCart => called by cartBL.addCart error in dal => Error: ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'field list'"

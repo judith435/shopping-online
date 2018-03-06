@@ -27,6 +27,29 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             $scope.order.street = customer.street;
         }
     }
+    function validateCC(cc) {
+        // accept only digits, dashes or spaces
+        if (/[^0-9-\s]+/.test(cc)) return false;
+    
+        // The Luhn Algorithm
+        var nCheck = 0; 
+        var nDigit = 0; 
+        var bEven = false;
+        cc = cc.replace(/\D/g, "");
+    
+        for (var n = cc.length - 1; n >= 0; n--) {
+            var cDigit = cc.charAt(n),
+                nDigit = parseInt(cDigit, 10);
+    
+            if (bEven) {
+                if ((nDigit *= 2) > 9) nDigit -= 9;
+            }
+    
+            nCheck += nDigit;
+            bEven = !bEven;
+        }
+        return (nCheck % 10) == 0;
+    }
 
     function validateInput() {    
 
@@ -61,33 +84,10 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         }
     }
 
-    function validateCC(cc) {
-        // accept only digits, dashes or spaces
-        if (/[^0-9-\s]+/.test(cc)) return false;
-    
-        // The Luhn Algorithm
-        var nCheck = 0, nDigit = 0, bEven = false;
-        cc = cc.replace(/\D/g, "");
-    
-        for (var n = cc.length - 1; n >= 0; n--) {
-            var cDigit = cc.charAt(n),
-                nDigit = parseInt(cDigit, 10);
-    
-            if (bEven) {
-                if ((nDigit *= 2) > 9) nDigit -= 9;
-            }
-    
-            nCheck += nDigit;
-            bEven = !bEven;
-        }
-        return (nCheck % 10) == 0;
-    }
-
-
     $scope.order = function()  {
 
         validateInput();
-        if ($scope.errorsFound) { return; }
+        //if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
         let deliveryDate = "";

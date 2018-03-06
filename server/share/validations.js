@@ -44,8 +44,8 @@ function validateCC(cc) {
     cc = cc.replace(/\D/g, "");
 
     for (var n = cc.length - 1; n >= 0; n--) {
-        var cDigit = cc.charAt(n),
-            nDigit = parseInt(cDigit, 10);
+        var cDigit = cc.charAt(n);
+        var nDigit = parseInt(cDigit, 10);
 
         if (bEven) {
             if ((nDigit *= 2) > 9) nDigit -= 9;

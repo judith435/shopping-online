@@ -2,13 +2,15 @@ const productCtrl = require("../controllers/productController");
 const logError = require("../share/errorLogging.js");
 const sr = require("../share/serverResponse.js");
 
+var response;
+
 function getProducts(req, res) {
   // req.session.destroy();
 
   let sess;
   sess = req.session;
   if (!sess["customerInfo"]) { //user not logged in
-    var response =  new sr.ServerResponse("userNotLoggedIn", "");
+    response =  new sr.ServerResponse("userNotLoggedIn", "");
     res.end(JSON.stringify(response));
     return;
   }
@@ -20,10 +22,10 @@ function getProducts(req, res) {
   productCtrl.getProducts(function(err, products) {
       if (err) {
         logError.writeToErrorLog("called by productAPI.getProducts => " + err);
-        var response =  new sr.ServerResponse("error", err);
+        response =  new sr.ServerResponse("error", err);
       }
       else {
-        var response =  new sr.ServerResponse("ok", products);
+        response =  new sr.ServerResponse("ok", products);
       }
       res.end(JSON.stringify(response));
   })
@@ -34,16 +36,16 @@ function addUpdateProduct(activity, req, res) {
   productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
     if (err) {
       logError.writeToErrorLog("called by productAPI.addUpdateProduct => " + err);
-      var response =  new sr.ServerResponse("error", err);
+      response =  new sr.ServerResponse("error", err);
     }
     else {
       if (response) { //insert/update successfull
         let content = activity === "addProduct" ? "product added successfully => new productID: " +  response : "product updated successfully" ;
-        var response =  new sr.ServerResponse("ok", content);
+        response =  new sr.ServerResponse("ok", content);
 
       }
       else { //invalidInputDetails
-        var response =  new sr.ServerResponse("invalid input", "invalid input =>  following erors were found: \n" + invalidInputDetails); 
+        response =  new sr.ServerResponse("invalid input", "invalid input =>  following erors were found: \n" + invalidInputDetails); 
       }
     }
     res.end(JSON.stringify(response));

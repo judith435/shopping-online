@@ -18,7 +18,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
         
         //Email
-        $scope.email_errorMessage = !$scope.email ? "email  required" : "";
+        $scope.email_errorMessage = !$scope.email ? "valid email  required" : "";
         $scope.errorsFound = $scope.email_errorMessage !== "" || $scope.errorsFound;
 
         //Passwords
