@@ -4,10 +4,6 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                                                     cartInfo,
                                                     orderService,
                                                     $uibModal)   { 
-    // $rootScope,
-    // $templateRequest, 
-    // $compile,
-    // signUpService) {
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
@@ -30,6 +26,61 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         else {
             $scope.order.street = customer.street;
         }
+    }
+
+    function validateInput() {    
+
+        $scope.errorsFound = false;
+
+        //city
+        $scope.city_errorMessage = !$scope.order.city ? "city required" : "";
+        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
+
+        //street
+        $scope.street_errorMessage = !$scope.order.street ? "street required" : "";
+        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
+        
+        //delivery date
+        $scope.delivery_date_errorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
+        $scope.errorsFound = $scope.delivery_date_errorMessage !== "" || $scope.errorsFound;
+        
+        //credit card
+        if ($scope.order.creditCard) {
+            var creditCard = $scope.order.creditCard.replace(/\s/g, "");
+            var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+            var ccValid = ccRegex.test(creditCard);
+            if (ccValid) {
+                ccValid =  validateCC(creditCard);
+            }
+            $scope.creditCard_errorMessage = !ccValid  ? "Invalid Credit Card" : "";
+            $scope.errorsFound = !ccValid || $scope.errorsFound;
+        }
+        else {
+            $scope.creditCard_errorMessage = "credit card required";
+            $scope.errorsFound = true;
+        }
+    }
+
+    function validateCC(cc) {
+        // accept only digits, dashes or spaces
+        if (/[^0-9-\s]+/.test(cc)) return false;
+    
+        // The Luhn Algorithm
+        var nCheck = 0, nDigit = 0, bEven = false;
+        cc = cc.replace(/\D/g, "");
+    
+        for (var n = cc.length - 1; n >= 0; n--) {
+            var cDigit = cc.charAt(n),
+                nDigit = parseInt(cDigit, 10);
+    
+            if (bEven) {
+                if ((nDigit *= 2) > 9) nDigit -= 9;
+            }
+    
+            nCheck += nDigit;
+            bEven = !bEven;
+        }
+        return (nCheck % 10) == 0;
     }
 
 
@@ -84,63 +135,6 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
 
     }
 
-    function validateInput() {    
-
-        $scope.errorsFound = false;
-
-        //city
-        $scope.city_errorMessage = !$scope.order.city ? "city required" : "";
-        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
-
-        //street
-        $scope.street_errorMessage = !$scope.order.street ? "street required" : "";
-        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
-        
-        //delivery date
-        $scope.delivery_date_errorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
-        $scope.errorsFound = $scope.delivery_date_errorMessage !== "" || $scope.errorsFound;
-        
-        //credit card
-        if ($scope.order.creditCard) {
-            var creditCard = $scope.order.creditCard.replace(/\s/g, "");
-            var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
-            var ccValid = ccRegex.test(creditCard);
-            if (ccValid) {
-                ccValid =  validateCC(creditCard);
-            }
-            $scope.creditCard_errorMessage = !ccValid  ? "Invalid Credit Card" : "";
-            $scope.errorsFound = !ccValid || $scope.errorsFound;
-        }
-        else {
-            $scope.creditCard_errorMessage = "credit card required";
-            $scope.errorsFound = true;
-        }
-    }
-
-    function validateCC(cc) {
-        // accept only digits, dashes or spaces
-          if (/[^0-9-\s]+/.test(cc)) return false;
-      
-          // The Luhn Algorithm. It"s so pretty.
-          var nCheck = 0, nDigit = 0, bEven = false;
-          cc = cc.replace(/\D/g, "");
-      
-          for (var n = cc.length - 1; n >= 0; n--) {
-              var cDigit = cc.charAt(n),
-                  nDigit = parseInt(cDigit, 10);
-      
-              if (bEven) {
-                  if ((nDigit *= 2) > 9) nDigit -= 9;
-              }
-      
-              nCheck += nDigit;
-              bEven = !bEven;
-          }
-      
-          return (nCheck % 10) == 0;
-      }
-
-
     //datepicker functions start
     $scope.DatePicker = {
         opened: false
@@ -154,20 +148,20 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         $scope.order.deliveryDate = new Date(year, month, day);
     };
     $scope.format = "dd/MM/yyyy";
-  
+
+    // Disable days with more than 3 orders
+    function disabled(data) {
+        let date = data.date, mode = data.mode;
+        return mode === "day" && 
+            (filledDeliveryDates.indexOf( date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()) >= 0);
+    }
+
     $scope.dateOptions = {
         dateDisabled: disabled,
         maxDate: new Date().setMonth(new Date().getMonth() + 2),
         minDate: new Date(),
         startingDay: 7
     };
-
-    // // Disable days with more than 3 orders
-    function disabled(data) {
-        let date = data.date, mode = data.mode;
-        return mode === "day" && 
-            (filledDeliveryDates.indexOf( date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()) >= 0);
-    }
 
     $scope.editCreditCard = function() {  
 

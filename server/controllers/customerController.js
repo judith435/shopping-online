@@ -2,6 +2,14 @@ const bl = require("../bl/customerBL");
 const model = require("../models/customerModel");
 const validations = require("../share/validations");
 
+function customerValid(customer) {
+    let errorsFound = "";
+
+    errorsFound  = validations.inputEmpty(customer.firstName) ?  "First Name required \n" : "";
+    errorsFound += validations.inputEmpty(customer.city) ? "city required \n" : "";
+
+    return errorsFound;
+}
 
 function addCustomer(req, callback) {
 
@@ -24,15 +32,6 @@ function addCustomer(req, callback) {
     else {
         callback(null, null, inputErrorsFound); 
     }
-}
-
-function customerValid(customer) {
-    let errorsFound = "";
-
-    errorsFound  = validations.inputEmpty(customer.firstName) ?  "First Name required \n" : "";
-    errorsFound += validations.inputEmpty(customer.city) ? "city required \n" : "";
-
-    return errorsFound;
 }
 
 module.exports.addCustomer = addCustomer;

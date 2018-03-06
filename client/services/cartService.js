@@ -1,5 +1,9 @@
 shoppingApp.service("cartService", function($http) {
 
+    function error(response) {
+        alert("Sorry Error occured in $http: " + JSON.stringify(response));
+    }
+
     this.getLastCart = function(configSettings, teudatZehut, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cart",
@@ -48,9 +52,4 @@ shoppingApp.service("cartService", function($http) {
             params: { cartID: cartID }
         }).then(success, error);
     }
-
-    function error(response) {
-        alert("Sorry Error occured in $http: " + JSON.stringify(response));
-    }
-
 });

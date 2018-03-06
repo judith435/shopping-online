@@ -13,37 +13,6 @@ function getProducts(callback) {
     })
 }
 
-
-function addUpdateProduct(activity, req, callback) {
-    // console.log(">>> productController: " + JSON.stringify(req.body) + "  activity=" + activity);
-    const product = new model.Product(req.body);
-    const inputErrorsFound = productValid(activity, product, req);
-    if (!inputErrorsFound) {
-        bl.product.addUpdateProduct(activity, product, function(err, response) {
-            if (err) {
-                callback("called by productController.addUpdateProduct => " + err, null, null);
-            }
-            else {
-                if (activity === "updateProduct" && !req.files) {
-                    callback(null, product.id, null);
-                }
-                else {
-                    let productID = activity === "addProduct" ? response : product.id;
-                    saveProductImage(req, productID, function (err) {
-                        if (err) {
-                            callback(null, productID + err, null); //save product succeeded however saving image failed - send relevant message to user 
-                        }
-                        callback(null, productID, null);
-                    }); 
-                }
-            }
-        })
-    }
-    else {
-        callback(null, null, inputErrorsFound); 
-    }
-}
-
 function productValid(activity, product, req) {
     let errorsFound = "";
 
@@ -74,6 +43,36 @@ function saveProductImage(req, productID, callback) {
         }
         callback(null); //null there was no error
     });
+}
+
+function addUpdateProduct(activity, req, callback) {
+    // console.log(">>> productController: " + JSON.stringify(req.body) + "  activity=" + activity);
+    const product = new model.Product(req.body);
+    const inputErrorsFound = productValid(activity, product, req);
+    if (!inputErrorsFound) {
+        bl.product.addUpdateProduct(activity, product, function(err, response) {
+            if (err) {
+                callback("called by productController.addUpdateProduct => " + err, null, null);
+            }
+            else {
+                if (activity === "updateProduct" && !req.files) {
+                    callback(null, product.id, null);
+                }
+                else {
+                    let productID = activity === "addProduct" ? response : product.id;
+                    saveProductImage(req, productID, function (err) {
+                        if (err) {
+                            callback(null, productID + err, null); //save product succeeded however saving image failed - send relevant message to user 
+                        }
+                        callback(null, productID, null);
+                    }); 
+                }
+            }
+        })
+    }
+    else {
+        callback(null, null, inputErrorsFound); 
+    }
 }
 
 module.exports.getProducts = getProducts;

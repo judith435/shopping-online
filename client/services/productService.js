@@ -1,5 +1,9 @@
 shoppingApp.service("productService", function($http) {
     
+    function error(response) {
+        alert("Sorry Error occured in productService: " + JSON.stringify(response));
+    }
+
     this.getProducts = function (configSettings, success) { 
         var userInfo = {
             id: "meir@mommy",
@@ -13,6 +17,21 @@ shoppingApp.service("productService", function($http) {
         }).then(success, error);
 
         // $http.get(configSettings.shoppingApi +"/product",{}).then(success, error);
+    }
+
+    function buildFormData(product, productImage) {
+        var formData = new FormData();
+
+        for (var key in product) {
+            if (product.hasOwnProperty(key)) {
+                //if product value undefined (can occur if client validations neutralized) set value to string "value-from-client-is-undefined" so that server
+                //can distinguish between real undefined and string containing word undefined (all values arrive at server as strings as "undefined")  
+                formData.append(key, product[key] === undefined ? "value-from-client-is-undefined" : product[key] );
+            }
+        }
+
+        formData.append("productImage", productImage);
+        return formData;
     }
 
     this.addUpdateProduct = function(activity, configSettings, product, productImage, success, error) {
@@ -35,25 +54,6 @@ shoppingApp.service("productService", function($http) {
      
             }).then(success, error); 
         }
-    }
-
-    function buildFormData(product, productImage) {
-        var formData = new FormData();
-
-        for (var key in product) {
-            if (product.hasOwnProperty(key)) {
-                //if product value undefined (can occur if client validations neutralized) set value to string "value-from-client-is-undefined" so that server
-                //can distinguish between real undefined and string containing word undefined (all values arrive at server as strings as "undefined")  
-                formData.append(key, product[key] === undefined ? "value-from-client-is-undefined" : product[key] );
-            }
-        }
-
-        formData.append("productImage", productImage);
-        return formData;
-    }
-
-    function error(response) {
-        alert("Sorry Error occured in productService: " + JSON.stringify(response));
     }
 });
 

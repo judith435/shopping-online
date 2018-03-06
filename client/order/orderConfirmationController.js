@@ -5,15 +5,7 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
 
     const  customer = orderDetails[0];  
     const  order = orderDetails[1];                                                                
-                                                              
-    $scope.downloadReceipt = function () {
-        var purchaseDate =  String(new Date()).substring(4,24);
-        var fileText = "Receipt for purchase " + purchaseDate + "\r\nList of Items" + buildItemList();
-        fileText += "\r\nTotal: " + order.cartTotal + "$";
-        var fileName = "receipt_"  + purchaseDate + ".txt";
-        saveTextAsFile(fileText, fileName);
-    };
-
+    
     function buildItemList() {
         var items = "";
         for (let i = 0; i < order.cartItems.length; i++) { 
@@ -23,14 +15,7 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
         }
         return items;
     }
-
-    $scope.confirm = function () {
-
-        $uibModalInstance.close();
-        $rootScope.$broadcast("order-submitted", customer);
-
-    };
-
+    
     function saveTextAsFile (data, filename){
 
         if(!data) {
@@ -60,5 +45,20 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
             a.dispatchEvent(e);
         }
     }
+    
+    $scope.downloadReceipt = function () {
+        var purchaseDate =  String(new Date()).substring(4,24);
+        var fileText = "Receipt for purchase " + purchaseDate + "\r\nList of Items" + buildItemList();
+        fileText += "\r\nTotal: " + order.cartTotal + "$";
+        var fileName = "receipt_"  + purchaseDate + ".txt";
+        saveTextAsFile(fileText, fileName);
+    };
+
+    $scope.confirm = function () {
+
+        $uibModalInstance.close();
+        $rootScope.$broadcast("order-submitted", customer);
+
+    };
 
 });

@@ -16,14 +16,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
     $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName
     $scope.cartItems = [];
 
-    //no cart found for customer - create one / or cart order submitted => in both cases create new cart
-    if (!cart || cart.orderDate) { 
-        addCart(); 
-    }
-    else {//get last cart items
-        getCartItems();
-    }
-
     function addCart() {
 
         cartService.addCart(configSettings, customer.teudatZehut, function(response) {  
@@ -40,6 +32,15 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
         });
     }
 
+    function calcCartTotal() {
+        $scope.cartTotal = 0;
+        for (let i = 0; i < $scope.cartItems.length; i++) { 
+            $scope.cartTotal += $scope.cartItems[i].price;
+        }
+        $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100
+
+    }
+
     function getCartItems() {
 
         cartService.getCartItems(configSettings, cart.id, function(response) {  
@@ -52,7 +53,13 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
         });
     }
 
-
+    //no cart found for customer - create one / or cart order submitted => in both cases create new cart
+    if (!cart || cart.orderDate) { 
+        addCart(); 
+    }
+    else {//get last cart items
+        getCartItems();
+    }
 
     $scope.$on("product-selected", function(event, product) {
 
@@ -97,15 +104,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
             }
             getCartItems();
         });
-    }
-
-    function calcCartTotal() {
-        $scope.cartTotal = 0;
-        for (let i = 0; i < $scope.cartItems.length; i++) { 
-            $scope.cartTotal += $scope.cartItems[i].price;
-        }
-        $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100
-
     }
 
     $scope.clearCart = function() { 

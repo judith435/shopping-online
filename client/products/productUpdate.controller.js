@@ -7,9 +7,6 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
                                                                     $filter)
 {
 
-
-    fillCategoriesDDL();
-
     function fillCategoriesDDL() {
         categoryService.getCategories(configSettings, function(response) {
             if (response.data.status === "error") {
@@ -21,10 +18,26 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         });
     }
 
+    fillCategoriesDDL();
+
+    function initUpdatePanel() {
+        $scope.showProductUpdate = true; //show directive containing product cuForm
+        $scope.product = {};
+        $scope.name_errorMessage = "";
+        $scope.category_errorMessage = "";
+        $scope.price_errorMessage = "";
+        $scope.productImage_errorMessage = "";
+        $scope.duplicateProduct_errorMessage = "";
+        $scope.productName = "click +  to add product";
+        angular.element("#productImage").val(null);
+        $scope.productImage = null;
+        var drawingCanvas = document.getElementById("canvasProduct");
+        imageService.clearImage(drawingCanvas); 
+    }
+
     $scope.addProduct = function()  {//display update product panel => + add product button clicked
         initUpdatePanel();
         $scope.activity = "addProduct";
-        $scope.productName = "click +  to add product";
     }  
 
     $scope.productName = "click +  to add product";
@@ -46,49 +59,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         var drawingCanvas = document.getElementById("canvasProduct");
         imageService.setCanvas(drawingCanvas, configSettings.productImagePath + $scope.product.id,"regular"); 
         $scope.activity = "updateProduct";
-});
-
-
-    function initUpdatePanel() {
-        $scope.showProductUpdate = true; //show directive containing product cuForm
-        $scope.product = {};
-        $scope.name_errorMessage = "";
-        $scope.category_errorMessage = "";
-        $scope.price_errorMessage = "";
-        $scope.productImage_errorMessage = "";
-        $scope.duplicateProduct_errorMessage = "";
-        angular.element("#productImage").val(null);
-        $scope.productImage = null;
-        var drawingCanvas = document.getElementById("canvasProduct");
-        imageService.clearImage(drawingCanvas); 
-    }
-
-    $scope.saveProduct = function()  {
-
-        validateInput();
-        if ($scope.errorsFound) { return; }
-
-        var product = {
-            id: $scope.product.id,
-            name: $scope.product.name,
-            category: $scope.product.categoryDDL.value,
-            price: $scope.product.price
-        };
-
-        productService.addUpdateProduct($scope.activity, configSettings, product, $scope.productImage, function(response) {  
-            if (response.data.status === "error") {
-                alert("error occured - please contact support center");
-                return;
-            }
-            if (response.data.status === "invalid input") {
-                alert(response.data.content);
-                return;
-            }
-            $rootScope.$broadcast("product-changed", {prod: product});
-            initUpdatePanel();
-            $scope.activity = "addProduct";
-        });
-    } 
+    });
 
     function validateInput() {    
 
@@ -136,7 +107,32 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         }
     }    
 
+    $scope.saveProduct = function()  {
 
+        validateInput();
+        if ($scope.errorsFound) { return; }
+
+        var product = {
+            id: $scope.product.id,
+            name: $scope.product.name,
+            category: $scope.product.categoryDDL.value,
+            price: $scope.product.price
+        };
+
+        productService.addUpdateProduct($scope.activity, configSettings, product, $scope.productImage, function(response) {  
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
+                return;
+            }
+            if (response.data.status === "invalid input") {
+                alert(response.data.content);
+                return;
+            }
+            $rootScope.$broadcast("product-changed", {prod: product});
+            initUpdatePanel();
+            $scope.activity = "addProduct";
+        });
+    } 
 });
 
 

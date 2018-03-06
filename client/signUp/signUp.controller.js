@@ -9,6 +9,62 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
     $scope.showStep2 = false; //hide step 2
     $scope.options  = configSettings.citiesList;
 
+    function validateInputStep1() {    
+
+        $scope.errorsFound = false;
+
+        //ID
+        $scope.id_errorMessage = !$scope.id  ? "ID required" : "";
+        $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
+        
+        //Email
+        $scope.email_errorMessage = !$scope.email ? "email  required" : "";
+        $scope.errorsFound = $scope.email_errorMessage !== "" || $scope.errorsFound;
+
+        //Passwords
+        $scope.password_errorMessage = !$scope.password ? "password required" : "";
+        $scope.errorsFound = $scope.password_errorMessage !== "" || $scope.errorsFound;
+        
+        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "confirm password" : "";
+        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
+
+        //passwords entered in both fields => chek  they are the same
+        if ($scope.confirmPassword && $scope.password) {
+            $scope.confirmPassword_errorMessage = 
+                $scope.confirmPassword !== $scope.password ? "password does not match the confirm password" : "";
+            $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
+        }
+
+        //id/email/passwords missing - no point checking duplicate customer
+        if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { 
+            return;
+        }
+
+        // courseService.checkDuplicateProduct(configSettings, $scope.course, function(response) {
+        //     let duplicateCourseID = parseInt(response.data);
+        //     $scope.errorsFound = duplicateCourseID !== -1;
+        //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
+        //             ? "course with same name already exists (courseID: " + duplicateCourseID + ")" : "" ;
+        // });
+    }    
+
+    function validateInputStep2() {    
+
+        $scope.errorsFound = false;
+
+        $scope.city_errorMessage = !$scope.city  ? "City required" : "";
+        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
+        
+        $scope.street_errorMessage = !$scope.street ? "Email  required" : "";
+        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
+
+        $scope.firstName_errorMessage = !$scope.firstName ? "First Name required" : "";
+        $scope.errorsFound = $scope.firstName_errorMessage !== "" || $scope.errorsFound;
+        
+        $scope.lastName_errorMessage = !$scope.lastName ? "Last Name required" : "";
+        $scope.errorsFound = $scope.lastName_errorMessage !== "" || $scope.errorsFound;
+    }    
+
     $scope.continueSignUp = function()  {
 
         validateInputStep1();
@@ -48,59 +104,5 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             $rootScope.$broadcast("customer-added", customer);
         });
     }
-
-    function validateInputStep1() {    
-
-        $scope.errorsFound = false;
-
-        //ID
-        $scope.id_errorMessage = !$scope.id  ? "ID required" : "";
-        $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
-        
-        //Email
-        $scope.email_errorMessage = !$scope.email ? "Email  required" : "";
-        $scope.errorsFound = $scope.email_errorMessage !== "" || $scope.errorsFound;
-
-        //Passwords
-        $scope.password_errorMessage = !$scope.password ? "Password required" : "";
-        $scope.errorsFound = $scope.password_errorMessage !== "" || $scope.errorsFound;
-        
-        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "Confirm Password" : "";
-        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
-
-        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "Confirm Password" : "";
-        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
-
-
-        //id/email/passwords missing - no point checking duplicate customer
-        if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { 
-            return;
-        }
-
-        // courseService.checkDuplicateProduct(configSettings, $scope.course, function(response) {
-        //     let duplicateCourseID = parseInt(response.data);
-        //     $scope.errorsFound = duplicateCourseID !== -1;
-        //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
-        //             ? "course with same name already exists (courseID: " + duplicateCourseID + ")" : "" ;
-        // });
-    }    
-
-    function validateInputStep2() {    
-
-        $scope.errorsFound = false;
-
-        $scope.city_errorMessage = !$scope.city  ? "City required" : "";
-        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
-        
-        $scope.street_errorMessage = !$scope.street ? "Email  required" : "";
-        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
-
-        $scope.firstName_errorMessage = !$scope.firstName ? "First Name required" : "";
-        $scope.errorsFound = $scope.firstName_errorMessage !== "" || $scope.errorsFound;
-        
-        $scope.lastName_errorMessage = !$scope.lastName ? "Last Name required" : "";
-        $scope.errorsFound = $scope.lastName_errorMessage !== "" || $scope.errorsFound;
-    }    
-
 
 });

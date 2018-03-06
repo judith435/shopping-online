@@ -34,47 +34,15 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
         $location.path("/home");
     }
 
-    loginService.checkUserLoggedIn(configSettings, function(response) {
-        if (response.data.status === "error") {
-            alert("error occured - please contact support center");
-            return;
-        }
-
-        if ("customerInfo" in response.data.content) {//logged in user on server found
-            setPageForLoggedInUser(response.data.content.customerInfo);
-        }
-        else {//NO logged in user on server found
-            loadHomePage(); 
-        }
-    });
-
-    function init() { 
-        $scope.customer = null;
-        $scope.customerName = "";
-        $scope.customerContactInfo = "";
-        $scope.entryAction = "";
-        $scope.entryMessage = "";
+    function buildDisplayDate(date) {
+        return date.substring(8,10) + "/" +   date.substring(5,7) + "/" +   date.substring(0,4);
     }
 
-    $scope.login = function(loginInfo) {
-        
-        loginService.login(configSettings, loginInfo, function(response) {
-            if (response.data.status === "error") {
-                alert("error occured - please contact support center");
-                return;
-            }
+    function loadProductUpdatePage() {
+        $location.path("/products");
+    }
 
-            if (response.data.status === "noSuchCustomer") {
-                alert("no customer found with login details given");
-                init();
-                return;
-            }
-            setPageForLoggedInUser(response.data.content); //.customerInfo)
-        });
-    
-     }
-
-     function setPageForLoggedInUser(cust) { //$scope.customer.
+    function setPageForLoggedInUser(cust) { //$scope.customer.
         const customer = new Customer(cust);
         customerInfo.addCustomerInfo(customer);
 
@@ -116,8 +84,44 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
         }
      }
 
-     function buildDisplayDate(date) {
-        return date.substring(8,10) + "/" +   date.substring(5,7) + "/" +   date.substring(0,4);
+    loginService.checkUserLoggedIn(configSettings, function(response) {
+        if (response.data.status === "error") {
+            alert("error occured - please contact support center");
+            return;
+        }
+
+        if ("customerInfo" in response.data.content) {//logged in user on server found
+            setPageForLoggedInUser(response.data.content.customerInfo);
+        }
+        else {//NO logged in user on server found
+            loadHomePage(); 
+        }
+    });
+
+    function init() { 
+        $scope.customer = null;
+        $scope.customerName = "";
+        $scope.customerContactInfo = "";
+        $scope.entryAction = "";
+        $scope.entryMessage = "";
+    }
+
+    $scope.login = function(loginInfo) {
+        
+        loginService.login(configSettings, loginInfo, function(response) {
+            if (response.data.status === "error") {
+                alert("error occured - please contact support center");
+                return;
+            }
+
+            if (response.data.status === "noSuchCustomer") {
+                alert("no customer found with login details given");
+                init();
+                return;
+            }
+            setPageForLoggedInUser(response.data.content); //.customerInfo)
+        });
+    
      }
 
      $scope.signUp = function() {
@@ -134,12 +138,8 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
         setPageForLoggedInUser(customer);
     });
 
-    function loadProductUpdatePage() {
-        $location.path("/products");
-    }
-
     $scope.shop = function() {
-        $location.path("/shop").search({cartStatus: "shop"});;
+        $location.path("/shop").search({cartStatus: "shop"});
     }
 
     $scope.logout = function(){

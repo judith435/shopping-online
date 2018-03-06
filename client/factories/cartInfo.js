@@ -1,11 +1,6 @@
 shoppingApp.factory("cartInfo", function() {
   var cartInfo = "";
 
-  return {
-    addCartInfo: addCartInfo,
-    getCartInfo: getCartInfo
-  };
-
   function addCartInfo(data) {
       cartInfo = data;
   }
@@ -13,4 +8,10 @@ shoppingApp.factory("cartInfo", function() {
   function getCartInfo() {
     return cartInfo;
   }
+
+  return {
+    addCartInfo: addCartInfo,
+    getCartInfo: getCartInfo
+  };
+
 });

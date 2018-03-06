@@ -14,6 +14,19 @@ function getDeliveryDates(callback) {
     })
 }
 
+function orderValid(order, filledDates) {
+    let errorsFound = "";
+
+    errorsFound  =  validations.inputEmpty(order.deliveryCity) ?  "city required \n" : "";
+    errorsFound +=  validations.inputEmpty(order.deliveryStreet) ? "street required \n" : "";
+    errorsFound += !validations.dateValid(order.deliveryDate) ? "valid delivery date required \n" : "";
+    errorsFound += !validations.creditCardValid(order.ccInfo) ? "valid credit card required \n" : "";
+    if (filledDates) { //if call to mysql for filledDates failed => filledDates empty do NOT perform test
+        let dateFilled = filledDates.indexOf(order.deliveryDate) >= 0;
+        errorsFound += dateFilled ? "3 deliveries already scheduled for delivery date selected \n" : "";
+    }
+    return errorsFound;
+}
 
 function addOrder(req, callback) {
 
@@ -47,22 +60,6 @@ function addOrder(req, callback) {
             callback(null, null, inputErrorsFound); 
         }
     })
-    
-
-}
-
-function orderValid(order, filledDates) {
-    let errorsFound = "";
-
-    errorsFound  =  validations.inputEmpty(order.deliveryCity) ?  "city required \n" : "";
-    errorsFound +=  validations.inputEmpty(order.deliveryStreet) ? "street required \n" : "";
-    errorsFound += !validations.dateValid(order.deliveryDate) ? "valid delivery date required \n" : "";
-    errorsFound += !validations.creditCardValid(order.ccInfo) ? "valid credit card required \n" : "";
-    if (filledDates) { //if call to mysql for filledDates failed => filledDates empty do NOT perform test
-        let dateFilled = filledDates.indexOf(order.deliveryDate) >= 0;
-        errorsFound += dateFilled ? "3 deliveries already scheduled for delivery date selected \n" : "";
-    }
-    return errorsFound;
 }
 
 module.exports.getDeliveryDates = getDeliveryDates;

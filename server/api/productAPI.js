@@ -29,14 +29,6 @@ function getProducts(req, res) {
   })
 }
 
-function addProduct(req, res) {
-  addUpdateProduct("addProduct", req, res);
-}
-
-function updateProduct(req, res) {
-  addUpdateProduct("updateProduct", req, res);
-}
-
 function addUpdateProduct(activity, req, res) {
   console.log("addUpdateProduct req.body:  " + JSON.stringify(req.body));
   productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
@@ -58,6 +50,13 @@ function addUpdateProduct(activity, req, res) {
   })
 }
 
+function addProduct(req, res) {
+  addUpdateProduct("addProduct", req, res);
+}
+
+function updateProduct(req, res) {
+  addUpdateProduct("updateProduct", req, res);
+}
 
 module.exports.getProducts = getProducts;
 module.exports.addProduct = addProduct;

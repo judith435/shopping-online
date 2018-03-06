@@ -5,7 +5,6 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         imageService, 
                                                                         configSettings)
 {
-    getProducts();
 
     function getProducts() {
         productService.getProducts(configSettings, function(products) {
@@ -28,7 +27,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
         });
     }
 
-    getCategories();
+    getProducts();
 
     function getCategories() {
         categoryService.getCategories(configSettings, function(response) {
@@ -41,6 +40,8 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
             }
         });
     }
+
+    getCategories();
 
     $scope.productFilter = function() {
         if ($scope.active === 0) {
