@@ -29,7 +29,9 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     }
     function validateCC(cc) {
         // accept only digits, dashes or spaces
-        if (/[^0-9-\s]+/.test(cc)) return false;
+        if (/[^0-9-\s]+/.test(cc)) {
+            return false;
+        } 
     
         // The Luhn Algorithm
         var nCheck = 0; 
@@ -42,7 +44,9 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             nDigit = parseInt(cDigit, 10);
     
             if (bEven) {
-                if ((nDigit *= 2) > 9) nDigit -= 9;
+                if ((nDigit *= 2) > 9) {
+                    nDigit -= 9;
+                } 
             }
     
             nCheck += nDigit;

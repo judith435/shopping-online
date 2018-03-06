@@ -23,7 +23,9 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
             return;
         }
 
-        if(!filename) filename = "console.json"
+        if(!filename) {
+            filename = "console.json";
+        } 
 
         var blob = new Blob([data], {type: "text/plain"});
         var e    = document.createEvent("MouseEvents");

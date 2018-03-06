@@ -37,7 +37,9 @@ function fileExtensionInvalid(file) {
 //credit card validations start
 function validateCC(cc) {
     // accept only digits, dashes or spaces
-    if (/[^0-9-\s]+/.test(cc)) return false;
+    if (/[^0-9-\s]+/.test(cc)) {
+        return false;
+    } 
 
     // The Luhn Algorithm. It"s so pretty.
     var nCheck = 0; 
@@ -51,7 +53,9 @@ function validateCC(cc) {
         var nDigit = parseInt(cDigit, 10);
 
         if (bEven) {
-            if ((nDigit *= 2) > 9) nDigit -= 9;
+            if ((nDigit *= 2) > 9) {
+                nDigit -= 9;
+            } 
         }
 
         nCheck += nDigit;
