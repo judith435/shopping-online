@@ -1,6 +1,6 @@
-function spParm(value, isString) {
+function SPparm(value, isString) {
     this.value = value;
     this.isString = isString;
 }
 
-module.exports.spParm = spParm;
+module.exports.SPparm = SPparm;

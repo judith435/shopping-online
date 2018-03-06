@@ -1,12 +1,12 @@
 const dal = require("..//dal/dal");
-const parmObject = require("..//dal/spParm");
+const parmObject = require("..//dal/SPparm");
 const cartModel = require("../models/cartModel");
 const cartItemModel = require("../models/cartItemModel");
 
 function getLastCart(teudatZehut, callback) {
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(teudatZehut, false));
+    spParms.push(new parmObject.SPparm(teudatZehut, false));
     dal.executeQuery("shopping", "get_last_cart", spParms, function(err, rows) {
         if (err) {
             callback("called by cartBL.getLastCart => " + err);
@@ -24,7 +24,7 @@ function getLastCart(teudatZehut, callback) {
 function getCartItems(cartID, callback) {
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(cartID, false));
+    spParms.push(new parmObject.SPparm(cartID, false));
     dal.executeQuery("shopping", "get_last_cart_items", spParms, function(err, rows) {
         if (err) {
             callback("called by cartBL.getCartItems => " + err);
@@ -42,7 +42,7 @@ function getCartItems(cartID, callback) {
 function addCart(teudatZehut, callback) { 
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(teudatZehut, false));
+    spParms.push(new parmObject.SPparm(teudatZehut, false));
     // console.log("!!! in bl  spParms: " + JSON.stringify(spParms));
     dal.executeQuery("shopping", "insert_cart", spParms, function(err, rows) {
         if (err) {
@@ -57,10 +57,10 @@ function addCart(teudatZehut, callback) {
 function addCartItem(cartItem, callback) { 
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(cartItem.productID, false));
-    spParms.push(new parmObject.spParm(cartItem.quantity, false));
-    spParms.push(new parmObject.spParm(cartItem.price, false));
-    spParms.push(new parmObject.spParm(cartItem.shoppingCart, false));
+    spParms.push(new parmObject.SPparm(cartItem.productID, false));
+    spParms.push(new parmObject.SPparm(cartItem.quantity, false));
+    spParms.push(new parmObject.SPparm(cartItem.price, false));
+    spParms.push(new parmObject.SPparm(cartItem.shoppingCart, false));
 
     dal.executeQuery("shopping", "insert_shopping_cart_item", spParms, function(err, rows) {
         if (err) {
@@ -75,7 +75,7 @@ function addCartItem(cartItem, callback) {
 function deleteCartItem(cartItemID, callback) {
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(cartItemID, false));
+    spParms.push(new parmObject.SPparm(cartItemID, false));
     dal.executeQuery("shopping", "delete_cart_item", spParms, function(err, response) {
         if (err) {
             callback("called by cartBL.deleteCartItem => " + err);
@@ -89,7 +89,7 @@ function deleteCartItem(cartItemID, callback) {
 function clearCart(cartID, callback) {
 
     const spParms = []; 
-    spParms.push(new parmObject.spParm(cartID, false));
+    spParms.push(new parmObject.SPparm(cartID, false));
     dal.executeQuery("shopping", "clear_cart", spParms, function(err, response) {
         if (err) {
             callback("called by cartBL.clearCart => " + err);

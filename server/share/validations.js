@@ -40,7 +40,10 @@ function validateCC(cc) {
     if (/[^0-9-\s]+/.test(cc)) return false;
 
     // The Luhn Algorithm. It"s so pretty.
-    var nCheck = 0, nDigit = 0, bEven = false;
+    var nCheck = 0; 
+    var nDigit = 0; 
+    var bEven = false;
+    
     cc = cc.replace(/\D/g, "");
 
     for (var n = cc.length - 1; n >= 0; n--) {

@@ -15,7 +15,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             return;
         }
         alert (JSON.stringify(response.data.content));
-        filledDeliveryDates = response.data.content.map(record => record.deliveryDate);
+        filledDeliveryDates = response.data.content.map((record) => record.deliveryDate);
     });
 
 
@@ -38,8 +38,8 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         cc = cc.replace(/\D/g, "");
     
         for (var n = cc.length - 1; n >= 0; n--) {
-            var cDigit = cc.charAt(n),
-                nDigit = parseInt(cDigit, 10);
+            var cDigit = cc.charAt(n);
+            nDigit = parseInt(cDigit, 10);
     
             if (bEven) {
                 if ((nDigit *= 2) > 9) nDigit -= 9;
@@ -48,7 +48,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             nCheck += nDigit;
             bEven = !bEven;
         }
-        return (nCheck % 10) == 0;
+        return (nCheck % 10) === 0;
     }
 
     function validateInput() {    
@@ -169,7 +169,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         var ccOUT = "";
         ccIN = ccIN.replace(/\s/g, "");
         for (var i=0; i < ccIN.length; i++) {
-            if (i%4 == 0 && i > 0) {
+            if (i%4 === 0 && i > 0) {
                 ccOUT = ccOUT.concat(" ");
             }
             ccOUT = ccOUT.concat(ccIN[i]);

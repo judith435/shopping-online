@@ -1,5 +1,5 @@
 const dal = require("..//dal/dal");
-const parmObject = require("..//dal/spParm");
+const parmObject = require("..//dal/SPparm");
 const model = require("../models/productModel");
 
 function getProducts(callback) {
@@ -24,11 +24,11 @@ function addUpdateProduct(activity, product, callback) {
 
     const spParms = []; 
     if (activity === "updateProduct") {
-        spParms.push(new parmObject.spParm(product.id, false));
+        spParms.push(new parmObject.SPparm(product.id, false));
     }
-    spParms.push(new parmObject.spParm(product.name, true));
-    spParms.push(new parmObject.spParm(product.category, false));
-    spParms.push(new parmObject.spParm(product.price, false));
+    spParms.push(new parmObject.SPparm(product.name, true));
+    spParms.push(new parmObject.SPparm(product.category, false));
+    spParms.push(new parmObject.SPparm(product.price, false));
 
     // console.log("!!! in bl  spParms: " + JSON.stringify(spParms));
     let spName = activity === "addProduct" ? "insert_product" : "update_product";

@@ -14,7 +14,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.errorsFound = false;
 
         //ID
-        $scope.id_errorMessage = !$scope.id  ? "ID required" : "";
+        $scope.id_errorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
         $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
         
         //Email

@@ -41,7 +41,7 @@ function addOrder(req, callback) {
             logError.writeToErrorLog("called by orderAPI.getDeliveryDates => " + err);
         }
         else {
-            filledDates = deliveryDates.map(record => record.deliveryDate);
+            filledDates = deliveryDates.map((record) => record.deliveryDate);
         }
 
         const inputErrorsFound = orderValid(order, filledDates);

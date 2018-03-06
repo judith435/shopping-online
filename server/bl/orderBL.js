@@ -1,5 +1,5 @@
 const dal = require("..//dal/dal");
-const parmObject = require("..//dal/spParm");
+const parmObject = require("..//dal/SPparm");
 const model = require("../models/deliveryDateModel");
 
 function getDeliveryDates(callback) {
@@ -20,13 +20,13 @@ function getDeliveryDates(callback) {
 
 function addOrder(order, callback) {
     const spParms = []; 
-    spParms.push(new parmObject.spParm(order.customer, false));
-    spParms.push(new parmObject.spParm(order.shoppingCart, false));
-    spParms.push(new parmObject.spParm(order.price, false));
-    spParms.push(new parmObject.spParm(order.deliveryCity, true));
-    spParms.push(new parmObject.spParm(order.deliveryStreet, true));
-    spParms.push(new parmObject.spParm(order.deliveryDate, true));
-    spParms.push(new parmObject.spParm(order.ccInfo.substring(12), false));
+    spParms.push(new parmObject.SPparm(order.customer, false));
+    spParms.push(new parmObject.SPparm(order.shoppingCart, false));
+    spParms.push(new parmObject.SPparm(order.price, false));
+    spParms.push(new parmObject.SPparm(order.deliveryCity, true));
+    spParms.push(new parmObject.SPparm(order.deliveryStreet, true));
+    spParms.push(new parmObject.SPparm(order.deliveryDate, true));
+    spParms.push(new parmObject.SPparm(order.ccInfo.substring(12), false));
 
     dal.executeQuery("shopping", "insert_order", spParms, function(err, rows) {
         if (err) {

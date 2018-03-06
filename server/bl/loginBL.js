@@ -1,12 +1,12 @@
 const dal = require("..//dal/dal");
-const ParmObject = require("..//dal/spParm");
+const parmObject = require("..//dal/SPparm");
 const model = require("../models/customerModel");
 
 function login(loginDetails, callback) {
     //req.body
     const spParms = []; 
-    spParms.push(new ParmObject.spParm(loginDetails.email, true));
-    spParms.push(new ParmObject.spParm(loginDetails.passWord, true));
+    spParms.push(new parmObject.SPparm(loginDetails.email, true));
+    spParms.push(new parmObject.SPparm(loginDetails.passWord, true));
 
     dal.executeQuery("shopping", "get_customer_info", spParms, function(err, rows) {
         if (err) {
