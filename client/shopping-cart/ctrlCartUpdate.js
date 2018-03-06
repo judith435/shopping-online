@@ -104,7 +104,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
             }
             getCartItems();
         });
-    }
+    };
 
     $scope.clearCart = function() { 
         cartService.clearCart(configSettings, cart.id, function(response) {  

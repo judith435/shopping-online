@@ -43,7 +43,7 @@ function executeQuery(dbname, spName, spParms, callback) {
             callback("error in dal => " + err);
         } 
         else {
-            callback(null, rows)
+            callback(null, rows);
         }
     });
     con.end();

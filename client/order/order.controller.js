@@ -40,7 +40,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         cc = cc.replace(/\D/g, "");
     
         for (var n = cc.length - 1; n >= 0; n--) {
-            var cDigit = cc.charAt(n);
+            let cDigit = cc.charAt(n);
             nDigit = parseInt(cDigit, 10);
     
             if (bEven) {

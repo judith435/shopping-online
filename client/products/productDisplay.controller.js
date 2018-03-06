@@ -47,7 +47,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
         if ($scope.active === 0) {
             return $scope.foundProducts;
         }
-    }
+    };
 
     $scope.searchProduct = function()  {//display update product panel => + add product button clicked
 

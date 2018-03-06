@@ -121,8 +121,7 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
             }
             setPageForLoggedInUser(response.data.content); //.customerInfo)
         });
-    
-     }
+     };
 
      $scope.signUp = function() {
         $location.path("/signUp");

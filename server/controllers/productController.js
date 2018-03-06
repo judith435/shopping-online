@@ -10,7 +10,7 @@ function getProducts(callback) {
             callback("called by productController.getProducts => " + err);
         }
         callback(null, productArray);
-    })
+    });
 }
 
 function productValid(activity, product, req) {

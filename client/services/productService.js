@@ -17,7 +17,7 @@ shoppingApp.service("productService", function($http) {
         }).then(success, error);
 
         // $http.get(configSettings.shoppingApi +"/product",{}).then(success, error);
-    }
+    };
 
     function buildFormData(product, productImage) {
         var formData = new FormData();

@@ -10,7 +10,7 @@ shoppingApp.service("cartService", function($http) {
             method: "GET",
             params: { teudatZehut: teudatZehut }
         }).then(success, error);
-    }
+    };
 
     this.addCart = function(configSettings, teudatZehut, success, error) {
         $http({

@@ -10,7 +10,7 @@ shoppingApp.service("signUpService", function($http) {
                 product: product 
             }
         }).then(success, error);
-    }
+    };
 
     this.addCustomer = function(configSettings, customer, success, error) {
         $http({

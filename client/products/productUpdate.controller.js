@@ -38,7 +38,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
     $scope.addProduct = function()  {//display update product panel => + add product button clicked
         initUpdatePanel();
         $scope.activity = "addProduct";
-    }  
+    };  
 
     $scope.productName = "click +  to add product";
     $scope.showProductUpdate = false; //hide directive containing product cuForm

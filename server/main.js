@@ -21,7 +21,7 @@ app.use(express.static("../client"));
 app.use(express.static("../node_modules"));
 app.use(express.static("product_images"));
 
-app.use("/public", express.static(path.join(__dirname, "public")))
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.use(session({
     secret: "gunibush",
@@ -36,7 +36,7 @@ app.get("/", function (req, res) {
         if (err) {
             console.log(err);
         }
-        res.end(data) 
+        res.end(data); 
     });
    
 });
@@ -67,4 +67,4 @@ app.get("/order", apiOrder.getDeliveryDates);
 app.post("/order", apiOrder.addOrder);
 
 var server = app.listen(8085, function () {
-})
+});
