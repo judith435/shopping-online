@@ -16,7 +16,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     // return;
     var cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
 
-    getStoreStatistics();
 
     function getStoreStatistics() {
         storeService.getStoreStatistics(configSettings, function(response) {
@@ -29,6 +28,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             }
         });
     }
+    getStoreStatistics();
 
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
