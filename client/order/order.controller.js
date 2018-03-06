@@ -123,7 +123,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
       
           // The Luhn Algorithm. It's so pretty.
           var nCheck = 0, nDigit = 0, bEven = false;
-          cc = cc.replace(/\D/g, "");
+          cc = cc.replace(/\D/g, '');
       
           for (var n = cc.length - 1; n >= 0; n--) {
               var cDigit = cc.charAt(n),

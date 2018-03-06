@@ -13,11 +13,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //simulate user trying to access product data with out being logged in
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // $templateRequest("products/products.html").then(function(html){
-    //     var template = $compile(html)($scope);
-    //     angular.element(document.querySelector('#main-placeholder')).empty().append(template);
-    // });
-
     // return;
     var cart = ''; //contains info of last customer cart  if such a cart is found for logged in user
 
@@ -50,7 +45,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     });
 
     function loadHomePage() {
-        $location.path("/home");
+        $location.path('/home');
     }
 
     function init() { 
@@ -126,7 +121,7 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
      }
 
      $scope.signUp = function() {
-        $location.path("/signUp");
+        $location.path('/signUp');
      }
 
     $scope.$on('customer-added', function(event, customer) {
@@ -140,11 +135,11 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
     });
 
     function loadProductUpdatePage() {
-        $location.path("/products");
+        $location.path('/products');
     }
 
     $scope.shop = function() {
-        $location.path("/shop").search({cartStatus: 'shop'});;
+        $location.path('/shop').search({cartStatus: 'shop'});;
     }
 
     $scope.logout = function(){

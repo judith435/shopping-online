@@ -1,4 +1,4 @@
-shoppingApp.filter("selectCategory", function($filter) {
+shoppingApp.filter('selectCategory', function($filter) {
 
     return function(allProducts, category, productSearch) {
         productSearch = false;
