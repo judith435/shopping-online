@@ -53,12 +53,15 @@ shoppingApp.controller('ctrlSignUp', function signUp(   $scope,
 
         $scope.errorsFound = false;
 
+        //ID
         $scope.id_errorMessage = !$scope.id  ? 'ID required' : '';
         $scope.errorsFound = $scope.id_errorMessage !== '' || $scope.errorsFound;
         
+        //Email
         $scope.email_errorMessage = !$scope.email ? 'Email  required' : '';
         $scope.errorsFound = $scope.email_errorMessage !== '' || $scope.errorsFound;
 
+        //Passwords
         $scope.password_errorMessage = !$scope.password ? 'Password required' : '';
         $scope.errorsFound = $scope.password_errorMessage !== '' || $scope.errorsFound;
         

@@ -29,6 +29,10 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
         });
     }
     getStoreStatistics();
+    
+    function loadHomePage() {
+        $location.path('/home');
+    }
 
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === 'error') {
@@ -43,10 +47,6 @@ shoppingApp.controller('ctrlMain', function handleMain( $scope,
             loadHomePage(); 
         }
     });
-
-    function loadHomePage() {
-        $location.path('/home');
-    }
 
     function init() { 
         $scope.customer = null;
