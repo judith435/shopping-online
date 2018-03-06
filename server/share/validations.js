@@ -17,18 +17,11 @@ function dateValid(date) {
     if (!date) { 
         return false;
     }
-    if ( Object.prototype.toString.call(date) === "[object Date]" ) {
-    // it is a date
-        if ( isNaN( date.getTime() ) ) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    else {
+
+    if (isNaN(Date.parse(date))) {
         return false;
     }
+    return true;
 }
 
 function fileTooLarge(file) {
@@ -46,7 +39,6 @@ function creditCardValid(cc) {
     if (!cc) { //no value sent from client - field undefined or empty => ''
         return false;
     }
-    cc = cc.replace(/\s/g, '');
     var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
     var ccValid = ccRegex.test(cc);
     if (ccValid) {

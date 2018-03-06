@@ -36,7 +36,7 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     $scope.order = function()  {
 
         validateInput();
-        // if ($scope.errorsFound) { return; }
+        if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
         let deliveryDate = '';
@@ -45,13 +45,15 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
             ($scope.order.deliveryDate.getMonth() + 1) + '-' +
             $scope.order.deliveryDate.getDate();
         }
+
         let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,
                                 deliveryStreet: $scope.order.street,
                                 deliveryDate: deliveryDate,
-                                ccInfo: $scope.order.creditCard});
+                                ccInfo: $scope.order.creditCard ? //remove separating spaces if cc not empty
+                                        $scope.order.creditCard.replace(/\s/g, '') : $scope.order.creditCard});
         orderService.addOrder(configSettings, order, function(response) {  
             if (response.data.status === 'error') {
                 alert('error occured - please contact support center');
@@ -164,9 +166,8 @@ shoppingApp.controller('ctrlOrder', function signUp($scope,
     function disabled(data) {
         let date = data.date, mode = data.mode;
         return mode === 'day' && 
-            (filledDeliveryDates.indexOf(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()) >= 0);
+            (filledDeliveryDates.indexOf( date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()) >= 0);
     }
-    //datepicker functions end
 
     $scope.editCreditCard = function() {  
 

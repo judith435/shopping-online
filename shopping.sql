@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_carts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 25
+AUTO_INCREMENT = 27
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`orders` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 31
+AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 75
+AUTO_INCREMENT = 76
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 115
+AUTO_INCREMENT = 122
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
@@ -225,7 +225,7 @@ USE `shopping`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_filled_delivery_dates`()
 BEGIN
 
-        SELECT 	DATE_FORMAT(delivery_date,  "%e/%c/%Y") as deliveryDate, 
+        SELECT  DATE_FORMAT(delivery_date,  "%Y-%c-%e") as deliveryDate, 
         count(*) as occurrences
 		FROM    orders
         group by delivery_date

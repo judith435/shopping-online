@@ -1,3 +1,0 @@
-
-following error occured at Mon Mar 05 2018 17:18:10 GMT+0200 (Jerusalem Standard Time) : "called by cartAPI.addCart => called by cartController.addCart => called by cartBL.addCart error in dal => Error: ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'field list'"
-following error occured at Mon Mar 05 2018 18:21:45 GMT+0200 (Jerusalem Standard Time) : "called by cartAPI.addCart => called by cartController.addCart => called by cartBL.addCart error in dal => Error: ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'field list'"

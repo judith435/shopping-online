@@ -7,9 +7,7 @@ shoppingApp.controller('orderConfirmationController', function( $scope,
     const  order = orderDetails[1];                                                                
                                                               
     $scope.downloadReceipt = function () {
-        var purchaseDate =  String(new Date()).substring(1,24);//order.creationDate.substring(8,10) + '/' + 
-                            //order.creationDate.substring(5,7) + '/' +
-                           // order.creationDate.substring(0,4);
+        var purchaseDate =  String(new Date()).substring(4,24);
         var fileText = 'Receipt for purchase ' + purchaseDate + '\r\nList of Items' + buildItemList();
         fileText += '\r\nTotal: ' + order.cartTotal + '$';
         var fileName = 'receipt_'  + purchaseDate + '.txt';
