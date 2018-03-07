@@ -4,20 +4,20 @@ shoppingApp.service("signUpService", function($http) {
         alert("Sorry Error occured in productService: " + JSON.stringify(response));
     }
 
-    this.checkDuplicateCustomer = function (configSettings, id, email, success) { 
+    this.checkDuplicateCustomer = function (configSettings, customerID, customerEmail, success) { 
         $http.get(configSettings.shoppingApi + "/customer/duplicate", {
             params: {
-                id: id,
-                email: email 
+                id: customerID,
+                email: customerEmail 
             }
         }).then(success, error);
     };
 
-    this.addCustomer = function(configSettings, customer, success, error) {
+    this.addCustomer = function(configSettings, newCustomer, success, error) {
         $http({
             url: configSettings.shoppingApi + "/customer",
             method: "POST",
-            params: { customer: customer }
+            params: { customer: newCustomer }
         }).then(success, error);
     };
 });

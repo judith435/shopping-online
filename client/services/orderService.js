@@ -11,11 +11,11 @@ shoppingApp.service("orderService", function($http) {
         }).then(success, error);
     };
 
-    this.addOrder = function(configSettings, order, success, error) {
+    this.addOrder = function(configSettings, orderSubmitted, success, error) {
         $http({
             url: configSettings.shoppingApi + "/order",
             method: "POST",
-            params: { order: order }
+            params: { order: orderSubmitted }
         }).then(success, error);
     };
 });

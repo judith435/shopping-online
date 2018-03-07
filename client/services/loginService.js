@@ -8,11 +8,11 @@ shoppingApp.service("loginService", function($http) {
         $http.get(configSettings.shoppingApi +"/login",{}).then(success, error);
     };
 
-    this.login = function(configSettings, loginInfo, success, error) {
+    this.login = function(configSettings, loginData, success, error) {
         $http({
             url: configSettings.shoppingApi + "/login",
             method: "POST",
-            params: { loginInfo: loginInfo }
+            params: { loginInfo: loginData }
         }).then(success, error);
     };
 

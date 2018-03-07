@@ -9,9 +9,11 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
     $scope.showStep2 = false; //hide step 2
     $scope.options  = configSettings.citiesList;
 
-    function validateInputStep1() {    
+    function validateInputStep1(callback) {    
 
         $scope.errorsFound = false;
+        //initialize for every validation => duplicateCustomer test performed conditionally 
+        $scope.duplicateCustomerErrorMessage = ""; 
 
         //ID
         $scope.idErrorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
@@ -35,22 +37,21 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             $scope.errorsFound = $scope.confirmPasswordErrorMessage !== "" || $scope.errorsFound;
         }
 
-        //id/email/passwords missing - no point checking duplicate customer
-        if (!$scope.id || !$scope.email || !$scope.password || !$scope.confirmPassword) { 
-            return;
-        }
-
-        signUpService.checkDuplicateCustomer(configSettings, 
+        //id/email/passwords missing - or other errors found 
+        //no point checking duplicate customer => overhead of going to server
+        if ($scope.id && $scope.email && $scope.password && $scope.confirmPassword
+             && !$scope.errorsFound) { 
+            signUpService.checkDuplicateCustomer(configSettings, 
                                              $scope.id, 
                                              $scope.email, 
                                              function(response) {
             let duplicateCustomerFound = response.data.content.duplicateCustomerFound;
-            $scope.errorsFound = duplicateCustomerFound > 0;
-            $scope.duplicateCustomerErrorMessage =  duplicateCustomerFound 
+            $scope.errorsFound = duplicateCustomerFound > 0 || $scope.errorsFound;
+            $scope.duplicateCustomerErrorMessage =  duplicateCustomerFound > 0 
                     ? "customer with same id and/or email already exist(s)" : "" ;
-        });
-
-        return $scope.errorsFound;
+                callback($scope.errorsFound);
+            });
+        }
     }    
 
     function validateInputStep2() {    
@@ -72,23 +73,15 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
     $scope.continueSignUp = function()  {
 
-        validateInputStep1( function(errori) {
-            alert (errori);
-            if (errori) { return; }
+        validateInputStep1(function(errorsFound) {
+
+            if (errorsFound) { return; }
     
             $templateRequest("signUp/step2.html").then(function(html){
                 var template = $compile(html)($scope);
                 angular.element(document.querySelector("#signUP")).empty().append(template);
             });
         });
-
-        // validateInputStep1();
-        // if ($scope.errorsFound) { return; }
-
-        // $templateRequest("signUp/step2.html").then(function(html){
-        //     var template = $compile(html)($scope);
-        //     angular.element(document.querySelector("#signUP")).empty().append(template);
-        // });
     };
 
     $scope.completeSignUp = function()  {

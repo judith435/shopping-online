@@ -47,7 +47,5 @@ function addUpdateProduct(activity, product, callback) {
     });
 }
 
-module.exports.product = {
-   getProducts: getProducts,
-  addUpdateProduct: addUpdateProduct
-};
+module.exports.getProducts = getProducts;
+module.exports.addUpdateProduct = addUpdateProduct;

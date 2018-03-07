@@ -5,7 +5,7 @@ const logError = require("../share/errorLogging.js"); //must log product image u
 
 function getProducts(callback) {
 
-    bl.product.getProducts(function(err, productArray) {
+    bl.getProducts(function(err, productArray) {
         if (err) {
             callback("called by productController.getProducts => " + err);
         }
@@ -50,7 +50,7 @@ function addUpdateProduct(activity, req, callback) {
     const product = new model.Product(req.body);
     const inputErrorsFound = productValid(activity, product, req);
     if (!inputErrorsFound) {
-        bl.product.addUpdateProduct(activity, product, function(err, response) {
+        bl.addUpdateProduct(activity, product, function(err, response) {
             if (err) {
                 callback("called by productController.addUpdateProduct => " + err, null, null);
             }
