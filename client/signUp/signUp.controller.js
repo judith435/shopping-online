@@ -49,6 +49,8 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             $scope.duplicateCustomerErrorMessage =  duplicateCustomerFound 
                     ? "customer with same id and/or email already exist(s)" : "" ;
         });
+
+        return $scope.errorsFound;
     }    
 
     function validateInputStep2() {    
@@ -70,13 +72,23 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
     $scope.continueSignUp = function()  {
 
-        validateInputStep1();
-        if ($scope.errorsFound) { return; }
-
-        $templateRequest("signUp/step2.html").then(function(html){
-            var template = $compile(html)($scope);
-            angular.element(document.querySelector("#signUP")).empty().append(template);
+        validateInputStep1( function(errori) {
+            alert (errori);
+            if (errori) { return; }
+    
+            $templateRequest("signUp/step2.html").then(function(html){
+                var template = $compile(html)($scope);
+                angular.element(document.querySelector("#signUP")).empty().append(template);
+            });
         });
+
+        // validateInputStep1();
+        // if ($scope.errorsFound) { return; }
+
+        // $templateRequest("signUp/step2.html").then(function(html){
+        //     var template = $compile(html)($scope);
+        //     angular.element(document.querySelector("#signUP")).empty().append(template);
+        // });
     };
 
     $scope.completeSignUp = function()  {

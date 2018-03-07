@@ -4,51 +4,51 @@ shoppingApp.service("cartService", function($http) {
         alert("Sorry Error occured in $http: " + JSON.stringify(response));
     }
 
-    this.getLastCart = function(configSettings, teudatZehut, success, error) {
+    this.getLastCart = function(configSettings, tz, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cart",
             method: "GET",
-            params: { teudatZehut: teudatZehut }
+            params: { teudatZehut: tz }
         }).then(success, error);
     };
 
-    this.addCart = function(configSettings, teudatZehut, success, error) {
+    this.addCart = function(configSettings, tz, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cart",
             method: "POST",
-            params: { teudatZehut: teudatZehut }
+            params: { teudatZehut: tz }
         }).then(success, error);
     };
 
-    this.getCartItems = function(configSettings, cartID, success, error) {
+    this.getCartItems = function(configSettings, cID, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cartItem",
             method: "GET",
-            params: { cartID: cartID }
+            params: { cartID: cID }
         }).then(success, error);
     };
 
-    this.addCartItem = function(configSettings, cartItem, success, error) {
+    this.addCartItem = function(configSettings, cItem, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cartItem",
             method: "POST",
-            params: { cartItem: cartItem }
+            params: { cartItem: cItem }
         }).then(success, error);
     };
 
-    this.deleteCartItem = function(configSettings, cartItemID, success, error) {
+    this.deleteCartItem = function(configSettings, cItemID, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cartItem",
             method: "DELETE",
-            params: { cartItemID: cartItemID }
+            params: { cartItemID: cItemID }
         }).then(success, error);
     };
 
-    this.clearCart = function(configSettings, cartID, success, error) {
+    this.clearCart = function(configSettings, cID, success, error) {
         $http({
             url: configSettings.shoppingApi + "/cartItem/all",
             method: "DELETE",
-            params: { cartID: cartID }
+            params: { cartID: cID }
         }).then(success, error);
     };
 });
