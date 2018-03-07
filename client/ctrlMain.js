@@ -40,6 +40,21 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
         $location.path("/products");
     }
 
+    function tuli(response) {
+        //existing customer with existing cart
+        cart = new Cart(response.data.content);
+        cartInfo.addCartInfo(cart);
+
+        //in case order date exists customer placed order for last open cart and is now starting a new cart => Start Shopping
+        $scope.entryAction = !cart.orderDate ? "Resume Shopping" : "Start Shopping";
+
+        let displayDate = buildDisplayDate(!cart.orderDate ?
+            cart.creationDate : cart.orderDate);
+        let notification = !cart.orderDate  ? "You have an open cart from " : "Your last purchase was on ";    
+        $scope.entryMessage = "Notification: " +  notification + displayDate;
+        
+    }
+
     function setPageForLoggedInUser(cust) { //$scope.customer.
         const customer = new Customer(cust);
         customerInfo.addCustomerInfo(customer);
@@ -63,17 +78,18 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
                     return;                      
                 }
 
-                //existing customer with existing cart
-                cart = new Cart(response.data.content);
-                cartInfo.addCartInfo(cart);
+                tuli(response);
+                // //existing customer with existing cart
+                // cart = new Cart(response.data.content);
+                // cartInfo.addCartInfo(cart);
 
-                //in case order date exists customer placed order for last open cart and is now starting a new cart => Start Shopping
-                $scope.entryAction = !cart.orderDate ? "Resume Shopping" : "Start Shopping";
+                // //in case order date exists customer placed order for last open cart and is now starting a new cart => Start Shopping
+                // $scope.entryAction = !cart.orderDate ? "Resume Shopping" : "Start Shopping";
 
-                let displayDate = buildDisplayDate(!cart.orderDate ?
-                    cart.creationDate : cart.orderDate);
-                let notification = !cart.orderDate  ? "You have an open cart from " : "Your last purchase was on ";    
-                $scope.entryMessage = "Notification: " +  notification + displayDate;
+                // let displayDate = buildDisplayDate(!cart.orderDate ?
+                //     cart.creationDate : cart.orderDate);
+                // let notification = !cart.orderDate  ? "You have an open cart from " : "Your last purchase was on ";    
+                // $scope.entryMessage = "Notification: " +  notification + displayDate;
             });
         }
         else { //customer is admin load update product page
