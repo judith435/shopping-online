@@ -47,6 +47,7 @@ app.get("/login", apiLogin.checkUserLoggedIn);
 app.post("/login", apiLogin.login);
 app.delete("/login", apiLogin.logout);
 
+app.get("/customer/duplicate", apiCustomer.getDuplicateCustomer);
 app.post("/customer", apiCustomer.addCustomer);
 
 app.get("/cart", apiCart.getLastCart);

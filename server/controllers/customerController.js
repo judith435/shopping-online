@@ -2,6 +2,19 @@ const bl = require("../bl/customerBL");
 const model = require("../models/customerModel");
 const validations = require("../share/validations");
 
+function getDuplicateCustomer(teudatZehut, email, callback) {
+
+    bl.getDuplicateCustomer(teudatZehut, email, function(err, duplicateCustomerFound) {
+        if (err) {
+            callback("called by customerController.getDuplicateCustomer => " + err);
+        }
+        else {
+            callback(null, duplicateCustomerFound);
+        }
+    });
+}
+
+
 function customerValid(customer) {
     let errorsFound = "";
 
@@ -34,4 +47,5 @@ function addCustomer(req, callback) {
     }
 }
 
+module.exports.getDuplicateCustomer = getDuplicateCustomer;
 module.exports.addCustomer = addCustomer;

@@ -1,6 +1,22 @@
 const dal = require("..//dal/dal");
 const parmObject = require("..//dal/SPparm");
 
+function getDuplicateCustomer(teudatZehut, email, callback) {
+
+    const spParms = []; 
+    spParms.push(new parmObject.SPparm(teudatZehut, false));
+    spParms.push(new parmObject.SPparm(email, true));
+
+    dal.executeQuery("shopping", "check_customer_exists", spParms, function(err, rows) {
+        if (err) {
+            callback("called by customerBL.getDuplicateCustomer => " + err);
+        }
+        else {
+            callback(null, rows[0][0]);
+        }
+    });
+}
+
 function addCustomer(customer, callback) {
     //req.body
     const spParms = []; 
@@ -22,4 +38,5 @@ function addCustomer(customer, callback) {
     });
 }
 
+module.exports.getDuplicateCustomer = getDuplicateCustomer;
 module.exports.addCustomer = addCustomer;

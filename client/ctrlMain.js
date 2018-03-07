@@ -64,7 +64,6 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
                 }
 
                 //existing customer with existing cart
-
                 cart = new Cart(response.data.content);
                 cartInfo.addCartInfo(cart);
 

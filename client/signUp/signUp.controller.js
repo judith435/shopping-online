@@ -44,9 +44,9 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
                                              $scope.id, 
                                              $scope.email, 
                                              function(response) {
-            let customerExists = response.data;
-            $scope.errorsFound = customerExists !== -1;
-            $scope.duplicateCustomerErrorMessage =  customerExists !== -1 
+            let duplicateCustomerFound = response.data.content.duplicateCustomerFound;
+            $scope.errorsFound = duplicateCustomerFound > 0;
+            $scope.duplicateCustomerErrorMessage =  duplicateCustomerFound 
                     ? "customer with same id and/or email already exist(s)" : "" ;
         });
     }    

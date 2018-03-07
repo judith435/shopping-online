@@ -68,9 +68,12 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
             controller: "ctrlProductDialog",
             size: "lg",
             resolve: {
-                product: function () {
+                product () {
                     return product;
                 }
+                // product: function () {
+                //     return product;
+                // }
             }
         });
 

@@ -4,6 +4,22 @@ const customerCtrl = require("../controllers/customerController");
 
 var response;
 
+function getDuplicateCustomer(req, res) {
+
+    customerCtrl.getDuplicateCustomer(req.query.id, //id contains the teudatZehut
+                                      req.query.email,
+                                      function(err, duplicateCustomerFound) {
+        if (err) {
+          logError.writeToErrorLog("called by customerAPI.getDuplicateCustomer => " + err);
+          response =  new sr.ServerResponse("error", err);
+        }
+        else {
+               response =  new sr.ServerResponse("ok", duplicateCustomerFound);
+        }
+        res.end(JSON.stringify(response));
+    });
+}
+
 function addCustomer(req, res) {
                                             
     customerCtrl.addCustomer(req, function(err, customerInfo, invalidInputDetails) {
@@ -26,4 +42,5 @@ function addCustomer(req, res) {
     });
 }
 
+module.exports.getDuplicateCustomer = getDuplicateCustomer;
 module.exports.addCustomer = addCustomer;

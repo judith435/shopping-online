@@ -130,9 +130,12 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                 controller: "orderConfirmationController",
                 size: "md",
                 resolve: {
-                    orderDetails: function () {
+                    orderDetails () {
                         return orderDetails;
                     }
+                    // orderDetails: function () {
+                    //     return orderDetails;
+                    // }
                 }
     
             });

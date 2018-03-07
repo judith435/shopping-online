@@ -71,7 +71,7 @@ function deleteCartItem(req, res) {
             response =  new sr.ServerResponse("ok", affectedRows);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 function clearCart(req, res) {
@@ -85,7 +85,7 @@ function clearCart(req, res) {
             response =  new sr.ServerResponse("ok", affectedRows);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 
