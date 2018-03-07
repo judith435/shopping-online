@@ -4,10 +4,11 @@ shoppingApp.service("signUpService", function($http) {
         alert("Sorry Error occured in productService: " + JSON.stringify(response));
     }
 
-    this.checkDuplicateCustomer = function (configSettings, customer, success) { 
+    this.checkDuplicateCustomer = function (configSettings, id, email, success) { 
         $http.get(configSettings.shoppingApi + "/customer/duplicate", {
             params: {
-                product: product 
+                id: id,
+                email: email 
             }
         }).then(success, error);
     };

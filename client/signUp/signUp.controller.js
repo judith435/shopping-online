@@ -40,11 +40,14 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             return;
         }
 
-        signUpService.checkDuplicateCustomer(configSettings, $scope.password, function(response) {
+        signUpService.checkDuplicateCustomer(configSettings, 
+                                             $scope.id, 
+                                             $scope.email, 
+                                             function(response) {
             let customerExists = response.data;
             $scope.errorsFound = customerExists !== -1;
             $scope.duplicateCustomerErrorMessage =  customerExists !== -1 
-                    ? "customer with same email and/or password already exist(s)" : "" ;
+                    ? "customer with same id and/or email already exist(s)" : "" ;
         });
     }    
 

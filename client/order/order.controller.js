@@ -95,9 +95,9 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         //if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
-        let deliveryDate = "";
+        let deliveryDateTemp = "";
         if ($scope.order.deliveryDate) {
-            deliveryDate =  $scope.order.deliveryDate.getFullYear() + "-" +
+            deliveryDateTemp =  $scope.order.deliveryDate.getFullYear() + "-" +
             ($scope.order.deliveryDate.getMonth() + 1) + "-" +
             $scope.order.deliveryDate.getDate();
         }
@@ -107,7 +107,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.order.city,
                                 deliveryStreet: $scope.order.street,
-                                deliveryDate: deliveryDate,
+                                deliveryDate: deliveryDateTemp,
                                 ccInfo: $scope.order.creditCard ? //remove separating spaces if cc not empty
                                         $scope.order.creditCard.replace(/\s/g, "") : $scope.order.creditCard});
         orderService.addOrder(configSettings, order, function(response) {  

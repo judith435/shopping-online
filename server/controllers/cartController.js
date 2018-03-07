@@ -48,7 +48,7 @@ function addCartItem(req, callback) {
         else {
             callback(null, cartItemID);
         }
-    })
+    });
 }
 
 function deleteCartItem(cartItemID, callback) {
@@ -60,7 +60,7 @@ function deleteCartItem(cartItemID, callback) {
         else {
             callback(null, affectedRows);
         }
-    })
+    });
 }
 
 function clearCart(cartID, callback) {
@@ -72,7 +72,7 @@ function clearCart(cartID, callback) {
         else {
             callback(null, affectedRows);
         }
-    })
+    });
 }
 
 module.exports.getLastCart = getLastCart;

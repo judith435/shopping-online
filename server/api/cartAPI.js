@@ -57,7 +57,7 @@ function addCartItem(req, res) {
             response =  new sr.ServerResponse("ok", cartItemID);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 function deleteCartItem(req, res) {
