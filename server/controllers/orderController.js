@@ -60,7 +60,7 @@ function addOrder(req, callback) {
         else {
             callback(null, null, inputErrorsFound); 
         }
-    })
+    });
 }
 
 module.exports.getDeliveryDates = getDeliveryDates;

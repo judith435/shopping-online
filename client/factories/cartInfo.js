@@ -10,8 +10,8 @@ shoppingApp.factory("cartInfo", function() {
   }
 
   return {
-    addCartInfo: addCartInfo,
-    getCartInfo: getCartInfo
+    addCartInfo,//: addCartInfo,
+    getCartInfo //: getCartInfo
   };
 
 });

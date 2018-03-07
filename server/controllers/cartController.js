@@ -34,7 +34,7 @@ function addCart(teudatZehut, callback) {
         else {
             callback(null, cartID);
         }
-    })
+    });
 }
 
 function addCartItem(req, callback) {

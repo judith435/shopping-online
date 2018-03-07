@@ -40,12 +40,12 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             return;
         }
 
-        // courseService.checkDuplicateProduct(configSettings, $scope.course, function(response) {
-        //     let duplicateCourseID = parseInt(response.data);
-        //     $scope.errorsFound = duplicateCourseID !== -1;
-        //     $scope.duplicateCourse_errorMessage =  duplicateCourseID !== -1 
-        //             ? "course with same name already exists (courseID: " + duplicateCourseID + ")" : "" ;
-        // });
+        signUpService.checkDuplicateCustomer(configSettings, $scope.password, function(response) {
+            let customerExists = response.data;
+            $scope.errorsFound = customerExists !== -1;
+            $scope.duplicateCustomerErrorMessage =  customerExists !== -1 
+                    ? "customer with same email and/or password already exist(s)" : "" ;
+        });
     }    
 
     function validateInputStep2() {    
@@ -74,7 +74,6 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             var template = $compile(html)($scope);
             angular.element(document.querySelector("#signUP")).empty().append(template);
         });
-
     };
 
     $scope.completeSignUp = function()  {
