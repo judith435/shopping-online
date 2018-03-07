@@ -26,8 +26,7 @@ shoppingApp.service("cartService", function($http) {
             method: "GET",
             params: { cartID: cartID }
         }).then(success, error);
-    }
-
+    };
 
     this.addCartItem = function(configSettings, cartItem, success, error) {
         $http({
@@ -35,7 +34,7 @@ shoppingApp.service("cartService", function($http) {
             method: "POST",
             params: { cartItem: cartItem }
         }).then(success, error);
-    }
+    };
 
     this.deleteCartItem = function(configSettings, cartItemID, success, error) {
         $http({
@@ -43,7 +42,7 @@ shoppingApp.service("cartService", function($http) {
             method: "DELETE",
             params: { cartItemID: cartItemID }
         }).then(success, error);
-    }
+    };
 
     this.clearCart = function(configSettings, cartID, success, error) {
         $http({
@@ -51,5 +50,5 @@ shoppingApp.service("cartService", function($http) {
             method: "DELETE",
             params: { cartID: cartID }
         }).then(success, error);
-    }
+    };
 });

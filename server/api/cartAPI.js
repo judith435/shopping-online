@@ -29,7 +29,7 @@ function getCartItems(req, res) {
             response =  new sr.ServerResponse("ok", cartItems);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 function addCart(req, res) {

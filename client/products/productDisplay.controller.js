@@ -72,5 +72,5 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
 
     $scope.productSelected = function(product){
         $rootScope.$broadcast("product-selected", product);
-    }
+    };
 });

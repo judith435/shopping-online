@@ -55,7 +55,7 @@ function addOrder(req, callback) {
                 else {
                     callback(null, response, null);
                 }
-            })
+            });
         }
         else {
             callback(null, null, inputErrorsFound); 

@@ -132,7 +132,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
             initUpdatePanel();
             $scope.activity = "addProduct";
         });
-    } 
+    }; 
 });
 
 

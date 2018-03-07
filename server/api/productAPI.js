@@ -49,7 +49,7 @@ function addUpdateProduct(activity, req, res) {
       }
     }
     res.end(JSON.stringify(response));
-  })
+  });
 }
 
 function addProduct(req, res) {

@@ -20,7 +20,7 @@ function getCartItems(cartID, callback) {
         else {
             callback(null, cartItems);
         }
-    })
+    });
 }
    
 function addCart(teudatZehut, callback) {

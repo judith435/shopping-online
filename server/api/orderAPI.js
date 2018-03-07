@@ -34,7 +34,7 @@ function addOrder(req, res) {
             }
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 module.exports.getDeliveryDates = getDeliveryDates;

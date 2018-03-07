@@ -2,8 +2,6 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
                                                         configSettings,
                                                         storeService,
                                                         cartService,
-                                                        // $templateRequest,
-                                                        // $compile,
                                                         loginService,
                                                         $location,
                                                         customerInfo,
@@ -139,13 +137,12 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
 
     $scope.shop = function() {
         $location.path("/shop").search({cartStatus: "shop"});
-    }
+    };
 
     $scope.logout = function(){
         loginService.logout(configSettings, function(response) {
             loadHomePage(); 
             init();
         });
-    }
+    };
 });
-

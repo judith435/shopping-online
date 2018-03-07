@@ -137,8 +137,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     
             });
         });
-
-    }
+    };
 
     //datepicker functions start
     $scope.DatePicker = {
