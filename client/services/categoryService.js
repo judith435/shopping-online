@@ -6,5 +6,5 @@ shoppingApp.service("categoryService", function($http) {
 
     this.getCategories = function (configSettings, success) { 
         $http.get(configSettings.shoppingApi +"/category",{}).then(success, error);
-    }
+    };
 });

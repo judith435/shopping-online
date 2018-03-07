@@ -11,4 +11,4 @@ function getStatistics(callback) {
     });
 }
 
-module.exports.getStatistics = getStatistics
+module.exports.getStatistics = getStatistics;

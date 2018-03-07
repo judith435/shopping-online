@@ -35,8 +35,7 @@ function login(req, res) {
             }
         }
         res.end(JSON.stringify(response));
-    })
-  
+    });
 }
 
 function logout(req, res) {

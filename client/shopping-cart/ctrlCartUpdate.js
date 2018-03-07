@@ -13,7 +13,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
 
-    $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName
+    $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
     $scope.cartItems = [];
 
     function addCart() {
@@ -33,12 +33,12 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
     }
 
     function calcCartTotal() {
+
         $scope.cartTotal = 0;
         for (let i = 0; i < $scope.cartItems.length; i++) { 
             $scope.cartTotal += $scope.cartItems[i].price;
         }
-        $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100
-
+        $scope.cartTotal = Math.round($scope.cartTotal * 100) / 100;
     }
 
     function getCartItems() {
@@ -82,7 +82,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                                             quantity: productQuantity,
                                             price: Math.round(productQuantity * product.price * 100) / 100,
                                             shoppingCart: cart.id 
-                                        })
+                                        });
                                         
             cartService.addCartItem(configSettings, cartItem, function(response) {  
                 if (response.data.status === "error") {
@@ -114,7 +114,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
             }
             $scope.cartItems = [];
         });
-    }
+    };
 
     $scope.order = function() { 
         if ($scope.cartItems.length === 0) {
@@ -126,10 +126,9 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
         cartInfo.addCartInfo(cart);
 
         $location.path("/order").search({cartStatus: "order"});
-    }
+    };
 
     $scope.returnToShopping = function() { 
         $location.path("/shop").search({cartStatus: "shop"});
-    }
-
+    };
 });

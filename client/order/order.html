@@ -15,14 +15,14 @@
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <select class="form-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
                              ng-options="o as o for o in options" ng-model="order.city"></select>
-                        <label class="validationError">{{city_errorMessage}}</label>     
+                        <label class="validationError">{{cityErrorMessage}}</label>     
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <input type="text" name='street' ng-model=order.street ng-dblclick='inputDoubleClick($event.currentTarget)' class="form-control" maxlength="45" placeholder="Enter Street">
-                        <label class="validationError">{{street_errorMessage}}</label>     
+                        <label class="validationError">{{streetErrorMessage}}</label>     
                     </div>
                 </div>
                 <div class="form-group row">
@@ -35,7 +35,7 @@
                                 title='Dates with more than 3 scheduled deliveries are automatically disabled'>
                                 <i class="glyphicon glyphicon-calendar"></i>
                         </button>
-                        <label class="validationError">{{delivery_date_errorMessage}}</label>     
+                        <label class="validationError">{{deliveryDateErrorMessage}}</label>     
                     </div>
                 </div>
                 <!-- <div>
@@ -48,7 +48,7 @@
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <input placeholder="Enter Credit Card" type="text" class="form-control" 
                             ng-model='order.creditCard' ng-keyup='editCreditCard()' maxlength="19" >
-                        <label class="validationError">{{creditCard_errorMessage}}</label>     
+                        <label class="validationError">{{creditCardErrorMessage}}</label>     
                     </div>
                 </div>
                 <div class="row button-row">

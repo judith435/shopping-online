@@ -27,7 +27,7 @@ function addCustomer(req, callback) {
                 customer.password = "***************";
                 callback(null, customer, null);
             }
-        })
+        });
     }
     else {
         callback(null, null, inputErrorsFound); 

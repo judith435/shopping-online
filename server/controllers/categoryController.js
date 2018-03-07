@@ -7,7 +7,7 @@ function getCategories(callback) {
             callback("called by categoryController.getCategories => " + err);
         }
         callback(null, categoryArray);
-    })
+    });
 }
 
 module.exports.getCategories = getCategories;

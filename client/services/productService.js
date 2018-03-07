@@ -54,6 +54,5 @@ shoppingApp.service("productService", function($http) {
      
             }).then(success, error); 
         }
-    }
+    };
 });
-

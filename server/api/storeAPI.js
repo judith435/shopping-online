@@ -14,7 +14,7 @@ function getStatistics(req, res) {
             response =  new sr.ServerResponse("ok", statistics);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 module.exports.getStatistics = getStatistics;

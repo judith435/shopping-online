@@ -15,7 +15,7 @@ function getDeliveryDates(req, res) {
                response =  new sr.ServerResponse("ok", deliveryDates);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 function addOrder(req, res) {

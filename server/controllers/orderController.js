@@ -1,6 +1,7 @@
 const bl = require("../bl/orderBL");
 const model = require("../models/orderModel");
 const validations = require("../share/validations");
+const logError = require("../share/errorLogging.js");
 
 function getDeliveryDates(callback) {
 
@@ -11,7 +12,7 @@ function getDeliveryDates(callback) {
         else {
             callback(null, deliveryDates);
         }
-    })
+    });
 }
 
 function orderValid(order, filledDates) {

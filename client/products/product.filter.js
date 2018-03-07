@@ -11,7 +11,5 @@ shoppingApp.filter("selectCategory", function($filter) {
         }
         productSearch = false;
         return filteredProducts;
-    }
-
-
+    };
 });

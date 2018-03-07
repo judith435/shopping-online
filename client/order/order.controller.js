@@ -26,7 +26,8 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         else {
             $scope.order.street = customer.street;
         }
-    }
+    };
+    
     function validateCC(cc) {
         // accept only digits, dashes or spaces
         if (/[^0-9-\s]+/.test(cc)) {
@@ -60,16 +61,16 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         $scope.errorsFound = false;
 
         //city
-        $scope.city_errorMessage = !$scope.order.city ? "city required" : "";
-        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
+        $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
+        $scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
 
         //street
-        $scope.street_errorMessage = !$scope.order.street ? "street required" : "";
-        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
+        $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
+        $scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
         
         //delivery date
-        $scope.delivery_date_errorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
-        $scope.errorsFound = $scope.delivery_date_errorMessage !== "" || $scope.errorsFound;
+        $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
+        $scope.errorsFound = $scope.deliveryDateErrorMessage !== "" || $scope.errorsFound;
         
         //credit card
         if ($scope.order.creditCard) {
@@ -79,11 +80,11 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             if (ccValid) {
                 ccValid =  validateCC(creditCard);
             }
-            $scope.creditCard_errorMessage = !ccValid  ? "Invalid Credit Card" : "";
+            $scope.creditCardErrorMessage = !ccValid  ? "Invalid Credit Card" : "";
             $scope.errorsFound = !ccValid || $scope.errorsFound;
         }
         else {
-            $scope.creditCard_errorMessage = "credit card required";
+            $scope.creditCardErrorMessage = "credit card required";
             $scope.errorsFound = true;
         }
     }

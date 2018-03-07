@@ -8,7 +8,7 @@ function getLastCart(teudatZehut, callback) {
             callback("called by cartController.getLastCart => " + err);
         }
         callback(null, lastCart);
-    })
+    });
 }
 
 function getCartItems(cartID, callback) {

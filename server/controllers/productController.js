@@ -68,7 +68,7 @@ function addUpdateProduct(activity, req, callback) {
                     }); 
                 }
             }
-        })
+        });
     }
     else {
         callback(null, null, inputErrorsFound); 

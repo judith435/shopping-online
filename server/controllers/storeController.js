@@ -7,7 +7,7 @@ function getStatistics(callback) {
             callback("called by storeController.getStatistics => " + err);
         }
         callback(null, statistics);
-    })
+    });
 }
 
 module.exports.getStatistics = getStatistics;

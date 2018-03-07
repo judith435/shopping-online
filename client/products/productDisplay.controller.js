@@ -63,7 +63,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                 $scope.foundProducts.push($scope.products[i]);
             }
         }
-    }  
+    };  
 
     $scope.$on("product-changed", function(event, opt) {
         getProducts();
@@ -73,6 +73,4 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
     $scope.productSelected = function(product){
         $rootScope.$broadcast("product-selected", product);
     }
-
-
 });

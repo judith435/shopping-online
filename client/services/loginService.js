@@ -14,12 +14,12 @@ shoppingApp.service("loginService", function($http) {
             method: "POST",
             params: { loginInfo: loginInfo }
         }).then(success, error);
-    }
+    };
 
     this.logout = function(configSettings,  success, error) {
         $http({
             url: configSettings.shoppingApi + "/login",
             method: "DELETE" 
         }).then(success, error);
-    }
+    };
 });

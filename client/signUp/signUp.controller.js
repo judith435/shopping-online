@@ -14,25 +14,25 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.errorsFound = false;
 
         //ID
-        $scope.id_errorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
-        $scope.errorsFound = $scope.id_errorMessage !== "" || $scope.errorsFound;
+        $scope.idErrorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
+        $scope.errorsFound = $scope.idErrorMessage !== "" || $scope.errorsFound;
         
         //Email
-        $scope.email_errorMessage = !$scope.email ? "valid email  required" : "";
-        $scope.errorsFound = $scope.email_errorMessage !== "" || $scope.errorsFound;
+        $scope.emailErrorMessage = !$scope.email ? "valid email  required" : "";
+        $scope.errorsFound = $scope.emailErrorMessage !== "" || $scope.errorsFound;
 
         //Passwords
-        $scope.password_errorMessage = !$scope.password ? "password required" : "";
-        $scope.errorsFound = $scope.password_errorMessage !== "" || $scope.errorsFound;
+        $scope.passwordErrorMessage = !$scope.password ? "password required" : "";
+        $scope.errorsFound = $scope.passwordErrorMessage !== "" || $scope.errorsFound;
         
-        $scope.confirmPassword_errorMessage = !$scope.confirmPassword ? "confirm password" : "";
-        $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
+        $scope.confirmPasswordErrorMessage = !$scope.confirmPassword ? "confirm password" : "";
+        $scope.errorsFound = $scope.confirmPasswordErrorMessage !== "" || $scope.errorsFound;
 
         //passwords entered in both fields => chek  they are the same
         if ($scope.confirmPassword && $scope.password) {
-            $scope.confirmPassword_errorMessage = 
+            $scope.confirmPasswordErrorMessage = 
                 $scope.confirmPassword !== $scope.password ? "password does not match the confirm password" : "";
-            $scope.errorsFound = $scope.confirmPassword_errorMessage !== "" || $scope.errorsFound;
+            $scope.errorsFound = $scope.confirmPasswordErrorMessage !== "" || $scope.errorsFound;
         }
 
         //id/email/passwords missing - no point checking duplicate customer
@@ -52,17 +52,17 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
         $scope.errorsFound = false;
 
-        $scope.city_errorMessage = !$scope.city  ? "City required" : "";
-        $scope.errorsFound = $scope.city_errorMessage !== "" || $scope.errorsFound;
+        $scope.cityErrorMessage = !$scope.city  ? "City required" : "";
+        $scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
         
-        $scope.street_errorMessage = !$scope.street ? "Email  required" : "";
-        $scope.errorsFound = $scope.street_errorMessage !== "" || $scope.errorsFound;
+        $scope.streetErrorMessage = !$scope.street ? "Email  required" : "";
+        $scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
 
-        $scope.firstName_errorMessage = !$scope.firstName ? "First Name required" : "";
-        $scope.errorsFound = $scope.firstName_errorMessage !== "" || $scope.errorsFound;
+        $scope.firstNameErrorMessage = !$scope.firstName ? "First Name required" : "";
+        $scope.errorsFound = $scope.firstNameErrorMessage !== "" || $scope.errorsFound;
         
-        $scope.lastName_errorMessage = !$scope.lastName ? "Last Name required" : "";
-        $scope.errorsFound = $scope.lastName_errorMessage !== "" || $scope.errorsFound;
+        $scope.lastNameErrorMessage = !$scope.lastName ? "Last Name required" : "";
+        $scope.errorsFound = $scope.lastNameErrorMessage !== "" || $scope.errorsFound;
     }    
 
     $scope.continueSignUp = function()  {
@@ -75,7 +75,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             angular.element(document.querySelector("#signUP")).empty().append(template);
         });
 
-    }
+    };
 
     $scope.completeSignUp = function()  {
 
@@ -103,6 +103,6 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
             //after successfull sign up dispay home page
             $rootScope.$broadcast("customer-added", customer);
         });
-    }
+    };
 
 });

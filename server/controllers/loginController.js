@@ -17,7 +17,7 @@ function login(req, callback) {
                 callback(null, null, noSuchCustomer);
             }
         }
-    })
+    });
 }
 
 module.exports.login = login;

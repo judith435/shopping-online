@@ -28,7 +28,7 @@ function getProducts(req, res) {
         response =  new sr.ServerResponse("ok", products);
       }
       res.end(JSON.stringify(response));
-  })
+  });
 }
 
 function addUpdateProduct(activity, req, res) {

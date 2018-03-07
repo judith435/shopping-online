@@ -125,7 +125,7 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
 
      $scope.signUp = function() {
         $location.path("/signUp");
-     }
+     };
 
     $scope.$on("customer-added", function(event, customer) {
         // $scope.cart = ""; //reset cart info for new customer

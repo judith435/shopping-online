@@ -5,5 +5,5 @@ shoppingApp.service("storeService", function($http) {
 
     this.getStoreStatistics = function (configSettings, success) { 
         $http.get(configSettings.shoppingApi +"/store",{}).then(success, error);
-    }
+    };
 });

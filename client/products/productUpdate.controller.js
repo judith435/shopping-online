@@ -23,11 +23,11 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
     function initUpdatePanel() {
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
-        $scope.name_errorMessage = "";
-        $scope.category_errorMessage = "";
-        $scope.price_errorMessage = "";
-        $scope.productImage_errorMessage = "";
-        $scope.duplicateProduct_errorMessage = "";
+        $scope.nameErrorMessage = "";
+        $scope.categoryErrorMessage = "";
+        $scope.priceErrorMessage = "";
+        $scope.productImageErrorMessage = "";
+        $scope.noChangeErrorMessage = "";
         $scope.productName = "click +  to add product";
         angular.element("#productImage").val(null);
         $scope.productImage = null;
@@ -46,7 +46,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
     $scope.imageUploaded  = function () {
         var drawingCanvas = document.getElementById("canvasProduct");
         imageService.uploadImage(drawingCanvas, $scope.productImage); 
-    }
+    };
 
     $scope.$on("product-selected", function(event, product) {
         initUpdatePanel();
@@ -70,40 +70,40 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
                 $scope.productBeforeUpdate.category === $scope.product.categoryDDL.value &&
                 $scope.productBeforeUpdate.price === $scope.product.price &&
                 !$scope.productImage) {
-                    $scope.duplicateProduct_errorMessage =  "no change in data - no update";  
+                    $scope.noChangeErrorMessage =  "no change in data - no update";  
                     $scope.errorsFound = true;
                     return;
             }
             else {
-                $scope.duplicateProduct_errorMessage =  "";  
+                $scope.noChangeErrorMessage =  "";  
             }  
         }
 
-        $scope.name_errorMessage = !$scope.product.name  ? "Name required" : "";
-        $scope.errorsFound = $scope.name_errorMessage !== "" || $scope.errorsFound;
+        $scope.nameErrorMessage = !$scope.product.name  ? "Name required" : "";
+        $scope.errorsFound = $scope.nameErrorMessage !== "" || $scope.errorsFound;
         
-        $scope.category_errorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
-        $scope.errorsFound = $scope.category_errorMessage !== "" || $scope.errorsFound;
+        $scope.categoryErrorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
+        $scope.errorsFound = $scope.categoryErrorMessage !== "" || $scope.errorsFound;
 
-        $scope.price_errorMessage = !$scope.product.price ? "Price up to 9999.99 $ required" : "";
-        $scope.errorsFound = $scope.price_errorMessage !== "" || $scope.errorsFound;
+        $scope.priceErrorMessage = !$scope.product.price ? "Price up to 9999.99 $ required" : "";
+        $scope.errorsFound = $scope.priceErrorMessage !== "" || $scope.errorsFound;
 
         //product image required for addProduct only
-        $scope.productImage_errorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
-        $scope.errorsFound = $scope.productImage_errorMessage !== "" || $scope.errorsFound;
+        $scope.productImageErrorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
+        $scope.errorsFound = $scope.productImageErrorMessage !== "" || $scope.errorsFound;
         
         if ($scope.productImage) { //check image extensions/size => no point checking if no image uploaded
 
             var extension = $scope.productImage.name.split(".").pop().toLowerCase();
-            $scope.productImage_errorMessage = $.inArray(extension, ["jpg", "jpeg", "png", "gif"]) === -1 ? "Valid extensions: jpg, jpeg, png or gif" : "";
-            $scope.errorsFound = $scope.productImage_errorMessage !== "" || $scope.errorsFound;
+            $scope.productImageErrorMessage = $.inArray(extension, ["jpg", "jpeg", "png", "gif"]) === -1 ? "Valid extensions: jpg, jpeg, png or gif" : "";
+            $scope.errorsFound = $scope.productImageErrorMessage !== "" || $scope.errorsFound;
     
-            if ($scope.productImage_errorMessage) {
+            if ($scope.productImageErrorMessage) {
                 return;
             }
     
-            $scope.productImage_errorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : "";
-            $scope.errorsFound = $scope.productImage_errorMessage !== "" || $scope.errorsFound;
+            $scope.productImageErrorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : "";
+            $scope.errorsFound = $scope.productImageErrorMessage !== "" || $scope.errorsFound;
         }
     }    
 

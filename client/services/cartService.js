@@ -18,7 +18,7 @@ shoppingApp.service("cartService", function($http) {
             method: "POST",
             params: { teudatZehut: teudatZehut }
         }).then(success, error);
-    }
+    };
 
     this.getCartItems = function(configSettings, cartID, success, error) {
         $http({

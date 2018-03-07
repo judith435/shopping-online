@@ -15,21 +15,21 @@ shoppingApp.service("imageService", function() {
                 context.drawImage(imageObj, 0, 0, canvasSize[size][0], canvasSize[size][1]);
             };
             imageObj.src = imgPath + ".jpg?" + new Date().getTime();
-    }
+    };
 
     this.loadCanvasList = function (items, canvasID , imagePath, size) {
         items.forEach(function (item) {
             var drawingCanvas = document.getElementById(canvasID + item.id);
             self.setCanvas(drawingCanvas, imagePath + item.id, size);
         });
-    }
+    };
 
     this.clearCanvasList = function (items, canvasID) {
         items.forEach(function (item) {
             var drawingCanvas = document.getElementById(canvasID + item.id);
             self.clearImage(drawingCanvas);
         });
-    }
+    };
 
     this.uploadImage = function (canvas, imageFile) {
         self.clearImage(canvas);
@@ -45,12 +45,12 @@ shoppingApp.service("imageService", function() {
               };       
               fileRDR .readAsDataURL(imageFile);
         }
-    }
+    };
 
     this.clearImage = function (canvas) {
         var context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    };
 
 });
 

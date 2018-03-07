@@ -18,6 +18,6 @@ shoppingApp.service("signUpService", function($http) {
             method: "POST",
             params: { customer: customer }
         }).then(success, error);
-    }
+    };
 });
 

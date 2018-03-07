@@ -47,11 +47,7 @@ function addUpdateProduct(activity, product, callback) {
     });
 }
 
-
-
 module.exports.product = {
    getProducts: getProducts,
-  //  checkDuplicateProduct: checkDuplicateProduct,
   addUpdateProduct: addUpdateProduct
-
-}
+};

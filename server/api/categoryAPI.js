@@ -14,7 +14,7 @@ function getCategories(req, res) {
             response =  new sr.ServerResponse("ok", categories);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 module.exports.getCategories = getCategories;

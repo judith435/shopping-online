@@ -5,7 +5,7 @@ function inputEmpty(input) {
 } 
 
 function inputValidAmount(input) {
-    let amount = parseFloat(input)
+    let amount = parseFloat(input);
     if (!amount) { //amount is NaN
         return false;
     }

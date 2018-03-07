@@ -15,7 +15,7 @@ function getLastCart(req, res) {
             response =  new sr.ServerResponse("ok", lastCart);
         }
         res.end(JSON.stringify(response));
-    })
+    });
 }
 
 function getCartItems(req, res) {
