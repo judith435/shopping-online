@@ -27,17 +27,12 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             $scope.order.street = customer.street;
         }
     };
-    
-    function validateCC(cc) {
-        // accept only digits, dashes or spaces
-        if (/[^0-9-\s]+/.test(cc)) {
-            return false;
-        } 
-    
-        // The Luhn Algorithm
-        var nCheck = 0; 
+
+    //credit card validations start
+    function luhnAlgorithm(cc, nCheck) {
         var nDigit = 0; 
         var bEven = false;
+        
         cc = cc.replace(/\D/g, "");
     
         for (var n = cc.length - 1; n >= 0; n--) {
@@ -53,8 +48,18 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             nCheck += nDigit;
             bEven = !bEven;
         }
-        return (nCheck % 10) === 0;
+        return nCheck;
     }
+    
+    function validateCC(cc) {
+        // accept only digits, dashes or spaces
+        if (/[^0-9-\s]+/.test(cc)) {
+            return false;
+        } 
+        var nCheck = 0; 
+        return (luhnAlgorithm(cc, nCheck) % 10) === 0;
+    }
+    //credit card validations end
 
     function validateInput() {    
 
@@ -133,11 +138,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                     orderDetails () {
                         return orderDetails;
                     }
-                    // orderDetails: function () {
-                    //     return orderDetails;
-                    // }
                 }
-    
             });
         });
     };
@@ -169,6 +170,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         minDate: new Date(),
         startingDay: 7
     };
+    //datepicker functions end
 
     $scope.editCreditCard = function() {  
 

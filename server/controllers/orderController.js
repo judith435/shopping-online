@@ -39,7 +39,7 @@ function addOrder(req, callback) {
     //occur after deliveryDates returned from database 
     getDeliveryDates(function(err, deliveryDates) {
         if (err) {
-            logError.writeToErrorLog("called by orderAPI.getDeliveryDates => " + err);
+            logError.writeToErrorLog("called by orderController.getDeliveryDates => " + err);
         }
         else {
             filledDates = deliveryDates.map((record) => record.deliveryDate);

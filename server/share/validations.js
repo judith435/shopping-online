@@ -1,3 +1,5 @@
+var emailValidator = require("email-validator");
+
 function inputEmpty(input) {
     if (!input) { //no value sent from client - field undefined or empty => ""
         return true;
@@ -9,17 +11,14 @@ function idValid(input) {
     if (!id) { //amount is NaN
         return false;
     }
-    
     return id > 0 && id < 1000000000;  
 } 
-
 
 function inputValidAmount(input) {
     let amount = parseFloat(input);
     if (!amount) { //amount is NaN
         return false;
     }
-    
     return amount > 0 && amount < 10000;  
 } 
 
@@ -34,6 +33,10 @@ function dateValid(date) {
     return true;
 }
 
+function emailValid(email) {
+    return emailValidator.validate(email); // true "test@email.com"
+}
+
 function fileTooLarge(file) {
     return file.data.length > 5000000; 
 }   
@@ -43,7 +46,8 @@ function fileExtensionInvalid(file) {
     return extension !== "jpg" && extension !== "jpeg" && extension !== "png" && extension !== "gif"; 
 }  
 
-function luhnAlgorithm(nCheck) {
+//credit card validations start
+function luhnAlgorithm(cc, nCheck) {
     var nDigit = 0; 
     var bEven = false;
     
@@ -65,37 +69,13 @@ function luhnAlgorithm(nCheck) {
     return nCheck;
 }
 
-//credit card validations start
 function validateCC(cc) {
     // accept only digits, dashes or spaces
     if (/[^0-9-\s]+/.test(cc)) {
         return false;
     } 
-
-    // The Luhn Algorithm. It"s so pretty.
     var nCheck = 0; 
-    // var nDigit = 0; 
-    // var bEven = false;
-    
-    // cc = cc.replace(/\D/g, "");
-
-    // for (var n = cc.length - 1; n >= 0; n--) {
-    //     let cDigit = cc.charAt(n);
-    //     nDigit = parseInt(cDigit, 10);
-
-    //     if (bEven) {
-    //         if ((nDigit *= 2) > 9) {
-    //             nDigit -= 9;
-    //         } 
-    //     }
-
-    //     nCheck += nDigit;
-    //     bEven = !bEven;
-    // }
-
-    //luhnAlgorithm(nCheck)
-    //return (nCheck % 10) === 0;
-    return (luhnAlgorithm(nCheck) % 10) === 0;
+    return (luhnAlgorithm(cc, nCheck) % 10) === 0;
 }
 
 function creditCardValid(cc) {
@@ -117,6 +97,7 @@ module.exports.inputEmpty = inputEmpty;
 module.exports.inputValidAmount = inputValidAmount;
 module.exports.idValid = idValid;
 module.exports.dateValid = dateValid;
+module.exports.emailValid = emailValid;
 module.exports.fileTooLarge = fileTooLarge;
 module.exports.fileExtensionInvalid = fileExtensionInvalid;
 module.exports.creditCardValid = creditCardValid;
