@@ -61,20 +61,19 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     }
 
     function ccValidation() {
+        
         if ($scope.order.creditCard) {
             var creditCard = $scope.order.creditCard.replace(/\s/g, "");
             var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
             var ccValid = ccRegex.test(creditCard);
-            // if (ccValid) {
-                ccValid =  validateCC(creditCard);
-            // }
+            ccValid =  validateCC(creditCard);
             $scope.creditCardErrorMessage = !ccValid  ? "Invalid Credit Card" : "";
-            $scope.errorsFound = !ccValid || $scope.errorsFound;
+            //$scope.errorsFound = !ccValid || $scope.errorsFound;
             return;
         }
         
         $scope.creditCardErrorMessage = "credit card required";
-        $scope.errorsFound = true;
+        //$scope.errorsFound = true;
     }
     //credit card validations end
 
@@ -84,18 +83,23 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
 
         //city
         $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
-        $scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
+        //$scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
 
         //street
         $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
-        $scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
+        //$scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
         
         //delivery date
         $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
-        $scope.errorsFound = $scope.deliveryDateErrorMessage !== "" || $scope.errorsFound;
+        //$scope.errorsFound = $scope.deliveryDateErrorMessage !== "" || $scope.errorsFound;
         
         //credit card
         ccValidation();
+
+        $scope.errorsFound =    $scope.cityErrorMessage ||
+                                $scope.streetErrorMessage ||
+                                $scope.deliveryDateErrorMessage ||
+                                $scope.creditCardErrorMessage;
     }
 
     $scope.order = function()  {
