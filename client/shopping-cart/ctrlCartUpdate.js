@@ -53,7 +53,8 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
         });
     }
 
-    //no cart found for customer - create one / or cart order submitted => in both cases create new cart
+    //no cart found for customer - create one / 
+    //or cart order submitted => in both cases create new cart
     if (!cart || cart.orderDate) { 
         addCart(); 
     }

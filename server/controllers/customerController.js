@@ -14,12 +14,21 @@ function getDuplicateCustomer(teudatZehut, email, callback) {
     });
 }
 
+// let customer = new Customer({   teudatZehut: $scope.id,
+//     firstName: $scope.firstName,
+//     lastName: $scope.lastName,
+//     email: $scope.email,
+//     password: $scope.confirmPassword,
+//     street: $scope.street,
+//     city: $scope.city,
+//     role: "customer"});
 
 function customerValid(customer) {
     let errorsFound = "";
 
-    errorsFound  = validations.inputEmpty(customer.firstName) ?  "First Name required \n" : "";
-    errorsFound += validations.inputEmpty(customer.city) ? "city required \n" : "";
+    errorsFound  = !validations.idValid(customer.teudatZehut) ?  "numeric id required \n" : "";
+    errorsFound +=  validations.inputEmpty(customer.firstName) ? "first name required \n" : "";
+    errorsFound +=  validations.inputEmpty(customer.lastName) ? "last name required \n" : "";
 
     return errorsFound;
 }

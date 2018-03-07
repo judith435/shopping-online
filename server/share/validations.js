@@ -4,6 +4,16 @@ function inputEmpty(input) {
     }
 } 
 
+function idValid(input) {
+    let id = parseInt(input);
+    if (!id) { //amount is NaN
+        return false;
+    }
+    
+    return id > 0 && id < 1000000000;  
+} 
+
+
 function inputValidAmount(input) {
     let amount = parseFloat(input);
     if (!amount) { //amount is NaN
@@ -33,16 +43,7 @@ function fileExtensionInvalid(file) {
     return extension !== "jpg" && extension !== "jpeg" && extension !== "png" && extension !== "gif"; 
 }  
 
-
-//credit card validations start
-function validateCC(cc) {
-    // accept only digits, dashes or spaces
-    if (/[^0-9-\s]+/.test(cc)) {
-        return false;
-    } 
-
-    // The Luhn Algorithm. It"s so pretty.
-    var nCheck = 0; 
+function luhnAlgorithm(nCheck) {
     var nDigit = 0; 
     var bEven = false;
     
@@ -61,8 +62,40 @@ function validateCC(cc) {
         nCheck += nDigit;
         bEven = !bEven;
     }
+    return nCheck;
+}
 
-    return (nCheck % 10) === 0;
+//credit card validations start
+function validateCC(cc) {
+    // accept only digits, dashes or spaces
+    if (/[^0-9-\s]+/.test(cc)) {
+        return false;
+    } 
+
+    // The Luhn Algorithm. It"s so pretty.
+    var nCheck = 0; 
+    // var nDigit = 0; 
+    // var bEven = false;
+    
+    // cc = cc.replace(/\D/g, "");
+
+    // for (var n = cc.length - 1; n >= 0; n--) {
+    //     let cDigit = cc.charAt(n);
+    //     nDigit = parseInt(cDigit, 10);
+
+    //     if (bEven) {
+    //         if ((nDigit *= 2) > 9) {
+    //             nDigit -= 9;
+    //         } 
+    //     }
+
+    //     nCheck += nDigit;
+    //     bEven = !bEven;
+    // }
+
+    //luhnAlgorithm(nCheck)
+    //return (nCheck % 10) === 0;
+    return (luhnAlgorithm(nCheck) % 10) === 0;
 }
 
 function creditCardValid(cc) {
@@ -82,6 +115,7 @@ function creditCardValid(cc) {
 
 module.exports.inputEmpty = inputEmpty;
 module.exports.inputValidAmount = inputValidAmount;
+module.exports.idValid = idValid;
 module.exports.dateValid = dateValid;
 module.exports.fileTooLarge = fileTooLarge;
 module.exports.fileExtensionInvalid = fileExtensionInvalid;

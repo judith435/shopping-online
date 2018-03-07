@@ -39,8 +39,8 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
         //id/email/passwords missing - or other errors found 
         //no point checking duplicate customer => overhead of going to server
-        if ($scope.id && $scope.email && $scope.password && $scope.confirmPassword
-             && !$scope.errorsFound) { 
+        // if ($scope.id && $scope.email && $scope.password && $scope.confirmPassword
+        //      && !$scope.errorsFound) { 
             signUpService.checkDuplicateCustomer(configSettings, 
                                              $scope.id, 
                                              $scope.email, 
@@ -51,7 +51,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
                     ? "customer with same id and/or email already exist(s)" : "" ;
                 callback($scope.errorsFound);
             });
-        }
+        // }
     }    
 
     function validateInputStep2() {    
@@ -75,7 +75,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
         validateInputStep1(function(errorsFound) {
 
-            if (errorsFound) { return; }
+            //if (errorsFound) { return; }
     
             $templateRequest("signUp/step2.html").then(function(html){
                 var template = $compile(html)($scope);
@@ -87,7 +87,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
     $scope.completeSignUp = function()  {
 
         validateInputStep2();
-        if ($scope.errorsFound) { return; }
+       // if ($scope.errorsFound) { return; }
         
         let customer = new Customer({   teudatZehut: $scope.id,
                                         firstName: $scope.firstName,
