@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_carts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 27
+AUTO_INCREMENT = 47
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`orders` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 39
+AUTO_INCREMENT = 59
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `shopping`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 76
+AUTO_INCREMENT = 82
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -139,10 +139,30 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shopping_cart_items` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 122
+AUTO_INCREMENT = 198
 DEFAULT CHARACTER SET = utf8;
 
 USE `shopping` ;
+
+-- -----------------------------------------------------
+-- procedure check_customer_exists
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `shopping`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_customer_exists`(in teudatZehut int, 
+																	in email varchar(45))
+BEGIN
+
+		select exists(	select 1 
+						from customers 
+                        where teudat_zehut = teudatZehut 
+                        or e_mail = email)  
+        as duplicateCustomerFound;
+        
+END$$
+
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- procedure clear_cart
@@ -497,6 +517,7 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 insert into customers (teudat_zehut, first_name, last_name, e_mail, password, street, city, role) 
