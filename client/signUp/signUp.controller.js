@@ -17,25 +17,25 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
         //ID
         $scope.idErrorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
-        $scope.errorsFound = $scope.idErrorMessage !== "" || $scope.errorsFound;
         
         //Email
         $scope.emailErrorMessage = !$scope.email ? "valid email  required" : "";
-        $scope.errorsFound = $scope.emailErrorMessage !== "" || $scope.errorsFound;
 
         //Passwords
         $scope.passwordErrorMessage = !$scope.password ? "password required" : "";
-        $scope.errorsFound = $scope.passwordErrorMessage !== "" || $scope.errorsFound;
         
         $scope.confirmPasswordErrorMessage = !$scope.confirmPassword ? "confirm password" : "";
-        $scope.errorsFound = $scope.confirmPasswordErrorMessage !== "" || $scope.errorsFound;
 
         //passwords entered in both fields => chek  they are the same
         if ($scope.confirmPassword && $scope.password) {
             $scope.confirmPasswordErrorMessage = 
                 $scope.confirmPassword !== $scope.password ? "password does not match the confirm password" : "";
-            $scope.errorsFound = $scope.confirmPasswordErrorMessage !== "" || $scope.errorsFound;
         }
+
+        $scope.errorsFound =    $scope.idErrorMessage ||
+                                $scope.emailErrorMessage ||
+                                $scope.passwordErrorMessage ||
+                                $scope.confirmPasswordErrorMessage;
 
         //id/email/passwords missing - or other errors found 
         //no point checking duplicate customer => overhead of going to server
@@ -59,16 +59,17 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.errorsFound = false;
 
         $scope.cityErrorMessage = !$scope.city  ? "City required" : "";
-        $scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
         
         $scope.streetErrorMessage = !$scope.street ? "Email  required" : "";
-        $scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
 
         $scope.firstNameErrorMessage = !$scope.firstName ? "First Name required" : "";
-        $scope.errorsFound = $scope.firstNameErrorMessage !== "" || $scope.errorsFound;
         
         $scope.lastNameErrorMessage = !$scope.lastName ? "Last Name required" : "";
-        $scope.errorsFound = $scope.lastNameErrorMessage !== "" || $scope.errorsFound;
+
+        $scope.errorsFound =    $scope.cityErrorMessage ||
+                                $scope.streetErrorMessage ||
+                                $scope.firstNameErrorMessage ||
+                                $scope.lastNameErrorMessage;
     }    
 
     $scope.continueSignUp = function()  {

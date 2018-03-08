@@ -83,15 +83,12 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
 
         //city
         $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
-        //$scope.errorsFound = $scope.cityErrorMessage !== "" || $scope.errorsFound;
 
         //street
         $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
-        //$scope.errorsFound = $scope.streetErrorMessage !== "" || $scope.errorsFound;
         
         //delivery date
         $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
-        //$scope.errorsFound = $scope.deliveryDateErrorMessage !== "" || $scope.errorsFound;
         
         //credit card
         ccValidation();
