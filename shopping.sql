@@ -520,7 +520,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
-insert into customers (teudat_zehut, first_name, last_name, e_mail, password, street, city, role) 
+insert into customers (teudat_zehut, first_name, last_name, e_mail, pass_word, street, city, role) 
  values ( '313646010', 
           'Judith', 
           'Ilson', 

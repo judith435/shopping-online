@@ -85,7 +85,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
             return;
         }
 
-        $scope.nameErrorMessage = !$scope.product.name  ? "Name required" : "";
+        //$scope.nameErrorMessage = !$scope.product.name  ? "Name required" : "";
         
         $scope.categoryErrorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
 
@@ -106,7 +106,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
             $scope.productImageErrorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : "";
         }
 
-        $scope.errorsFound =    $scope.nameErrorMessage ||
+        $scope.errorsFound =   // $scope.nameErrorMessage ||
                                 $scope.categoryErrorMessage ||
                                 $scope.priceErrorMessage ||
                                 $scope.productImageErrorMessage;
@@ -115,8 +115,13 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
 
     $scope.saveProduct = function()  {
 
+        $scope.showErrorMessages = false;
+
         validateInput();
-        if ($scope.errorsFound) { return; }
+        if ($scope.errorsFound) { 
+            $scope.showErrorMessages = true;
+            return; 
+        }
 
         var product = {
             id: $scope.product.id,

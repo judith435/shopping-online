@@ -1,0 +1,2 @@
+
+following error occured at Thu Mar 08 2018 13:29:30 GMT+0200 (שעון רגיל ירושלים) : "called by customerAPI.getDuplicateCustomer => called by customerController.getDuplicateCustomer => called by customerBL.getDuplicateCustomer => error in dal => Error: ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'field list'"
