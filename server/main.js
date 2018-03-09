@@ -68,4 +68,5 @@ app.get("/order", apiOrder.getDeliveryDates);
 app.post("/order", apiOrder.addOrder);
 
 var server = app.listen(8085, function () {
+    console.log("shopping app started");
 });

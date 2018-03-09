@@ -23,9 +23,10 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
     function initUpdatePanel() {
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
-        $scope.nameErrorMessage = "";
-        $scope.categoryErrorMessage = "";
-        $scope.priceErrorMessage = "";
+        $scope.showErrorMessages = false;
+        //$scope.nameErrorMessage = "";
+        //$scope.categoryErrorMessage = "";
+        //$scope.priceErrorMessage = "";
         $scope.productImageErrorMessage = "";
         $scope.noChangeErrorMessage = "";
         $scope.productName = "click +  to add product";
@@ -87,9 +88,9 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
 
         //$scope.nameErrorMessage = !$scope.product.name  ? "Name required" : "";
         
-        $scope.categoryErrorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
+        // $scope.categoryErrorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
 
-        $scope.priceErrorMessage = !$scope.product.price ? "Price up to 9999.99 $ required" : "";
+        //$scope.priceErrorMessage = !$scope.product.price ? "Price up to 9999.99 $ required" : "";
 
         //product image required for addProduct only
         $scope.productImageErrorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
@@ -107,8 +108,8 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         }
 
         $scope.errorsFound =   // $scope.nameErrorMessage ||
-                                $scope.categoryErrorMessage ||
-                                $scope.priceErrorMessage ||
+                               // $scope.categoryErrorMessage ||
+                             //   $scope.priceErrorMessage ||
                                 $scope.productImageErrorMessage;
 
     }    
