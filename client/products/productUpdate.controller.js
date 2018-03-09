@@ -24,9 +24,6 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         $scope.showProductUpdate = true; //show directive containing product cuForm
         $scope.product = {};
         $scope.showErrorMessages = false;
-        //$scope.nameErrorMessage = "";
-        //$scope.categoryErrorMessage = "";
-        //$scope.priceErrorMessage = "";
         $scope.productImageErrorMessage = "";
         $scope.noChangeErrorMessage = "";
         $scope.productName = "click +  to add product";
@@ -63,7 +60,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
     });
 
     function checkChangeInData() {
-        if ($scope.activity === "updateProduct") {
+        if ($scope.activity === "updateProduct") {//relevant for update product only
             if ($scope.productBeforeUpdate.name === $scope.product.name && 
                 $scope.productBeforeUpdate.category === $scope.product.categoryDDL.value &&
                 $scope.productBeforeUpdate.price === $scope.product.price &&
@@ -78,22 +75,13 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
 
     function validateInput() {    
 
-        $scope.errorsFound = false;
-
         checkChangeInData();
         if ($scope.noChangeErrorMessage) {
-            $scope.errorsFound = true;
             return;
         }
 
-        //$scope.nameErrorMessage = !$scope.product.name  ? "Name required" : "";
-        
-        // $scope.categoryErrorMessage = !$scope.product.categoryDDL ? "Category  required" : "";
-
-        //$scope.priceErrorMessage = !$scope.product.price ? "Price up to 9999.99 $ required" : "";
-
         //product image required for addProduct only
-        $scope.productImageErrorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
+         $scope.productImageErrorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
         
         if ($scope.productImage) { //check image extensions/size => no point checking if no image uploaded
 
@@ -107,11 +95,6 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
             $scope.productImageErrorMessage = $scope.productImage.size > 5000000 ? "Image larger than 5MB - actual size: " + $scope.productImage.size + " bytes" : "";
         }
 
-        $scope.errorsFound =   // $scope.nameErrorMessage ||
-                               // $scope.categoryErrorMessage ||
-                             //   $scope.priceErrorMessage ||
-                                $scope.productImageErrorMessage;
-
     }    
 
     $scope.saveProduct = function()  {
@@ -119,7 +102,7 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
         $scope.showErrorMessages = false;
 
         validateInput();
-        if ($scope.errorsFound) { 
+        if ($scope.formProductCU.$invalid || $scope.noChangeErrorMessage || $scope.productImageErrorMessage) {
             $scope.showErrorMessages = true;
             return; 
         }
