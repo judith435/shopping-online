@@ -8,6 +8,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
     var filledDeliveryDates;
+    $scope.showErrorMessages = false;
 
     orderService.getDeliveryDates(configSettings, function(response) {  
         if (response.data.status === "error") {
@@ -79,29 +80,36 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
 
     function validateInput() {    
 
-        $scope.errorsFound = false;
+        //$scope.errorsFound = false;
 
         //city
-        $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
+        // $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
 
-        //street
-        $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
+        // //street
+        // $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
         
-        //delivery date
-        $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
+        // //delivery date
+        // $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
         
         //credit card
         ccValidation();
 
-        $scope.errorsFound =    $scope.cityErrorMessage ||
-                                $scope.streetErrorMessage ||
-                                $scope.deliveryDateErrorMessage ||
-                                $scope.creditCardErrorMessage;
+        // $scope.errorsFound =    $scope.cityErrorMessage ||
+        //                         $scope.streetErrorMessage ||
+        //                         $scope.deliveryDateErrorMessage ||
+        //                         $scope.creditCardErrorMessage;
     }
 
     $scope.order = function()  {
 
+        $scope.showErrorMessages = false;
+
         validateInput();
+        if ($scope.formOrder.$invalid || $scope.creditCardErrorMessage) {
+            $scope.showErrorMessages = true;
+            return; 
+        }
+
         //if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
