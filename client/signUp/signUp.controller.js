@@ -19,7 +19,7 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         $scope.idErrorMessage = isNaN($scope.id) || !$scope.id ? "numeric id required" : "";
         
         //Email
-        $scope.emailErrorMessage = !$scope.email ? "valid email  required" : "";
+        $scope.emailErrorMessage = !$scope.email ? "valid email required" : "";
 
         //Passwords
         $scope.passwordErrorMessage = !$scope.password ? "password required" : "";
