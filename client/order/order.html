@@ -39,21 +39,15 @@
                                 <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                         <label class="validationError" 
-                            ng-show="!formOrder.deliveryDate.$valid && showErrorMessages">delivery date required</label>     
+                            ng-show="!formOrder.deliveryDate.$valid && showErrorMessages">delivery date required</label>  
+                        <div class='pull-left'><small>Dates with more than 3 scheduled deliveries are automatically disabled</small></div>
                     </div>
                 </div>
-                <!-- <div>
-                    <span class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left"></span>
-                    <span class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        Dates with more than 3 scheduled deliveries are automatically disabled</span>
-                </div> -->
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Credit Card</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        <input placeholder="Enter Credit Card" type="text" class="form-control" name=creditCard
-                            ng-model='order.creditCard' ng-keyup='editCreditCard()' maxlength="19" required>
-                        <label class="validationError" 
-                            ng-show="!formOrder.creditCard.$valid && showErrorMessages">credit card required</label>     
+                        <input placeholder="Enter Credit Card" type="text" class="form-control" 
+                            ng-model='order.creditCard' ng-keyup='editCreditCard()' maxlength="19">
                         <label class="validationError">{{creditCardErrorMessage}}</label>     
                     </div>
                 </div>
@@ -67,6 +61,3 @@
             </form>
         </section>
     </div>
-
-    
-    <!-- alt-input-formats="altInputFormats" -->

@@ -54,29 +54,12 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
         // }
     }    
 
-    function validateInputStep2() {    
-
-        $scope.errorsFound = false;
-
-        $scope.cityErrorMessage = !$scope.city  ? "City required" : "";
-        
-        $scope.streetErrorMessage = !$scope.street ? "Email  required" : "";
-
-        $scope.firstNameErrorMessage = !$scope.firstName ? "First Name required" : "";
-        
-        $scope.lastNameErrorMessage = !$scope.lastName ? "Last Name required" : "";
-
-        $scope.errorsFound =    $scope.cityErrorMessage ||
-                                $scope.streetErrorMessage ||
-                                $scope.firstNameErrorMessage ||
-                                $scope.lastNameErrorMessage;
-    }    
 
     $scope.continueSignUp = function()  {
 
         validateInputStep1(function(errorsFound) {
 
-            //if (errorsFound) { return; }
+            if (errorsFound) { return; }
     
             $templateRequest("signUp/step2.html").then(function(html){
                 var template = $compile(html)($scope);
@@ -87,9 +70,11 @@ shoppingApp.controller("ctrlSignUp", function signUp(   $scope,
 
     $scope.completeSignUp = function()  {
 
-        validateInputStep2();
-       // if ($scope.errorsFound) { return; }
-        
+        if ($scope.formSignUp2.$invalid) {
+            $scope.showErrorMessages = true;
+            return; 
+        }
+
         let customer = new Customer({   teudatZehut: $scope.id,
                                         firstName: $scope.firstName,
                                         lastName: $scope.lastName,

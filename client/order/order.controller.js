@@ -29,7 +29,6 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         }
     };
 
-    //credit card validations start
     function luhnAlgorithm(cc, nCheck) {
         var nDigit = 0; 
         var bEven = false;
@@ -61,43 +60,18 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         return (luhnAlgorithm(cc, nCheck) % 10) === 0;
     }
 
-    function ccValidation() {
-        
+    function validateInput() {  
+
         if ($scope.order.creditCard) {
             var creditCard = $scope.order.creditCard.replace(/\s/g, "");
             var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
             var ccValid = ccRegex.test(creditCard);
             ccValid =  validateCC(creditCard);
             $scope.creditCardErrorMessage = !ccValid  ? "Invalid Credit Card" : "";
-            //$scope.errorsFound = !ccValid || $scope.errorsFound;
-            //return;
+            return;
         }
-        
-        //$scope.creditCardErrorMessage = "credit card required";
-        //$scope.errorsFound = true;
-    }
-    //credit card validations end
-
-    function validateInput() {    
-
-        //$scope.errorsFound = false;
-
-        //city
-        // $scope.cityErrorMessage = !$scope.order.city ? "city required" : "";
-
-        // //street
-        // $scope.streetErrorMessage = !$scope.order.street ? "street required" : "";
-        
-        // //delivery date
-        // $scope.deliveryDateErrorMessage = !$scope.order.deliveryDate ? "delivery date required" : "";
-        
-        //credit card
-        ccValidation();
-
-        // $scope.errorsFound =    $scope.cityErrorMessage ||
-        //                         $scope.streetErrorMessage ||
-        //                         $scope.deliveryDateErrorMessage ||
-        //                         $scope.creditCardErrorMessage;
+        //field left empty
+        $scope.creditCardErrorMessage = "credit card required";
     }
 
     $scope.order = function()  {
@@ -109,8 +83,6 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             $scope.showErrorMessages = true;
             return; 
         }
-
-        //if ($scope.errorsFound) { return; }
 
         let cartDetails = cartInfo.getCartInfo(); 
         let deliveryDateTemp = "";
@@ -186,17 +158,18 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     //datepicker functions end
 
     $scope.editCreditCard = function() {  
-
-        var ccIN = $scope.order.creditCard;
-        var ccOUT = "";
-        ccIN = ccIN.replace(/\s/g, "");
-        for (var i=0; i < ccIN.length; i++) {
-            if (i%4 === 0 && i > 0) {
-                ccOUT = ccOUT.concat(" ");
+        if ($scope.order.creditCard) {
+            var ccIN = $scope.order.creditCard;
+            var ccOUT = "";
+            ccIN = ccIN.replace(/\s/g, "");
+            for (var i=0; i < ccIN.length; i++) {
+                if (i%4 === 0 && i > 0) {
+                    ccOUT = ccOUT.concat(" ");
+                }
+                ccOUT = ccOUT.concat(ccIN[i]);
             }
-            ccOUT = ccOUT.concat(ccIN[i]);
+            $scope.order.creditCard = ccOUT;
         }
-        $scope.order.creditCard = ccOUT;
     };
 
 });
