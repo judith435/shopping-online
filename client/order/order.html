@@ -14,18 +14,18 @@
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <select class="form-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
-                             ng-options="o as o for o in options" name=orderCity ng-model="order.city" required></select>
+                             ng-options="o as o for o in options"  ng-model="order.city" required></select>
                         <label class="validationError" 
-                            ng-show="!formOrder.orderCity.$valid && showErrorMessages">city required</label>     
+                            ng-show="!formOrder.city.$valid && showErrorMessages">city required</label>     
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        <input type="text" name='street' ng-model=order.street class="form-control" maxlength="45" name=orderStreet
+                        <input type="text" name='street' ng-model=order.street class="form-control" maxlength="45" 
                             ng-dblclick='inputDoubleClick($event.currentTarget)'  placeholder="Enter Street" required>
                         <label class="validationError" 
-                            ng-show="!formOrder.orderStreet.$valid && showErrorMessages">street required</label>     
+                            ng-show="!formOrder.street.$valid && showErrorMessages">street required</label>     
                     </div>
                 </div>
                 <div class="form-group row">
@@ -33,13 +33,13 @@
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <input type="text" class="delivery-date pull-left form-control" uib-datepicker-popup="{{format}}" 
                             ng-model="order.deliveryDate" is-open="DatePicker.opened" datepicker-options="dateOptions" 
-                            show-button-bar="false" close-text="Close" name=orderDeliveryDate readonly required/>
+                            show-button-bar="false" close-text="Close" name=deliveryDate readonly required/>
                         <button type="button" class="btn btn-default pull-left calendar" ng-click="openDatePicker()"
                                 title='Dates with more than 3 scheduled deliveries are automatically disabled'>
                                 <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                         <label class="validationError" 
-                            ng-show="!formOrder.orderDeliveryDate.$valid && showErrorMessages">delivery date required</label>     
+                            ng-show="!formOrder.deliveryDate.$valid && showErrorMessages">delivery date required</label>     
                     </div>
                 </div>
                 <!-- <div>
