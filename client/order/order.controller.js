@@ -70,10 +70,10 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             ccValid =  validateCC(creditCard);
             $scope.creditCardErrorMessage = !ccValid  ? "Invalid Credit Card" : "";
             //$scope.errorsFound = !ccValid || $scope.errorsFound;
-            return;
+            //return;
         }
         
-        $scope.creditCardErrorMessage = "credit card required";
+        //$scope.creditCardErrorMessage = "credit card required";
         //$scope.errorsFound = true;
     }
     //credit card validations end
