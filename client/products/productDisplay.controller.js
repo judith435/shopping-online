@@ -7,7 +7,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         configSettings)
                                                                         
 {
-    alert('$scope.source = $routeParams.source;:  ' + $scope.source);
+    alert("$scope.source = $routeParams.source;:  " + $scope.source);
 
     function getProducts() {
         productService.getProducts(configSettings, $routeParams.source, function(products) {
