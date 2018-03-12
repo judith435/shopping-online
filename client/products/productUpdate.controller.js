@@ -116,6 +116,12 @@ shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
                 alert(response.data.content);
                 return;
             }
+
+            if (response.data.status === "forbiddenAccessAttempted" ) {
+                alert("user who is not logged in or customer attempted to update product");
+                return;
+            }
+
             $rootScope.$broadcast("product-changed", {prod: product});
             initUpdatePanel();
             $scope.activity = "addProduct";

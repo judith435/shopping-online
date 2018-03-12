@@ -1,0 +1,3 @@
+
+following error occured at Mon Mar 12 2018 03:24:42 GMT+0200 (Jerusalem Standard Time) : {"errorno":"ETIMEDOUT","code":"ETIMEDOUT","syscall":"connect","fatal":true}
+following error occured at Mon Mar 12 2018 03:24:42 GMT+0200 (Jerusalem Standard Time) : "called by categoryAPI.getCategories => called by categoryController.getCategories => called by categoryBL.getCategories => error in dal => Error: connect ETIMEDOUT"

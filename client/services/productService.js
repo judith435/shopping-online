@@ -4,15 +4,11 @@ shoppingApp.service("productService", function($http) {
         alert("Sorry Error occured in productService: " + JSON.stringify(response));
     }
 
-    this.getProducts = function (configSettings, success) { 
-        var userInfo = {
-            id: "meir@mommy",
-            password: "year5778"
-        };
+    this.getProducts = function (configSettings, actionSource, success) { 
 
         $http.get(configSettings.shoppingApi + "/product", {
             params: {
-                user: userInfo 
+                source: actionSource //used for authentication on server
             }
         }).then(success, error);
 

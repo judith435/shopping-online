@@ -1,19 +1,22 @@
 shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         $rootScope,
+                                                                        $routeParams,
                                                                         productService, 
                                                                         categoryService,
                                                                         imageService, 
                                                                         configSettings)
+                                                                        
 {
+    alert('$scope.source = $routeParams.source;:  ' + $scope.source);
 
     function getProducts() {
-        productService.getProducts(configSettings, function(products) {
+        productService.getProducts(configSettings, $routeParams.source, function(products) {
             if (products.data.status === "error" ) {
                 alert("error occured - please contact support center");
                 return;
             }
-            if (products.data.status === "userNotLoggedIn" ) {
-                alert("user not logged in!!! tried to access product data");
+            if (products.data.status === "forbiddenAccessAttempted" ) {
+                alert("administrator who is not logged in or customer attempted to access update product panel");
                 return;
             }
             $scope.products = products.data.content;

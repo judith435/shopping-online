@@ -8,12 +8,7 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
                                                         cartInfo)
 {
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //simulate user trying to access product data with out being logged in
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // return;
     var cart = ""; //contains info of last customer cart  if such a cart is found for logged in user
-
 
     function getStoreStatistics() {
         storeService.getStoreStatistics(configSettings, function(response) {
@@ -37,7 +32,9 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
     }
 
     function loadProductUpdatePage() {
-        $location.path("/products");
+       // $location.path("/products");
+        $location.path("/products").search({source: "updateProduct"});
+
     }
 
     function handleCustomerWithCart(response) {
@@ -141,7 +138,8 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
     });
 
     $scope.shop = function() {
-        $location.path("/shop").search({cartStatus: "shop"});
+        $location.path("/shop").search({cartStatus: "shop", source: "shop" });
+      //  $location.search({target : 'Hi', new : 'else'});
     };
 
     $scope.logout = function(){

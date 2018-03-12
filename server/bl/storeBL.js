@@ -6,7 +6,7 @@ function getStatistics(callback) {
         if (err) {
             callback("called by storeBL.getStatistics => " + err);
         }
-        console.log('~~~ rows' + rows + '   => ' + JSON.stringify(rows));
+        console.log("~~~ rows" + rows + "   => " + JSON.stringify(rows));
         if (rows) {
             let statistics = new model.StoreStatistics(rows[0][0]); 
             callback(null, statistics);

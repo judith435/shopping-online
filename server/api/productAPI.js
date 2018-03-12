@@ -5,19 +5,18 @@ const sr = require("../share/serverResponse.js");
 var response;
 
 function getProducts(req, res) {
-  // req.session.destroy();
-
-  let sess;
-  sess = req.session;
-  if (!sess["customerInfo"]) { //user not logged in
-    response =  new sr.ServerResponse("userNotLoggedIn", "");
+  //console.log("^^^^^ req.query.source:  " + JSON.stringify(req.query.source));
+  let sess = req.session;
+  //user not logged in or customer attempting to access update product panel
+  if (!sess["customerInfo"] || (sess["customerInfo"].role === "customer" && req.query.source !== "shop" )) { 
+    response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
     res.end(JSON.stringify(response));
     return;
   }
-  else {
-    console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
-    console.log("userInfo from client :  " + JSON.stringify(JSON.parse(req.query.user)));
-  }
+  // else {
+  //   console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
+  //   console.log("userInfo from client :  " + JSON.stringify(JSON.parse(req.query.user)));
+  // }
 
   productCtrl.getProducts(function(err, products) {
       if (err) {
@@ -32,6 +31,15 @@ function getProducts(req, res) {
 }
 
 function addUpdateProduct(activity, req, res) {
+
+  let sess = req.session;
+  //user not logged in or customer attempting to update product
+  if (!sess["customerInfo"] || (sess["customerInfo"].role === "customer")) { 
+    response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
+    res.end(JSON.stringify(response));
+    return;
+  }
+
   console.log("addUpdateProduct req.body:  " + JSON.stringify(req.body));
   productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
     if (err) {

@@ -15,7 +15,6 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             alert("error occured - please contact support center");
             return;
         }
-        alert (JSON.stringify(response.data.content));
         filledDeliveryDates = response.data.content.map((record) => record.deliveryDate);
     });
 
