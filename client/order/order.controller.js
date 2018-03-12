@@ -3,6 +3,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                                                     customerInfo,
                                                     cartInfo,
                                                     orderService,
+                                                    $location,
                                                     $uibModal)   { 
 
     $scope.options  = configSettings.citiesList;
@@ -14,6 +15,13 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         if (response.data.status === "error") {
             alert("error occured - please contact support center");
             return;
+        }
+
+        if (response.data.status === "forbiddenAccessAttempted" ) {
+            alert("attempt to handle order without being logged in");
+            $location.path("/home");
+
+            // return;
         }
         filledDeliveryDates = response.data.content.map((record) => record.deliveryDate);
     });

@@ -24,6 +24,13 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                 return;
             }
 
+            if (response.data.status === "forbiddenAccessAttempted" ) {
+                //alert("attempt to handle cart without being logged in");
+                //$location.path("/home");
+    
+                return;
+            }
+    
             cart = new Cart ({   id: response.data.content,
                                         customer: customer.teudatZehut,
                                         creationDate: new Date() 
@@ -48,6 +55,13 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                 alert("error occured - please contact support center");
                 return;
             }
+            if (response.data.status === "forbiddenAccessAttempted" ) {
+                //alert("attempt to handle cart without being logged in");
+                //$location.path("/home");
+    
+                return;
+            }
+
             $scope.cartItems = response.data.content;
             calcCartTotal();
         });
