@@ -32,8 +32,8 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
     }
 
     function loadProductUpdatePage() {
-       // $location.path("/products");
-        $location.path("/products").search({source: "updateProduct"});
+        $location.path("/products");
+       // $location.path("/products").search({source: "updateProduct"});
 
     }
 
@@ -138,7 +138,7 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
     });
 
     $scope.shop = function() {
-        $location.path("/shop").search({cartStatus: "shop", source: "shop" });
+        $location.path("/shop").search({cartStatus: "shop"});
       //  $location.search({target : 'Hi', new : 'else'});
     };
 

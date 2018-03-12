@@ -7,7 +7,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                                                                 configSettings,
                                                                 cartInfo,
                                                                 $location)
-                                                                // $filter)
 {
     $scope.ordering = $routeParams.cartStatus === "order";
     const customer = customerInfo.getCustomerInfo();

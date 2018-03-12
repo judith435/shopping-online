@@ -8,7 +8,7 @@ function getProducts(req, res) {
   //console.log("^^^^^ req.query.source:  " + JSON.stringify(req.query.source));
   let sess = req.session;
   //user not logged in or customer attempting to access update product panel
-  if (!sess["customerInfo"] || (sess["customerInfo"].role === "customer" && req.query.source !== "shop" )) { 
+  if (!sess["customerInfo"] || (sess["customerInfo"].role === "customer" && req.query.source !== "/shop" )) { 
     response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
     res.end(JSON.stringify(response));
     return;

@@ -1,22 +1,25 @@
 shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         $rootScope,
-                                                                        $routeParams,
+                                                                        $location,
                                                                         productService, 
                                                                         categoryService,
                                                                         imageService, 
                                                                         configSettings)
                                                                         
 {
-    alert("$scope.source = $routeParams.source;:  " + $scope.source);
+    let location = $location.$$path ;
+    alert(" location;  " + location);  
 
     function getProducts() {
-        productService.getProducts(configSettings, $routeParams.source, function(products) {
+        productService.getProducts(configSettings, location , function(products) {
             if (products.data.status === "error" ) {
                 alert("error occured - please contact support center");
                 return;
             }
-            if (products.data.status === "forbiddenAccessAttempted" ) {
-                alert("administrator who is not logged in or customer attempted to access update product panel");
+            if (products.data.status === "forbiddenAccessAttempted" ) { 
+                let errorMSG = location === "/shop" ? "customer who is not logged in attempted to access shopping panel" 
+                    : "administrator who is not logged in or customer attempted to access update product panel";
+                alert(errorMSG);
                 return;
             }
             $scope.products = products.data.content;

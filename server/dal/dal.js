@@ -33,8 +33,13 @@ function executeQuery(dbname, spName, spParms, callback) {
     con.connect(function (err) {
         if (err) {
             logError.writeToErrorLog(err);
-            console.log("Error connecting to DB: " + err);
-            return;
+            // console.log("Error connecting to DB: " + err);
+            // console.log("err >>>>>>>>>>>>>>>>>" + err + "<<<<<<<<<<<<<<<<<");
+            // console.log("JSON.stringify(err) >>>>>>>>>>>>>>>>>" + JSON.stringify(err) + "<<<<<<<<<<<<<<<<<");
+            //console.log(" err.code >>>>>>>>>>>>>>>>>" + err.code + "<<<<<<<<<<<<<<<<<");
+            // console.log("err.message >>>>>>>>>>>>>>>>>" + err.message + "<<<<<<<<<<<<<<<<<");
+            // console.log("err.sql >>>>>>>>>>>>>>>>>" + err.sql + "<<<<<<<<<<<<<<<<<");
+            callback(err.code);
         }
     });
 
