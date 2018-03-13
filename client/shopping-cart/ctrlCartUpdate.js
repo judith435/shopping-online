@@ -1,4 +1,4 @@
-shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
+shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
                                                                 $routeParams,
                                                                 customerInfo,
                                                                 $uibModal,
@@ -8,7 +8,10 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                                                                 cartInfo,
                                                                 $location)
 {
+    //used to determine if cart in shop ('clear cart' & 'order' link buttons available) 
+    //or order ('return to shopping' link button avilable) mode 
     $scope.ordering = $routeParams.cartStatus === "order";
+    //alert('###   ctrlCartUpdate: ' + $routeParams.cartStatus);
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
 
@@ -24,9 +27,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
             }
 
             if (response.data.status === "forbiddenAccessAttempted" ) {
-                //alert("attempt to handle cart without being logged in");
-                //$location.path("/home");
-    
                 return;
             }
     
@@ -55,9 +55,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                 return;
             }
             if (response.data.status === "forbiddenAccessAttempted" ) {
-                //alert("attempt to handle cart without being logged in");
-                //$location.path("/home");
-    
                 return;
             }
 
@@ -85,9 +82,6 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
                 product () {
                     return product;
                 }
-                // product: function () {
-                //     return product;
-                // }
             }
         });
 
@@ -117,6 +111,9 @@ shoppingApp.controller("ctrlCartUpdate", function updateProducts($scope,
         cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
             if (response.data.status === "error") {
                 alert("error occured - please contact support center");
+                return;
+            }
+            if (response.data.status === "forbiddenAccessAttempted" ) {
                 return;
             }
             getCartItems();

@@ -1,10 +1,18 @@
-shoppingApp.controller("ctrlOrder", function signUp($scope, 
+shoppingApp.controller("ctrlOrder", function signUp($scope,
+                                                    $routeParams, 
                                                     configSettings,
                                                     customerInfo,
                                                     cartInfo,
                                                     orderService,
                                                     $location,
                                                     $uibModal)   { 
+    //alert('###   ctrlOrder: ' + $routeParams.cartStatus);
+
+    //cartStatus parm not present in url => customer attempted to access order page directly (not via order link on shopping page)
+    if (!$routeParams.cartStatus) {
+        alert("attempt to handle order bypassing shopping panel");
+        $location.path("/home");
+    }
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();

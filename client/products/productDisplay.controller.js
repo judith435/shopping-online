@@ -8,7 +8,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         
 {
     let location = $location.$$path ;
-    alert(" location;  " + location);  
+    //alert(" location;  " + location);  
 
     function getProducts() {
         productService.getProducts(configSettings, location , function(products) {
@@ -20,7 +20,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                 let errorMSG = location === "/shop" ? "customer who is not logged in attempted to access shopping panel" 
                     : "administrator who is not logged in or customer attempted to access update product panel";
                 alert(errorMSG);
-                return;
+                $location.path("/home");
             }
             $scope.products = products.data.content;
             // $scope.totalCourses = "Total number of Courses: " + courses.data.length;

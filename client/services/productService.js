@@ -8,7 +8,7 @@ shoppingApp.service("productService", function($http) {
 
         $http.get(configSettings.shoppingApi + "/product", {
             params: {
-                source: actionSource //used for authentication on server
+                source: actionSource //used for authentication on server : shop or product (admin)
             }
         }).then(success, error);
 

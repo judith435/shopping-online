@@ -91,7 +91,13 @@ function deleteCartItem(req, res) {
 }
 
 function clearCart(req, res) {
-                                            
+    let sess = req.session;
+    if (!sess["customerInfo"]) { 
+        response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
+        res.end(JSON.stringify(response));
+        return;
+    }
+                                          
     cartCtrl.clearCart(req.query.cartID, function(err, affectedRows) {
         if (err) {
           logError.writeToErrorLog("called by cartAPI.clearCart => " + err);

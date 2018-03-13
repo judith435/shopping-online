@@ -10,8 +10,8 @@ shoppingApp.factory("customerInfo", function() {
     }
   
     return {
-      addCustomerInfo,//: addCustomerInfo,
-      getCustomerInfo//: getCustomerInfo
+      addCustomerInfo,
+      getCustomerInfo
     };
 
   });
