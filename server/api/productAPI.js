@@ -13,10 +13,6 @@ function getProducts(req, res) {
     res.end(JSON.stringify(response));
     return;
   }
-  // else {
-  //   console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
-  //   console.log("userInfo from client :  " + JSON.stringify(JSON.parse(req.query.user)));
-  // }
 
   productCtrl.getProducts(function(err, products) {
       if (err) {

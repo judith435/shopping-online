@@ -31,7 +31,12 @@ function orderValid(order, filledDates) {
 
 function addOrder(req, callback) {
 
-    const order = new model.Order(JSON.parse(req.query.order));
+    try {
+        const order = new model.Order(JSON.parse(req.query.order));
+    } catch(err) {
+        callback("called by orderController.addOrder : JSON.parse(req.query.order) error  =>" + err, null, null);
+    }
+
     var filledDates;
 
     //check delivery date not filled => more than 3 deliveries sheduled for same day versus mysql

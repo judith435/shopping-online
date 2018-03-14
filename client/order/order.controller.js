@@ -6,11 +6,10 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
                                                     orderService,
                                                     $location,
                                                     $uibModal)   { 
-    //alert('###   ctrlOrder: ' + $routeParams.cartStatus);
 
     //cartStatus parm not present in url => customer attempted to access order page directly (not via order link on shopping page)
     if (!$routeParams.cartStatus) {
-        alert("attempt to handle order bypassing shopping panel");
+        alert("attempt to handle order directly bypassing shopping panel");
         $location.path("/home");
     }
 
@@ -26,10 +25,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
         }
 
         if (response.data.status === "forbiddenAccessAttempted" ) {
-            alert("attempt to handle order without being logged in");
-            $location.path("/home");
-
-            // return;
+            return;
         }
         filledDeliveryDates = response.data.content.map((record) => record.deliveryDate);
     });

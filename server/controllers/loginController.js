@@ -1,9 +1,22 @@
 const bl = require("../bl/loginBL");
 const model = require("../models/loginModel");
+const logError = require("../share/errorLogging.js");
 
 function login(req, callback) {
-    
-    const loginDetails = new model.Login(JSON.parse(req.query.loginInfo));
+
+    // if (!req.query.loginInfo.email || !req.query.loginInfo.password) {
+    //         callback(null, null, "login data missing");
+    // }
+
+    var loginDetails;
+
+    try {
+            console.log("++++  req.query.loginInfo: " + req.query.loginInfo);
+            loginDetails = new model.Login(JSON.parse(req.query.loginInfo));
+
+    } catch(err) {
+        callback("called by loginController.login: JSON.parse(req.query.loginInfo) error  => " + err, null, null);
+    }
 
     bl.login(loginDetails, function(err, customerInfo, noSuchCustomer) {
         if (err) {

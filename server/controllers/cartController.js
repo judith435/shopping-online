@@ -25,8 +25,6 @@ function getCartItems(cartID, callback) {
    
 function addCart(teudatZehut, callback) {
 
- //   const cart = new model.Cart(JSON.parse(req.query.cart));
-
     bl.addCart(teudatZehut, function(err, cartID) {
         if (err) {
             callback("called by cartController.addCart => " + err, null);
@@ -38,8 +36,12 @@ function addCart(teudatZehut, callback) {
 }
 
 function addCartItem(req, callback) {
+    try {
+        const cartItem = new model.CartItem(JSON.parse(req.query.cartItem));
+    } catch(err) {
+        callback("called by cartController.addCartItem: JSON.parse(req.query.cartItem) error  => " + err, null);
+    }
 
-    const cartItem = new model.CartItem(JSON.parse(req.query.cartItem));
    
     bl.addCartItem(cartItem, function(err, cartItemID) {
         if (err) {

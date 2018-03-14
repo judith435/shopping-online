@@ -32,7 +32,12 @@ function customerValid(customer, duplicateCustomerFound) {
 
 function addCustomer(req, callback) {
 
-    const customer = new model.Customer(JSON.parse(req.query.customer));
+    try {
+        const customer = new model.Customer(JSON.parse(req.query.customer));
+    } catch(err) {
+        callback("called by customerController.addCustomer : JSON.parse(req.query.customer) error  =>" + err, null, null);
+    }
+
 
     getDuplicateCustomer(!customer.teudatZehut ? 0 : customer.teudatZehut, 
                          !customer.email  ? "" : customer.email,
