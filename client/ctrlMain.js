@@ -108,7 +108,6 @@ shoppingApp.controller("ctrlMain", function handleMain( $scope,
 
     $scope.login = function(loginInfo) {
  
-        var tala =5;
         // if ($scope.formLogin.$invalid) {
         //     $scope.showErrorMessages = true;
         //     return; 
