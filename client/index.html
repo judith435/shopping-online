@@ -60,15 +60,16 @@
     </head>
     <body  ng-controller="ctrlMain">
         <header>
-            <div id="shopping-navigation" class="navbar navbar-inverse">
-                <div class="container-fluid">
+            <div  class="navbar navbar-inverse">
+                <div class="container-fluid" id="shopping-navigation">
                     <div class="navbar-header">
                         <img src="images/logo.png" class="img-fluid img-thumbnail"  width="205" height="75" alt="Store Logo">
-                        <button class="btn btn-link btn-md" ng-click="logout()" type="button">logout</button>
+                        <!-- <button class="btn btn-link btn-md" ng-click="logout()" type="button">logout</button> -->
                     </div>
                     <div>
                         <div class="extra-padding pull-right  center-text">
                             <div><label>{{customerContactInfo}}</label></div>
+                            <div><a ng-click="logout()">logout</a></div>
                             <div><label>{{customerName}}</label></div>
                         </div>
                     </div>
