@@ -4,14 +4,14 @@ const logError = require("../share/errorLogging.js");
 
 function login(req, callback) {
 
-    // if (!req.query.loginInfo.email || !req.query.loginInfo.password) {
-    //         callback(null, null, "login data missing");
-    // }
+
+    //login data empty - user bypassed client side validations => return message that customer not found
+    if (!req.query.loginInfo.hasOwnProperty("email") || !req.query.loginInfo.hasOwnProperty("email")) {
+        callback(null, null, "login data missing ");
+    }
 
     var loginDetails;
-
     try {
-            console.log("++++  req.query.loginInfo: " + req.query.loginInfo);
             loginDetails = new model.Login(JSON.parse(req.query.loginInfo));
 
     } catch(err) {

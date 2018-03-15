@@ -5,25 +5,25 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
                 <div class="form-login">
                     <button class="btn btn-link btn-md" ng-click="shop()" type="button">{{entryAction}}</button>
-                    <form id="formLogin">
+                    <form name="formLogin">
                         <div class="form-group row">
                             <span >Registered?</span>
                         </div>
                         <div class="form-group row">
-                            <input type="text" ng-model=loginInfo.email maxlength="45"  class="form-control input-sm chat-input margin_bottom" 
-                                placeholder="User Name" name="email" required/>
-                            <!-- <label class="validationError"
-                                ng-show="!formLogin.email.$valid && showErrorMessages">Enter User Name</label> -->
+                            <input type="text" ng-model=email maxlength="45"  class="form-control input-sm chat-input margin_bottom" 
+                                placeholder="User Name" name="email" required />
+                            <label class="validationError"
+                                ng-show="!formLogin.email.$valid && showErrorMessages">User Name missing</label>
                         </div>
                         <div class="form-group row">
-                            <input type="password" ng-model="loginInfo.password" maxlength="15"  class="form-control input-sm chat-input margin_bottom" 
+                            <input type="password" ng-model="password" maxlength="15"  class="form-control input-sm chat-input margin_bottom" 
                                 placeholder="Password" name="password" required />
-                            <!-- <label class="validationError"
-                                ng-show="!formLogin.password.$valid && showErrorMessages">Enter Password</label> -->
+                            <label class="validationError"
+                                ng-show="!formLogin.password.$valid && showErrorMessages">Password missing</label>
                         </div>
                         <div class="wrapper">
                             <span class="group-btn"> 
-                                <button class="btn btn-primary btn-md" ng-click="login(loginInfo)" type="button">Login<i class="fa fa-sign-in"></i></button>
+                                <button class="btn btn-primary btn-md" ng-click="login()" type="button">Login<i class="fa fa-sign-in"></i></button>
                                 <button class="btn btn-link btn-md" ng-click="signUp()" type="button">Sign Up</button>
                             </span>
                         </div>

@@ -58,10 +58,8 @@ shoppingApp.controller("orderConfirmationController", function( $scope,
     };
 
     $scope.confirm = function () {
-
         $uibModalInstance.close();
         $rootScope.$broadcast("order-submitted", customer);
-
     };
 
 });

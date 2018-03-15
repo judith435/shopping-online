@@ -8,7 +8,7 @@ shoppingApp.constant("configSettings", {
  shoppingApp.config(function($routeProvider) {
     $routeProvider
         .when("/home", {
-            templateUrl: "home.html"
+            templateUrl: "home/home.html"
         })
         .when("/signUp", {
             templateUrl: "signUp/signUp.html"  

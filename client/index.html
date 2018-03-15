@@ -21,15 +21,16 @@
         <script src="app.js"></script>
         <script src="config.js"></script>
         <script src="header.controller.js"></script> 
+        <script src="services/loginService.js"></script>
 
         <!-- Home -->
-        <script src="home.controller.js"></script> 
+        <script src="home/home.controller.js"></script> 
         <script src="directives/fileModelDirective.js"></script>
         <script src="services/storeService.js"></script>
-        <script src="services/loginService.js"></script>
         <script src="services/imageService.js"></script>
         <script src="objects/customer.js"></script>
         <script src="factories/customerInfo.js"></script>
+        <script src="objects/login.js"></script>
 
         <!-- Sign Up -->
         <script src="signUp/signUp.controller.js"></script>
@@ -60,9 +61,8 @@
         <script src="services/productService.js"></script>
 
     </head>
-    <!-- <body  ng-controller="ctrlMain">  -->
-    <body  ng-controller="header"> 
-        <header>
+    <body> 
+        <header ng-controller="header">
             <div  class="navbar navbar-inverse">
                 <div class="container-fluid" id="shopping-navigation">
                     <div class="navbar-header">
@@ -71,7 +71,7 @@
                     <div>
                         <div class="pull-right  center-text">
                             <div><label>{{customerContactInfo}}</label></div>
-                            <div><button  class="btn btn-link btn-md" ng-click="logout()" type="button">logout</button></div>
+                            <div><button  class="btn btn-link btn-md" ng-click="logout()" type="button" ng-if="loggedIn">logout</button></div>
                             <div><label>{{customerName}}</label></div>
                         </div>
                     </div>

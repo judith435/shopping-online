@@ -4,6 +4,7 @@ shoppingApp.controller("home", function handleHome( $scope,
                                                     cartService,
                                                     loginService,
                                                     $location,
+                                                    $rootScope, 
                                                     customerInfo,
                                                     cartInfo)
 {
@@ -53,12 +54,10 @@ alert("in home controller");
         
     }
 
-    function setPageForLoggedInUser(cust) { //$scope.customer.
+    function setPageForLoggedInUser(cust) { 
         const customer = new Customer(cust);
         customerInfo.addCustomerInfo(customer);
-
-        $scope.customerName = "Hello " + customer.firstName + " " + customer.lastName;
-        $scope.customerContactInfo = "Contact: " + customer.email;
+        $rootScope.$broadcast("set-header-info", customer);
 
         if (customer.role === "customer") {
             loadHomePage(); 
@@ -100,20 +99,23 @@ alert("in home controller");
 
     function init() { 
         $scope.customer = null;
-        $scope.customerName = "";
-        $scope.customerContactInfo = "";
         $scope.entryAction = "";
         $scope.entryMessage = "";
     }
 
-    $scope.login = function(loginInfo) {
+    $scope.login = function() {
  
-        // if ($scope.formLogin.$invalid) {
-        //     $scope.showErrorMessages = true;
-        //     return; 
-        // }
+        if ($scope.formLogin.$invalid) {
+            $scope.showErrorMessages = true;
+            // return; 
+        } 
 
-        loginService.login(configSettings, loginInfo, function(response) {
+        let loginData = new Login({ 
+            email: $scope.email,
+            passWord: $scope.password
+        });
+
+        loginService.login(configSettings, loginData, function(response) {
             if (response.data.status === "error") {
                 alert("error occured - please contact support center");
                 return;
@@ -124,7 +126,7 @@ alert("in home controller");
                 init();
                 return;
             }
-            setPageForLoggedInUser(response.data.content); //.customerInfo)
+            setPageForLoggedInUser(response.data.content);  
         });
      };
 
