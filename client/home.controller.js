@@ -1,13 +1,13 @@
-shoppingApp.controller("ctrlMain", function handleMain( $scope,
-                                                        configSettings,
-                                                        storeService,
-                                                        cartService,
-                                                        loginService,
-                                                        $location,
-                                                        customerInfo,
-                                                        cartInfo)
+shoppingApp.controller("home", function handleHome( $scope,
+                                                    configSettings,
+                                                    storeService,
+                                                    cartService,
+                                                    loginService,
+                                                    $location,
+                                                    customerInfo,
+                                                    cartInfo)
 {
-
+alert("in home controller");
     var cart = ""; //contains info of last customer cart  if such a cart is found for logged in user
 
     function getStoreStatistics() {

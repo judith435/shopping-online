@@ -21,5 +21,6 @@ shoppingApp.constant("configSettings", {
         })
         .when("/order", {
             templateUrl: "order/order.html"
-        });
+        })
+        .otherwise({ redirectTo: "home" });
 });

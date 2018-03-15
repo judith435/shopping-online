@@ -17,11 +17,13 @@
         <link rel="stylesheet/less" type="text/css" href="products/products.style.less" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 
-
-        <!-- Home -->
+        <!-- General -->
         <script src="app.js"></script>
         <script src="config.js"></script>
-        <script src="ctrlMain.js"></script> 
+        <script src="header.controller.js"></script> 
+
+        <!-- Home -->
+        <script src="home.controller.js"></script> 
         <script src="directives/fileModelDirective.js"></script>
         <script src="services/storeService.js"></script>
         <script src="services/loginService.js"></script>
@@ -58,7 +60,8 @@
         <script src="services/productService.js"></script>
 
     </head>
-    <body  ng-controller="ctrlMain">
+    <!-- <body  ng-controller="ctrlMain">  -->
+    <body  ng-controller="header"> 
         <header>
             <div  class="navbar navbar-inverse">
                 <div class="container-fluid" id="shopping-navigation">
