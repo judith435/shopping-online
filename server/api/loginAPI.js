@@ -34,6 +34,7 @@ function login(req, res) {
                 response =  new sr.ServerResponse("noSuchCustomer", "");
             }
         }
+        console.log("!!!  response before returning to client  " + JSON.stringify(response));
         res.end(JSON.stringify(response));
     });
 }

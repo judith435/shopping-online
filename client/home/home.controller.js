@@ -126,6 +126,7 @@ alert("in home controller");
                 init();
                 return;
             }
+
             setPageForLoggedInUser(response.data.content);  
         });
      };
