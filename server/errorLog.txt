@@ -1,0 +1,6 @@
+
+following error occured at Fri Mar 16 2018 10:44:47 GMT+0200 (Jerusalem Standard Time) : {"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true}
+following error occured at Fri Mar 16 2018 10:44:47 GMT+0200 (Jerusalem Standard Time) : "called by storeAPI.getStatistics => called by storeController.getStatistics => called by storeBL.getStatistics => ECONNREFUSED"
+following error occured at Fri Mar 16 2018 10:44:47 GMT+0200 (Jerusalem Standard Time) : "called by storeAPI.getStatistics => called by storeController.getStatistics => unable to retrive statistics - please contact support center"
+following error occured at Fri Mar 16 2018 10:44:47 GMT+0200 (Jerusalem Standard Time) : "called by storeAPI.getStatistics => called by storeController.getStatistics => called by storeBL.getStatistics => error in dal => Error: connect ECONNREFUSED 127.0.0.1:3306"
+following error occured at Fri Mar 16 2018 10:44:47 GMT+0200 (Jerusalem Standard Time) : "called by storeAPI.getStatistics => called by storeController.getStatistics => unable to retrive statistics - please contact support center"
