@@ -9,7 +9,7 @@
         <div class="form-group row">
             <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                <select class="form-control" ng-options="o as o for o in options" name=city ng-model="city" required></select>
+                <select class="form-control signUp-control" ng-options="o as o for o in options" name=city ng-model="city" required></select>
                 <!-- <label class="validationError">{{cityErrorMessage}}</label>    -->
                 <label class="validationError"
                      ng-show="!formSignUp2.city.$valid && showErrorMessages">Enter City</label>
@@ -18,7 +18,7 @@
         <div class="form-group row">
             <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                <input type="text" ng-model=street name=street class="form-control" maxlength="45" placeholder="Enter Street" required>
+                <input type="text" ng-model=street name=street class="form-control signUp-control" maxlength="45" placeholder="Enter Street" required>
                 <label class="validationError"
                      ng-show="!formSignUp2.street.$valid && showErrorMessages">Enter Street</label>
                 <!-- <label class="validationError">{{streetErrorMessage}}</label>      -->
@@ -27,7 +27,7 @@
         <div class="form-group row">
             <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">First Name</label>
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                <input type="text" ng-model=firstName name=firstName class="form-control" maxlength="15" placeholder="Enter First Name" required>
+                <input type="text" ng-model=firstName name=firstName class="form-control signUp-control" maxlength="15" placeholder="Enter First Name" required>
                 <!-- <label class="validationError">{{firstNameErrorMessage}}</label>   -->
                 <label class="validationError"
                      ng-show="!formSignUp2.firstName.$valid && showErrorMessages">Enter First Name</label>
@@ -36,7 +36,7 @@
         <div class="form-group row">
             <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Last Name</label>
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                <input type="text" ng-model=lastName name=lastName class="form-control" maxlength="15" placeholder="Enter Last Name" required>
+                <input type="text" ng-model=lastName name=lastName class="form-control  signUp-control" maxlength="15" placeholder="Enter Last Name" required>
                 <!-- <label class="validationError">{{lastNameErrorMessage}}</label>      -->
                 <label class="validationError"
                     ng-show="!formSignUp2.lastName.$valid && showErrorMessages">Enter Last Name</label>
