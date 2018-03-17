@@ -36,8 +36,10 @@ function addCart(teudatZehut, callback) {
 }
 
 function addCartItem(req, callback) {
+    
+    var cartItem;
     try {
-        const cartItem = new model.CartItem(JSON.parse(req.query.cartItem));
+            cartItem = new model.CartItem(JSON.parse(req.query.cartItem));
     } catch(err) {
         callback("called by cartController.addCartItem: JSON.parse(req.query.cartItem) error  => " + err, null);
     }

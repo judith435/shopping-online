@@ -1,6 +1,6 @@
 shoppingApp.controller("header", function handleHeader( $scope,
-                                                        configSettings,
                                                         loginService,
+                                                        configSettings,
                                                         $location)
 {
     $scope.$on("set-header-info", function(event, customer) {

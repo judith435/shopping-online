@@ -31,8 +31,9 @@ function orderValid(order, filledDates) {
 
 function addOrder(req, callback) {
 
+    var order;
     try {
-        const order = new model.Order(JSON.parse(req.query.order));
+            order = new model.Order(JSON.parse(req.query.order));
     } catch(err) {
         callback("called by orderController.addOrder : JSON.parse(req.query.order) error  =>" + err, null, null);
     }

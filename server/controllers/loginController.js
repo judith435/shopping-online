@@ -3,6 +3,7 @@ const model = require("../models/loginModel");
 const logError = require("../share/errorLogging.js");
 
 function login(req, callback) {
+    
     var loginDetails;
     try {
             loginDetails = new model.Login(JSON.parse(req.query.loginInfo));
