@@ -1,2 +1,7 @@
 
 following error occured at Sun Mar 18 2018 06:32:13 GMT+0200 (Jerusalem Standard Time) : "called by cartAPI.addCart => called by cartController.addCart => called by cartBL.addCart error in dal => Error: ER_BAD_FIELD_ERROR: Unknown column 'undefined' in 'field list'"
+following error occured at Sun Mar 18 2018 10:30:38 GMT+0200 (שעון רגיל ירושלים) : {"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true}
+following error occured at Sun Mar 18 2018 10:30:38 GMT+0200 (שעון רגיל ירושלים) : "called by storeAPI.getStatistics => called by storeController.getStatistics => called by storeBL.getStatistics => ECONNREFUSED"
+following error occured at Sun Mar 18 2018 10:30:38 GMT+0200 (שעון רגיל ירושלים) : "called by storeAPI.getStatistics => called by storeController.getStatistics => called by storeBL.getStatistics => error in dal => Error: connect ECONNREFUSED 127.0.0.1:3306"
+following error occured at Sun Mar 18 2018 10:30:38 GMT+0200 (שעון רגיל ירושלים) : "called by storeAPI.getStatistics => called by storeController.getStatistics => unable to retrive statistics - please contact support center"
+following error occured at Sun Mar 18 2018 10:30:38 GMT+0200 (שעון רגיל ירושלים) : "called by storeAPI.getStatistics => called by storeController.getStatistics => unable to retrive statistics - please contact support center"

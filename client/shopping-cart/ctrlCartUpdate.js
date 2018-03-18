@@ -145,4 +145,20 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
     $scope.returnToShopping = function() { 
         $location.path("/shop").search({cartStatus: "shop"});
     };
+
+    $scope.searchCart = function() {
+        alert("search !!!! " + $scope.searchArg);
+        if ($scope.searchArg) {
+            var pattern = new RegExp($scope.searchArg, 'g');
+
+            var cartItems = document.querySelectorAll("#cart .ng-binding");
+            for (var i = 0; i < cartItems.length; i++) {
+                let item =  "'" + cartItems[i].innerText.replace(pattern, '<span class="highlighted">' + $scope.searchArg + '</span>'); 
+                alert(item)
+                cartItems[i].innerText = item;
+            } 
+            //document.querySelectorAll("#cart .ng-binding").innerText = cartItems;
+        }
+    };
+
 });

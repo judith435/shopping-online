@@ -6,28 +6,36 @@
     </div>
     <div class='clear bordered-bottom'></div>
     
-    <div><input type="search" name="search"></div>
+    <div>
+        <input type="search" ng-model="searchArg">
+        <button type="button" class="btn btn-info btn-xs" ng-click='searchCart()'>
+            <span class="glyphicon glyphicon-search"></span> Search
+        </button>    
+    </div>
 
     <div class='cart_items_table'>
         <table class="table table-hover table-responsive">
             <tbody>
-                <div ng-repeat="cartItem in cartItems">
-                    <br>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
-                        <button class="btn btn-link pull-right"  type="button" ng-if=!ordering ng-click="deleteCartItem(cartItem)">   
-                            <span class="glyphicon glyphicon-trash deleteButton"></span>
-                        </button>
-                        <div>
-                            <img ng-src='image_for_product_id_{{cartItem.productID}}.jpg'
-                                                        class="img-fluid image-margin"  width="52" height="65" >
+                <div ng-repeat="cartItem in cartItems" id="cart">
+                    <div>
+                        <br>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bordered"> 
+                            <button class="btn btn-link pull-right"  type="button" ng-if=!ordering ng-click="deleteCartItem(cartItem)">   
+                                <span class="glyphicon glyphicon-trash deleteButton"></span>
+                            </button>
+                            <div>
+                                <img ng-src='image_for_product_id_{{cartItem.productID}}.jpg'
+                                    class="img-fluid image-margin"  width="52" height="65" >
+                            </div>  
+                            <div>
+                                <label>{{cartItem.productName}}:</label>
+                                <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
+                                <label> => Total for item {{cartItem.price}}$</label>
+                               <br><label>c<span class="highlighted">oo</span>kie:</label>
+                            </div>  
                         </div>  
-                        <div>
-                            <label>{{cartItem.productName}}:</label>
-                            <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
-                            <label> => Total for item {{cartItem.price}}$</label>
-                        </div>  
-                    </div>  
-                    <br>
+                        <br>
+                    </div>
                 </div>
             </tbody>    
         </table>
