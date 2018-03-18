@@ -1,12 +1,12 @@
 shoppingApp.factory("customerInfo", function() {  
-    var customerInfo = "";
   
-    function addCustomerInfo(data) {
-        customerInfo = data;
+    function addCustomerInfo(customer) {
+        sessionStorage.setItem("customer", JSON.stringify(customer));   
     }
   
     function getCustomerInfo() {
-      return customerInfo;
+      var customer = sessionStorage.getItem("customer");
+      return JSON.parse(customer);
     }
   
     return {

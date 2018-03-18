@@ -21,9 +21,12 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                     : "administrator who is not logged in or customer attempted to access update product panel";
                 alert(errorMSG);
                 $location.path("/home");
+                return;
             }
+            //necessary to show contents of page header after page reload is clicked
+            $rootScope.$broadcast("show-header");
+
             $scope.products = products.data.content;
-            // $scope.totalCourses = "Total number of Courses: " + courses.data.length;
             angular.element(function () {
                 $scope.$apply(function($scope) {
                    imageService.loadCanvasList($scope.products, "canvas-product-" , configSettings.productImagePath, "small"); 

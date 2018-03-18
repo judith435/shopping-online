@@ -1,12 +1,12 @@
 shoppingApp.factory("cartInfo", function() {
-  var cartInfo = "";
 
-  function addCartInfo(data) {
-      cartInfo = data;
+  function addCartInfo(cart) {
+    sessionStorage.setItem("cart", JSON.stringify(cart));   
   }
 
   function getCartInfo() {
-    return cartInfo;
+    var cart = sessionStorage.getItem("cart");
+    return JSON.parse(cart);
   }
 
   return {
