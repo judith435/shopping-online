@@ -8,7 +8,7 @@ shoppingApp.controller("home", function handleHome( $scope,
                                                     customerInfo,
                                                     cartInfo)
 {
-alert("in home controller");
+//alert("in home controller");
     var cart = ""; //contains info of last customer cart  if such a cart is found for logged in user
 
     function getStoreStatistics() {
@@ -135,19 +135,18 @@ alert("in home controller");
         $location.path("/signUp");
      };
 
-    $scope.$on("customer-added", function(event, customer) {
-        // $scope.cart = ""; //reset cart info for new customer
+    $rootScope.$on("customer-added", function(event, customer) {
+       alert("$scope.$on(customer-added");
         setPageForLoggedInUser(customer);
     });
   
-    $scope.$on("order-submitted", function(event, customer) {
+    $rootScope.$on("order-submitted", function(event, customer) {
         getStoreStatistics();
         setPageForLoggedInUser(customer);
     });
 
     $scope.shop = function() {
         $location.path("/shop").search({cartStatus: "shop"});
-      //  $location.search({target : 'Hi', new : 'else'});
     };
 
     $scope.logout = function(){

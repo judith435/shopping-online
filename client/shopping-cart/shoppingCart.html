@@ -6,9 +6,9 @@
     </div>
     <div class='clear bordered-bottom'></div>
     
-    <div>
-        <input type="search" ng-model="searchArg">
-        <button type="button" class="btn btn-info btn-xs" ng-click='searchCart()'>
+    <div  ng-if=ordering class="pull-left search-button">
+        <input type="search" ng-model=searchArg >
+        <button type="button" class="btn btn-info btn-xs" ng-click='searchCart(searchArg)'>
             <span class="glyphicon glyphicon-search"></span> Search
         </button>    
     </div>
@@ -31,7 +31,6 @@
                                 <label>{{cartItem.productName}}:</label>
                                 <label>{{cartItem.quantity}} units at {{cartItem.productPrice}}$</label>
                                 <label> => Total for item {{cartItem.price}}$</label>
-                               <br><label>c<span class="highlighted">oo</span>kie:</label>
                             </div>  
                         </div>  
                         <br>

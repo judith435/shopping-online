@@ -14,7 +14,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
     //alert('###   ctrlCartUpdate: ' + $routeParams.cartStatus);
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
-
+    var cartSave;
     $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
     $scope.cartItems = [];
 
@@ -60,6 +60,14 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
 
             $scope.cartItems = response.data.content;
             calcCartTotal();
+
+            if ($scope.ordering) {
+                angular.element(function () {
+                    $scope.$apply(function($scope) {
+                        cartSave = document.querySelectorAll("#cart .ng-binding");
+                    });
+                });
+            }
         });
     }
 
@@ -77,7 +85,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
         var productDialog = $uibModal.open({
             templateUrl: "shopping-cart/productDialog.html",
             controller: "ctrlProductDialog",
-            size: "lg",
+            size: "md",
             resolve: {
                 product () {
                     return product;
@@ -146,19 +154,15 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
         $location.path("/shop").search({cartStatus: "shop"});
     };
 
-    $scope.searchCart = function() {
-        alert("search !!!! " + $scope.searchArg);
-        if ($scope.searchArg) {
-            var pattern = new RegExp($scope.searchArg, 'g');
+    $scope.searchCart = function(searchArg) {
+        var cartItems = cartSave;
+        var sarg = searchArg ? searchArg : "";//if searchArg empty reset all cart items
+        var pattern = new RegExp(sarg, 'g');
 
-            var cartItems = document.querySelectorAll("#cart .ng-binding");
-            for (var i = 0; i < cartItems.length; i++) {
-                let item =  "'" + cartItems[i].innerText.replace(pattern, '<span class="highlighted">' + $scope.searchArg + '</span>'); 
-                alert(item)
-                cartItems[i].innerText = item;
-            } 
-            //document.querySelectorAll("#cart .ng-binding").innerText = cartItems;
-        }
+        for (var i = 0; i < cartItems.length; i++) {
+            let item = cartItems[i].innerText.replace(pattern, "<span class='highlighted'>" + sarg + "</span>"); 
+            cartItems[i].innerHTML = item;
+        } 
     };
 
 });
