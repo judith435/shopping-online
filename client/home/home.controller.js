@@ -136,7 +136,6 @@ shoppingApp.controller("home", function handleHome( $scope,
      };
 
     $rootScope.$on("customer-added", function(event, customer) {
-       alert("$scope.$on(customer-added");
         setPageForLoggedInUser(customer);
     });
   
