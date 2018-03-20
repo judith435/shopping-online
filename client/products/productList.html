@@ -10,7 +10,7 @@
     <div  class="container-fluid" >
         <uib-tabset active="active"> 
             <uib-tab ng-repeat="category in categories" index="category.value" heading="{{category.text}}" >
-                <div class='product_table'>
+                <div class='products_table'>
                     <table class="table table-hover table-responsive">
                         <tbody>
                             <div ng-repeat="product in products  | selectCategory : category.value : productSearch"  ng-click="productSelected(product)">

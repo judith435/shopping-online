@@ -1,58 +1,7 @@
-//less variables to set height of scrollable areas according to device height
-@small-device: ~"only screen and (max-height: 600px)";
-@medium-device: ~"only screen and (min-height: 601px) and (max-height: 850px)";
-@large-device: ~"only screen and (min-height: 851px)";
-
-@table-height--small: 200px;
-@table-height--medium: 490px; 
-@table-height--large: 530px;
-
-@table-height-cart--small: 230px;
-@table-height-cart--medium: 520px; 
-@table-height-cart--large: 560px;
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-//flex container - used for layout of whole site
-.flex-container { //used for entire page layout
-    // display: -webkit-flex;
-    // display: flex;  
-    // -webkit-flex-flow: row wrap;
-    // flex-flow: row wrap;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: stretch;
-}
-
-.flex-container > * {
-    padding: 5px 5px 5px 10px;
-    -webkit-flex: 1 100%;
-    flex: 1 100%;
-}
-
-// @media all and (min-width: 300px) {        
-//     .login {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 1; order: 1; }
-//     .commercial  {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 2; order: 2;}
-//     .notifications  {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 3; order: 3; }
-// }
-
-@media all and (min-width: 300px) {        
-    .product-action-flex {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 1; order: 1;}
-    .product-list-flex  {-webkit-flex: 6 auto; flex: 6 auto; -webkit-order: 2; order: 2;}
-}
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-//styles for navigation header
-#shopping-navigation {
-    background-color: #d6d6f5 ; 
-    button { 
-        color:#337ab7; 
-        padding: 0px; 
-    } 
-    img { margin: 5px; }
-}
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 //genral styles 
+//---------------------------------------------------------------------------
+
 * {
 	margin:0px;
     padding:0px;
@@ -89,30 +38,90 @@
     overflow: hidden
 }
 
-h3 { margin: 0px;}
-h6 { font-size: 24px; text-align: center; margin-bottom: 15px} //used in loggin
+h3 { margin: 0px; }
 
-.product-action-flex { background-color: #d6d6f5;  min-height: 610px; width: 510px}
-// .product-list-flex  { min-height: 800px; max-width: 800px}
-
-.center-text {text-align: center; }
-.underline {border-bottom: solid 2px navy;}
-.center-div {  margin: auto; width: 95%;}
-
-
-.product_table { //scrolling for product table
-    overflow-y: auto;
-    width: 95%;
-    @media @small-device { height: @table-height--small; }
-    @media @medium-device { height: @table-height--medium; }
-    @media @large-device { height: @table-height--large; }
+.left-panel-flex { 
+    background-color: #d6d6f5;  
+    min-height: 600px; 
+    width: 510px
 }
 
-.cart_items_table { //scrolling for cart_items_table
+.center-text {text-align: center; }
+.underline { 
+    border-bottom: solid 2px navy;
+}
+
+
+//---------------------------------------------------------------------------
+//flex container - used for layout of whole site
+//---------------------------------------------------------------------------
+
+.flex-container { //used for entire page layout
+    // display: -webkit-flex;
+    // display: flex;  
+    // -webkit-flex-flow: row wrap;
+    // flex-flow: row wrap;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: stretch;
+}
+
+.flex-container > * {
+    padding: 5px 5px 5px 10px;
+    -webkit-flex: 1 100%;
+    flex: 1 100%;
+}
+
+@media all and (min-width: 300px) {        
+    .left-panel-flex {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 1; order: 1;}
+    .right-panel-flex  {-webkit-flex: 6 auto; flex: 6 auto; -webkit-order: 2; order: 2;}
+}
+//---------------------------------------------------------------------------
+//styles for navigation header
+//---------------------------------------------------------------------------
+#shopping-navigation {
+    background-color: #d6d6f5 ; 
+    button { 
+        color:#337ab7; 
+        padding: 0px; 
+    } 
+    img { margin: 5px; }
+}
+
+//---------------------------------------------------------------------------
+//scrollable tables (products & cart items) according to device height
+//---------------------------------------------------------------------------
+
+@small-device: ~"only screen and (max-height: 600px)";
+@medium-device: ~"only screen and (min-height: 601px) and (max-height: 850px)";
+@large-device: ~"only screen and (min-height: 851px)";
+
+.scrollable-table { //mixin
     overflow-y: auto;
     width: 95%;
+}
+
+@table-height-products--small: 200px;
+@table-height-products--medium: 490px; 
+@table-height-products--large: 530px;
+
+.products_table { //scrolling for product table
+    .scrollable-table;
+    @media @small-device { height: @table-height-products--small; }
+    @media @medium-device { height: @table-height-products--medium; }
+    @media @large-device { height: @table-height-products--large; }
+}
+
+
+@table-height-cart--small: 230px;
+@table-height-cart--medium: 480px; 
+@table-height-cart--large: 560px;
+
+.cart_items_table { //scrolling for cart_items_table
+    .scrollable-table;
     @media @small-device { height: @table-height-cart--small; }
     @media @medium-device { height: @table-height-cart--medium; }
     @media @large-device { height: @table-height-cart--large; }
 }
-
