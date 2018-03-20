@@ -1,3 +1,7 @@
+.bordered-right { 
+    border-right: 2px #0a0a29 solid;
+}
+
 .img-responsive {
     display:block; 
     margin:auto;
@@ -10,4 +14,10 @@
 
 .login-control {
     width: 90%;
+}
+
+@media all and (min-width: 300px) {        
+    .login {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 1; order: 1; }
+    .commercial  {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 2; order: 2;}
+    .notifications  {-webkit-flex: 1 auto; flex: 1 auto; -webkit-order: 3; order: 3; }
 }

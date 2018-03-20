@@ -157,7 +157,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
     $scope.searchCart = function(searchArg) {
         var cartItems = cartSave;
         var sarg = searchArg ? searchArg : "";//if searchArg empty reset all cart items
-        var pattern = new RegExp(sarg, 'g');
+        var pattern = new RegExp(sarg, "g");
 
         for (var i = 0; i < cartItems.length; i++) {
             let item = cartItems[i].innerText.replace(pattern, "<span class='highlighted'>" + sarg + "</span>"); 
