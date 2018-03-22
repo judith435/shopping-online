@@ -30,9 +30,9 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
                 return;
             }
     
-            cart = new Cart ({   id: response.data.content,
-                                        customer: customer.teudatZehut,
-                                        creationDate: new Date() 
+            cart = new Cart ({  id: response.data.content,
+                                customer: customer.teudatZehut,
+                                creationDate: new Date() 
                             });
             cartInfo.addCartInfo(cart);
         });
