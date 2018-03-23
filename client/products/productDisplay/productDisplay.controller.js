@@ -1,4 +1,4 @@
-shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
+shoppingApp.controller("productDisplay", function displayProducts(  $scope,
                                                                         $rootScope,
                                                                         $location,
                                                                         productService, 
@@ -7,8 +7,7 @@ shoppingApp.controller("ctrlProductDisplay", function displayProducts(  $scope,
                                                                         configSettings)
                                                                         
 {
-    let location = $location.$$path ;
-    //alert(" location;  " + location);  
+    let location = $location.$$path;
 
     function getProducts() {
         productService.getProducts(configSettings, location , function(products) {

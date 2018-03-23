@@ -1,4 +1,4 @@
-shoppingApp.controller("ctrlProductUpdate", function updateProducts($scope,
+shoppingApp.controller("productUpdate", function updateProducts($scope,
                                                                     $rootScope, 
                                                                     productService, 
                                                                     categoryService, 

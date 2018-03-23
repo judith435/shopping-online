@@ -6,7 +6,7 @@ shoppingApp.controller("ctrlProductDialog", function($scope, $uibModalInstance, 
     
     $scope.addToCart = function () {
 
-        if ($scope.frmProductDialog.$valid) {
+        if ($scope.formProductDialog.$valid) {
             $uibModalInstance.close($scope.productQuantity);
         }
     };

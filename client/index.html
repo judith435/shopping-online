@@ -20,6 +20,8 @@
         <link rel="stylesheet/less" type="text/css" href="shopping-cart/shop.style.less" />
         <link rel="stylesheet/less" type="text/css" href="order/order.style.less" />
         <link rel="stylesheet/less" type="text/css" href="products/products.style.less" />
+        <link rel="stylesheet/less" type="text/css" href="products/productDisplay/productDisplay.style.less" />
+        <link rel="stylesheet/less" type="text/css" href="products/productUpdate/productUpdate.style.less" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 
         <!-- Index - main page -->
@@ -45,18 +47,21 @@
 
         <!-- Order -->   
         <script src="order/order.controller.js"></script>
-        <script src="order/orderConfirmationController.js"></script>
+        <script src="order/orderConfirmation.controller.js"></script>
         <script src="objects/order.js"></script>
         <script src="services/orderService.js"></script>
 
         <!-- Products Management --> 
-        <script src="products/product.filter.js"></script>
-        <script src="products/productDisplay.controller.js"></script>  
-        <script src="products/productUpdate.controller.js"></script>  
+        <script src="products/productDisplay/productDisplay.controller.js"></script>  
+        <script src="products/productDisplay/product.filter.js"></script>
+        <script src="products/productDisplay/productDisplay.directive.js"></script>     
+
+        <script src="products/productUpdate/productUpdate.controller.js"></script>  
+        <script src="products/productUpdate/productUpdate.directive.js"></script>     
+        <script src="products/productUpdate/fileModelDirective.js"></script>
+
         <script src="services/categoryService.js"></script>
         <script src="services/productService.js"></script>
-        <script src="products/directives/products.directives.js"></script>     
-        <script src="products/directives/fileModelDirective.js"></script>
 
         <!-- General - used by various themes (home, shop, product etc) -->
         <script src="objects/customer.js"></script>

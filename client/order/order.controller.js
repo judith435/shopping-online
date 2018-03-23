@@ -1,4 +1,4 @@
-shoppingApp.controller("ctrlOrder", function signUp($scope,
+shoppingApp.controller("order", function signUp($scope,
                                                     $routeParams, 
                                                     configSettings,
                                                     customerInfo,
@@ -128,7 +128,7 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
             //after successfull save of order dispay order popup
             var confirmationDialog = $uibModal.open({
                 templateUrl: "order/orderConfirmation.html",
-                controller: "orderConfirmationController",
+                controller: "orderConfirmation",
                 size: "md",
                 resolve: {
                     orderDetails () {
@@ -154,14 +154,14 @@ shoppingApp.controller("ctrlOrder", function signUp($scope,
     $scope.format = "dd/MM/yyyy";
 
     // Disable days with more than 3 orders
-    function disabled(data) {
+    function disableDate(data) {
         let date = data.date, mode = data.mode;
         return mode === "day" && 
             (filledDeliveryDates.indexOf( date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()) >= 0);
     }
 
     $scope.dateOptions = {
-        dateDisabled: disabled,
+        dateDisabled: disableDate,
         maxDate: new Date().setMonth(new Date().getMonth() + 2),
         minDate: new Date(),
         startingDay: 7

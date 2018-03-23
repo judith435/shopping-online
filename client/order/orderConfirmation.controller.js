@@ -1,4 +1,4 @@
-shoppingApp.controller("orderConfirmationController", function( $scope, 
+shoppingApp.controller("orderConfirmation", function( $scope, 
                                                                 $uibModalInstance, 
                                                                 $rootScope, 
                                                                 orderDetails) {
