@@ -83,7 +83,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
     $scope.$on("product-selected", function(event, product) {
 
         var productDialog = $uibModal.open({
-            templateUrl: "shopping-cart/productDialog.html",
+            templateUrl: "shop/productDialog.html",
             controller: "ctrlProductDialog",
             size: "md",
             resolve: {

@@ -1,6 +1,6 @@
 shoppingApp.directive("shoppingCart", function () {
     return {
-              templateUrl: "shopping-cart/shoppingCart.html"      
+              templateUrl: "shop/shoppingCart.html"      
            };
   });
   
