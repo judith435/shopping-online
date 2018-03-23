@@ -8,6 +8,9 @@ shoppingApp.controller("productDisplay", function displayProducts(  $scope,
                                                                         
 {
     let location = $location.$$path;
+    
+    //necessary to show contents of page header after page reload is clicked
+    $rootScope.$broadcast("show-header");
 
     function getProducts() {
         productService.getProducts(configSettings, location , function(products) {
@@ -22,8 +25,6 @@ shoppingApp.controller("productDisplay", function displayProducts(  $scope,
                 $location.path("/home");
                 return;
             }
-            //necessary to show contents of page header after page reload is clicked
-            $rootScope.$broadcast("show-header");
 
             $scope.products = products.data.content;
             angular.element(function () {

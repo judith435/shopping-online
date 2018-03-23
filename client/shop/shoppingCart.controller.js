@@ -1,4 +1,5 @@
 shoppingApp.controller("shoppingCart", function updateCart( $scope,
+                                                            $rootScope,
                                                             $routeParams,
                                                             customerInfo,
                                                             $uibModal,
@@ -16,6 +17,9 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
     var cartSave;
     $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
     $scope.cartItems = [];
+    
+    //necessary to show contents of page header after page reload is clicked
+    $rootScope.$broadcast("show-header");
 
     function addCart() {
 
