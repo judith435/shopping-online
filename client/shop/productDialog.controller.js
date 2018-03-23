@@ -1,5 +1,5 @@
 
-shoppingApp.controller("ctrlProductDialog", function($scope, $uibModalInstance, product) {
+shoppingApp.controller("productDialog", function($scope, $uibModalInstance, product) {
 
     $scope.productName = product.name;
     $scope.productQuantity = 1;

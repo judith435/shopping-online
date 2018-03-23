@@ -17,7 +17,7 @@ shoppingApp.constant("configSettings", {
             templateUrl: "products/products.html"
         })
         .when("/shop", {
-            templateUrl: "shop/shopping.html"
+            templateUrl: "shop/shop.html"
         })
         .when("/order", {
             templateUrl: "order/order.html"

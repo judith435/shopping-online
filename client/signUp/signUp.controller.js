@@ -1,4 +1,4 @@
-shoppingApp.controller("ctrlSignUp", function signUp(   $scope, 
+shoppingApp.controller("signUp", function signUp(   $scope, 
                                                         $rootScope,
                                                         configSettings, 
                                                         $templateRequest, 

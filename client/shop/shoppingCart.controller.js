@@ -1,17 +1,16 @@
-shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
-                                                                $routeParams,
-                                                                customerInfo,
-                                                                $uibModal,
-                                                                cartService, 
-                                                                imageService, 
-                                                                configSettings,
-                                                                cartInfo,
-                                                                $location)
+shoppingApp.controller("shoppingCart", function updateCart( $scope,
+                                                            $routeParams,
+                                                            customerInfo,
+                                                            $uibModal,
+                                                            cartService, 
+                                                            imageService, 
+                                                            configSettings,
+                                                            cartInfo,
+                                                            $location)
 {
     //used to determine if cart in shop ('clear cart' & 'order' link buttons available) 
     //or order ('return to shopping' link button avilable) mode 
     $scope.ordering = $routeParams.cartStatus === "order";
-    //alert('###   ctrlCartUpdate: ' + $routeParams.cartStatus);
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
     var cartSave;
@@ -84,7 +83,7 @@ shoppingApp.controller("ctrlCartUpdate", function updateCart($scope,
 
         var productDialog = $uibModal.open({
             templateUrl: "shop/productDialog.html",
-            controller: "ctrlProductDialog",
+            controller: "productDialog",
             size: "md",
             resolve: {
                 product () {
