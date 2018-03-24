@@ -131,11 +131,16 @@ shoppingApp.controller("home", function handleHome( $scope,
         });
      };
 
+    $rootScope.$on("init-home-page", function() { //perform after logout clicked in page header
+        init();
+    });
+
      $scope.signUp = function() {
         $location.path("/signUp");
      };
 
     $rootScope.$on("customer-added", function(event, customer) {
+        cartInfo.deleteCartInfo(); //remove any cart into remaining in session storag for previous customer
         setPageForLoggedInUser(customer);
     });
   
@@ -146,12 +151,5 @@ shoppingApp.controller("home", function handleHome( $scope,
 
     $scope.shop = function() {
         $location.path("/shop").search({cartStatus: "shop"});
-    };
-
-    $scope.logout = function(){
-        loginService.logout(configSettings, function(response) {
-            loadHomePage(); 
-            init();
-        });
     };
 });

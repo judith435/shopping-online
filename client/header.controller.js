@@ -1,4 +1,5 @@
 shoppingApp.controller("header", function handleHeader( $scope,
+                                                        $rootScope,
                                                         loginService,
                                                         configSettings,
                                                         $location,
@@ -16,6 +17,7 @@ shoppingApp.controller("header", function handleHeader( $scope,
             $scope.customerName = "";
             $scope.customerContactInfo = "";
             $scope.loggedIn = false;
+            $rootScope.$broadcast("init-home-page");
         });
     };
 

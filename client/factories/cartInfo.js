@@ -9,9 +9,14 @@ shoppingApp.factory("cartInfo", function() {
     return JSON.parse(cart);
   }
 
+  function deleteCartInfo() {
+    sessionStorage.removeItem("cart");
+  }
+
   return {
     addCartInfo,
-    getCartInfo
+    getCartInfo,
+    deleteCartInfo
   };
 
 });
