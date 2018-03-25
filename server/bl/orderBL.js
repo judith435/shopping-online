@@ -23,8 +23,13 @@ function addOrder(order, callback) {
     spParms.push(new parmObject.SPparm(order.customer, false));
     spParms.push(new parmObject.SPparm(order.shoppingCart, false));
     spParms.push(new parmObject.SPparm(order.price, false));
-    spParms.push(new parmObject.SPparm(order.deliveryCity, true));
-    spParms.push(new parmObject.SPparm(order.deliveryStreet, true));
+
+    let deliveryCity = order.deliveryCity.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(deliveryCity, true));
+
+    let deliveryStreet = order.deliveryStreet.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(deliveryStreet, true));
+
     spParms.push(new parmObject.SPparm(order.deliveryDate, true));
     spParms.push(new parmObject.SPparm(order.ccInfo.substring(12), false));
 

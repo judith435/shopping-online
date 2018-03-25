@@ -4,9 +4,12 @@ const model = require("../models/customerModel");
 
 function login(loginDetails, callback) {
     //req.body
-    const spParms = []; 
-    spParms.push(new parmObject.SPparm(loginDetails.email, true));
-    spParms.push(new parmObject.SPparm(loginDetails.passWord, true));
+    const spParms = [];
+
+    let email = loginDetails.email.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(email, true));
+    let passWord = loginDetails.passWord.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(passWord, true));
 
     dal.executeQuery("shopping", "get_customer_info", spParms, function(err, rows) {
         if (err) {

@@ -26,7 +26,8 @@ function addUpdateProduct(activity, product, callback) {
     if (activity === "updateProduct") {
         spParms.push(new parmObject.SPparm(product.id, false));
     }
-    spParms.push(new parmObject.SPparm(product.name, true));
+    let productName = product.name.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(productName, true));
     spParms.push(new parmObject.SPparm(product.category, false));
     spParms.push(new parmObject.SPparm(product.price, false));
 

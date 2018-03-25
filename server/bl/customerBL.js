@@ -5,6 +5,8 @@ function getDuplicateCustomer(teudatZehut, email, callback) {
 
     const spParms = []; 
     spParms.push(new parmObject.SPparm(teudatZehut, false));
+
+    email = email.replace("'", "\\'");
     spParms.push(new parmObject.SPparm(email, true));
 
     dal.executeQuery("shopping", "check_customer_exists", spParms, function(err, rows) {
@@ -20,14 +22,28 @@ function getDuplicateCustomer(teudatZehut, email, callback) {
 function addCustomer(customer, callback) {
     //req.body
     const spParms = []; 
-    spParms.push(new parmObject.SPparm(customer.teudatZehut, true));
-    spParms.push(new parmObject.SPparm(customer.firstName, true));
-    spParms.push(new parmObject.SPparm(customer.lastName, true));
-    spParms.push(new parmObject.SPparm(customer.email, true));
-    spParms.push(new parmObject.SPparm(customer.password, true));
-    spParms.push(new parmObject.SPparm(customer.street, true));
-    spParms.push(new parmObject.SPparm(customer.city, true));
-    spParms.push(new parmObject.SPparm(customer.role, true));
+    spParms.push(new parmObject.SPparm(customer.teudatZehut, false));
+
+    let firstName = customer.firstName.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(firstName, true));
+
+    let lastName = customer.lastName.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(lastName, true));
+
+    let email = customer.email.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(email, true));
+    
+    let password = customer.password.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(password, true));
+
+    let street = customer.street.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(street, true));
+    
+    let city = customer.city.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(city, true));
+
+    let role = customer.role.replace("'", "\\'");
+    spParms.push(new parmObject.SPparm(role, true));
 
     dal.executeQuery("shopping", "insert_customer", spParms, function(err, rows) {
         if (err) {

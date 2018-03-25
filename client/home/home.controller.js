@@ -8,7 +8,6 @@ shoppingApp.controller("home", function handleHome( $scope,
                                                     customerInfo,
                                                     cartInfo)
 {
-//alert("in home controller");
     var cart = ""; //contains info of last customer cart  if such a cart is found for logged in user
 
     function getStoreStatistics() {
