@@ -3,8 +3,6 @@ shoppingApp.service("imageService", function() {
     var canvasSize = {
         regular: [80, 100],  
         small: [40, 50],
-        // adminAside: [48, 60],
-        // schoolAside: [33, 42]   
     };
     
     this.setCanvas = function (canvas, imgPath, size) {
