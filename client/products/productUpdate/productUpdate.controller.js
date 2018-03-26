@@ -73,8 +73,7 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
             $scope.noChangeErrorMessage =  "";  
         }
 
-        //product image validations  
-        //product image required for addProduct only
+        //product image validations - product image required for addProduct only
          $scope.productImageErrorMessage = !$scope.productImage && $scope.activity === "addProduct" ? "Product Image  required" : "";
         
         if ($scope.productImage) { //check image extensions/size => no point checking if no image uploaded
@@ -100,12 +99,11 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
             return; 
         }
 
-        var product = {
+        let product = new Product({   
             id: $scope.product.id,
             name: $scope.product.name,
             category: $scope.product.categoryDDL.value,
-            price: $scope.product.price
-        };
+            price: $scope.product.price});
 
         productService.addUpdateProduct($scope.activity, configSettings, product, $scope.productImage, function(response) {  
             if (response.data.status === "error") {

@@ -33,7 +33,6 @@ shoppingApp.controller("home", function handleHome( $scope,
 
     function loadProductUpdatePage() {
         $location.path("/products");
-       // $location.path("/products").search({source: "updateProduct"});
 
     }
 
@@ -106,7 +105,7 @@ shoppingApp.controller("home", function handleHome( $scope,
  
         if ($scope.formLogin.$invalid) {
             $scope.showErrorMessages = true;
-            // return; 
+            return; 
         } 
 
         let loginData = new Login({ 

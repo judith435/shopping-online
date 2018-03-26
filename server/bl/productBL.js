@@ -31,7 +31,6 @@ function addUpdateProduct(activity, product, callback) {
     spParms.push(new parmObject.SPparm(product.category, false));
     spParms.push(new parmObject.SPparm(product.price, false));
 
-    // console.log("!!! in bl  spParms: " + JSON.stringify(spParms));
     let spName = activity === "addProduct" ? "insert_product" : "update_product";
     dal.executeQuery("shopping", spName, spParms, function(err, rows) {
         if (err) {
