@@ -42,7 +42,7 @@ function getCartItems(req, res) {
 
 function addCart(req, res) {
     let sess = req.session;
-    //user not logged in or customer attempting to access order panel
+    //user not logged in or customer attempting to access order panel directly (without going through shopping cart)
     console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
     if (!sess["customerInfo"]) { 
       response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
