@@ -39,7 +39,7 @@ function addOrder(req, res) {
                 response =  new sr.ServerResponse("ok", response);
             }
             else { //invalidInputDetails
-               response =  new sr.ServerResponse("invalid input", "invalid input =>  following erors were found: \n" + invalidInputDetails); 
+               response =  new sr.ServerResponse("invalid input", "invalid input =>  following errors were found: \n" + invalidInputDetails); 
             }
         }
         res.end(JSON.stringify(response));

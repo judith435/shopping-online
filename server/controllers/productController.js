@@ -27,7 +27,8 @@ function productValid(activity, product, req) {
     else {
         let prodImage = req.files.productImage;  //sampleFile.name   sampleFile.data.length
         errorsFound += validations.fileTooLarge(prodImage) ? "product image larger than 5MB - actual size: " + prodImage.data.length + " bytes \n" : "";
-        errorsFound += validations.fileExtensionInvalid(prodImage) ? "file extension invalid - valid extensions are: jpg, jpeg, png or gif" : "";
+        errorsFound += validations.fileExtensionInvalid(prodImage) ? 
+            "product image file extension invalid - valid extensions are: jpg, jpeg, png or gif" : "";
     }
     return errorsFound;
 }

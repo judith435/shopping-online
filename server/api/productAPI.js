@@ -49,7 +49,7 @@ function addUpdateProduct(activity, req, res) {
 
       }
       else { //invalidInputDetails
-        response =  new sr.ServerResponse("invalid input", "invalid input =>  following erors were found: \n" + invalidInputDetails); 
+        response =  new sr.ServerResponse("invalid input", "invalid input =>  following errors were found: \n" + invalidInputDetails); 
       }
     }
     res.end(JSON.stringify(response));
