@@ -14,7 +14,7 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
     $scope.ordering = $routeParams.cartStatus === "order";
     const customer = customerInfo.getCustomerInfo();
     var cart  = cartInfo.getCartInfo();
-    var cartSave;
+    var cartSave; //used for search cart mechanism
     $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
     $scope.cartItems = [];
     
@@ -64,7 +64,7 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
             $scope.cartItems = response.data.content;
             calcCartTotal();
 
-            if ($scope.ordering) {
+            if ($scope.ordering) {  //used for search cart mechanism
                 angular.element(function () {
                     $scope.$apply(function($scope) {
                         cartSave = document.querySelectorAll("#cart .ng-binding");
