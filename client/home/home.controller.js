@@ -138,7 +138,7 @@ shoppingApp.controller("home", function handleHome( $scope,
      };
 
     $rootScope.$on("customer-added", function(event, customer) {
-        cartInfo.deleteCartInfo(); //remove any cart into remaining in session storag for previous customer
+        cartInfo.deleteCartInfo(); //remove any cart info remaining in session storage from previous customer
         setPageForLoggedInUser(customer);
     });
   

@@ -64,7 +64,7 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
             $scope.cartItems = response.data.content;
             calcCartTotal();
 
-            if ($scope.ordering) {  //used for search cart mechanism
+            if ($scope.ordering) {  //used for search cart mechanism (order mode)
                 angular.element(function () {
                     $scope.$apply(function($scope) {
                         cartSave = document.querySelectorAll("#cart .ng-binding");
@@ -97,6 +97,9 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
         });
 
         productDialog.result.then(function (productQuantity) {
+            if (!productQuantity) { //cancel clicked in product quantity popup
+                return;
+            }
             let cartItem = new CartItem({   id: 0,
                                             productID: product.id,
                                             productName: product.name,
@@ -149,7 +152,8 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
         cart.cartItems = $scope.cartItems;
         cart.cartTotal = $scope.cartTotal;
         cartInfo.addCartInfo(cart);
-
+        //parm cartStatus necessary to ascertain in order controller if customer went through shopping panel
+        //or attempted to access order panel directly
         $location.path("/order").search({cartStatus: "order"});
     };
 
