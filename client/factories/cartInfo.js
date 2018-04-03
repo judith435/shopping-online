@@ -1,4 +1,4 @@
-shoppingApp.factory("cartInfo", function() {
+shoppingApp.factory("cartInfo", function() { //used to pass cart data between controllers
 
   function addCartInfo(cart) {
     sessionStorage.setItem("cart", JSON.stringify(cart));   

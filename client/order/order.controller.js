@@ -15,7 +15,7 @@ shoppingApp.controller("order", function signUp($scope,
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
-    var filledDeliveryDates;
+    var filledDeliveryDates; //delivery dates with 3 orders placed - cannot place any more orders - dates disabled in calendar 
     $scope.showErrorMessages = false;
 
     orderService.getDeliveryDates(configSettings, function(response) {  
@@ -40,7 +40,7 @@ shoppingApp.controller("order", function signUp($scope,
         }
     };
 
-    function luhnAlgorithm(cc, nCheck) {
+    function luhnAlgorithm(cc, nCheck) { //used to check credit card
         var nDigit = 0; 
         var bEven = false;
         
@@ -121,7 +121,7 @@ shoppingApp.controller("order", function signUp($scope,
                 return;
             }
 
-            var orderDetails = [];
+            var orderDetails = []; //used to pass data to order confirmation popup
             orderDetails.push(customer);
             orderDetails.push(cartDetails);
 
@@ -139,7 +139,9 @@ shoppingApp.controller("order", function signUp($scope,
         });
     };
 
-    //datepicker functions start
+    //*******************************************************************************************************
+    //datepicker functions
+    //*******************************************************************************************************
     $scope.DatePicker = {
         opened: false
     };
@@ -166,8 +168,10 @@ shoppingApp.controller("order", function signUp($scope,
         minDate: new Date(),
         startingDay: 7
     };
+    
+    //*******************************************************************************************************
     //datepicker functions end
-
+    //*******************************************************************************************************
     $scope.editCreditCard = function() {  
         if ($scope.order.creditCard) {
             var ccIN = $scope.order.creditCard;

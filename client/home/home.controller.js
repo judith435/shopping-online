@@ -21,7 +21,6 @@ shoppingApp.controller("home", function handleHome( $scope,
             }
         });
     }
-    getStoreStatistics();
     
     function loadHomePage() {
         $location.path("/home");
@@ -29,11 +28,6 @@ shoppingApp.controller("home", function handleHome( $scope,
 
     function buildDisplayDate(date) {
         return date.substring(8,10) + "/" +   date.substring(5,7) + "/" +   date.substring(0,4);
-    }
-
-    function loadProductUpdatePage() {
-        $location.path("/products");
-
     }
 
     function handleCustomerWithCart(response) {
@@ -50,6 +44,12 @@ shoppingApp.controller("home", function handleHome( $scope,
         let notification = !cart.orderDate  ? "You have an open cart from " : "Your last purchase was on ";    
         $scope.entryMessage = "Notification: " +  notification + displayDate;
         
+    }
+
+    function init() { 
+        $scope.customer = null;
+        $scope.entryAction = "";
+        $scope.entryMessage = "";
     }
 
     function setPageForLoggedInUser(cust) { 
@@ -77,10 +77,14 @@ shoppingApp.controller("home", function handleHome( $scope,
             });
         }
         else { //customer is admin load update product page
-            loadProductUpdatePage();          
+            $location.path("/products");
         }
      }
 
+    //*******************************************************************************************************
+    //statements performed every time home.html (home.controller) loaded 
+    //*******************************************************************************************************
+    getStoreStatistics();
     loginService.checkUserLoggedIn(configSettings, function(response) {
         if (response.data.status === "error") {
             alert("error occured - please contact support center");
@@ -95,12 +99,10 @@ shoppingApp.controller("home", function handleHome( $scope,
         }
     });
 
-    function init() { 
-        $scope.customer = null;
-        $scope.entryAction = "";
-        $scope.entryMessage = "";
-    }
 
+    //*******************************************************************************************************
+    // functions triggered by clicking on buttons/links on home.html
+    //*******************************************************************************************************
     $scope.login = function() {
  
         if ($scope.formLogin.$invalid) {
@@ -129,13 +131,20 @@ shoppingApp.controller("home", function handleHome( $scope,
         });
      };
 
+    $scope.signUp = function() {
+        $location.path("/signUp");
+    };
+
+    $scope.shop = function() {
+        $location.path("/shop").search({cartStatus: "shop"});
+    };
+
+    //*******************************************************************************************************
+    // functions triggered by broadcasting from other controllers
+    //*******************************************************************************************************
     $rootScope.$on("init-home-page", function() { //perform after logout clicked in page header
         init();
     });
-
-     $scope.signUp = function() {
-        $location.path("/signUp");
-     };
 
     $rootScope.$on("customer-added", function(event, customer) {
         cartInfo.deleteCartInfo(); //remove any cart info remaining in session storage from previous customer
@@ -147,7 +156,4 @@ shoppingApp.controller("home", function handleHome( $scope,
         setPageForLoggedInUser(customer);
     });
 
-    $scope.shop = function() {
-        $location.path("/shop").search({cartStatus: "shop"});
-    };
 });
