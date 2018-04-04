@@ -20,8 +20,6 @@ function getProducts(callback) {
 
 function addUpdateProduct(activity, product, callback) { 
 
-    // console.log(">>> productBL: " + JSON.stringify(product));  
-
     const spParms = []; 
     if (activity === "updateProduct") {
         spParms.push(new parmObject.SPparm(product.id, false));

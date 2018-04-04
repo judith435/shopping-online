@@ -38,7 +38,6 @@ app.get("/", function (req, res) {
         }
         res.end(data); 
     });
-   
 });
 
 app.get("/store", apiStore.getStatistics);

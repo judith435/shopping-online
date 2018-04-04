@@ -43,7 +43,6 @@ function addCart(teudatZehut, callback) {
 
     const spParms = []; 
     spParms.push(new parmObject.SPparm(teudatZehut, false));
-    // console.log("!!! in bl  spParms: " + JSON.stringify(spParms));
     dal.executeQuery("shopping", "insert_cart", spParms, function(err, rows) {
         if (err) {
             callback("called by cartBL.addCart " + err);

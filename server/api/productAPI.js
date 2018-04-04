@@ -5,7 +5,6 @@ const sr = require("../share/serverResponse.js");
 var response;
 
 function getProducts(req, res) {
-  //console.log("^^^^^ req.query.source:  " + JSON.stringify(req.query.source));
   let sess = req.session;
   //user not logged in or customer attempting to access update product panel
   if (!sess["customerInfo"] || (sess["customerInfo"].role === "customer" && req.query.source !== "/shop" )) { 
@@ -36,7 +35,6 @@ function addUpdateProduct(activity, req, res) {
     return;
   }
 
-  console.log("addUpdateProduct req.body:  " + JSON.stringify(req.body));
   productCtrl.addUpdateProduct(activity, req, function(err, response, invalidInputDetails) {
     if (err) {
       logError.writeToErrorLog("called by productAPI.addUpdateProduct => " + err);

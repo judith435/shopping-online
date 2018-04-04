@@ -76,7 +76,7 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
     }
 
     //*******************************************************************************************************
-    //statements performed every time shoppingCart.html (shoppingCart.controller) loaded 
+    //cart crea tionstatements performed every time shoppingCart.html (shoppingCart.controller) loaded 
     //*******************************************************************************************************
     //no cart found for customer - create one / 
     //or cart order submitted => in both cases create new cart

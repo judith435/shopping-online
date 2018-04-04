@@ -28,7 +28,7 @@ function addCustomer(req, res) {
           response =  new sr.ServerResponse("error", err);
         }
         else {
-            if(customerInfo) { //insert customer successfull - customer info (minus password) sent back to clieaclient as login info
+            if (customerInfo) { //insert customer successfull - customer info (minus password) sent back to client as login info
                 let sess;
                 sess = req.session;
                 sess["customerInfo"] = customerInfo;

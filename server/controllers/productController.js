@@ -39,7 +39,6 @@ function saveProductImage(req, productID, callback) {
     imageFile.mv("product_images/image_for_product_id_" + productID + ".jpg", function(err) {
         if (err) {
             logError.writeToErrorLog("called by productController.saveProductImage => moving product image to product_images folder failed: " + err);
-            console.log("saveProductImage: error " + err);
             callback("\nhowever uploading product image failed!");
         }
         callback(null); //null there was no error
@@ -47,7 +46,6 @@ function saveProductImage(req, productID, callback) {
 }
 
 function addUpdateProduct(activity, req, callback) {
-    // console.log(">>> productController: " + JSON.stringify(req.body) + "  activity=" + activity);
     const product = new model.Product(req.body);
     const inputErrorsFound = productValid(activity, product, req);
     if (!inputErrorsFound) {

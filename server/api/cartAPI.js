@@ -21,7 +21,6 @@ function getLastCart(req, res) {
 function getCartItems(req, res) {
     let sess = req.session;
     //user not logged in attempting to access shopping panel
-    console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
     if (!sess["customerInfo"]) { 
       response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
       res.end(JSON.stringify(response));
@@ -43,7 +42,6 @@ function getCartItems(req, res) {
 function addCart(req, res) {
     let sess = req.session;
     //user not logged in attempting to access shopping panel
-    console.log("sess[customerInfo]:  " + JSON.stringify(sess["customerInfo"]));
     if (!sess["customerInfo"]) { 
       response =  new sr.ServerResponse("forbiddenAccessAttempted", "");
       res.end(JSON.stringify(response));

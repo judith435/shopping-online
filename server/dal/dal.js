@@ -2,8 +2,6 @@ const mysql = require("mysql");
 const logError = require("../share/errorLogging.js");
 
 function executeQuery(dbname, spName, spParms, callback) {
-   // console.log("@@@ in dal =>  spName: " + spName + " spParms: " + JSON.stringify(spParms));
-
     var parms = "";
     if (spParms === "") {
         parms = "()";
@@ -14,10 +12,9 @@ function executeQuery(dbname, spName, spParms, callback) {
                 parmTemp = parm.isString ? "'" + parm.value + "'" : parm.value;
                 parms += parmTemp;
                 parms += i < spParms.length - 1 ? "," : ""; //put comma after each parameter except for last one
-              //  console.log("*** in loop parms=" + parms)
             });
             parms = "(" + parms + ")";
-            console.log("### at end of loop parms=" + parms);
+            // console.log("### at end of loop parms=" + parms);
     }
 
     const con = mysql.createConnection(
@@ -33,12 +30,6 @@ function executeQuery(dbname, spName, spParms, callback) {
     con.connect(function (err) {
         if (err) {
             logError.writeToErrorLog(err);
-            // console.log("Error connecting to DB: " + err);
-            // console.log("err >>>>>>>>>>>>>>>>>" + err + "<<<<<<<<<<<<<<<<<");
-            // console.log("JSON.stringify(err) >>>>>>>>>>>>>>>>>" + JSON.stringify(err) + "<<<<<<<<<<<<<<<<<");
-            //console.log(" err.code >>>>>>>>>>>>>>>>>" + err.code + "<<<<<<<<<<<<<<<<<");
-            // console.log("err.message >>>>>>>>>>>>>>>>>" + err.message + "<<<<<<<<<<<<<<<<<");
-            // console.log("err.sql >>>>>>>>>>>>>>>>>" + err.sql + "<<<<<<<<<<<<<<<<<");
             callback(err.code);
         }
     });

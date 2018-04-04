@@ -13,8 +13,6 @@ function login(req, callback) {
         return;
     }
 
-    console.log("!!! loginDetails.email " + loginDetails.email);
-    console.log("!!! loginDetails.passWord " + loginDetails.passWord);
     //login data empty - user bypassed client side validations => return message that customer not found
     if (!loginDetails.email || !loginDetails.passWord) {
         callback(null, null, "login data missing ");
