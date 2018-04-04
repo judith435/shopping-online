@@ -1,7 +1,7 @@
-shoppingApp.controller("orderConfirmation", function( $scope, 
-                                                                $uibModalInstance, 
-                                                                $rootScope, 
-                                                                orderDetails) {
+shoppingApp.controller("orderConfirmation", function(   $scope, 
+                                                        $uibModalInstance, 
+                                                        $rootScope, 
+                                                        orderDetails) {
 
     const  customer = orderDetails[0];  
     const  order = orderDetails[1];                                                                
@@ -16,7 +16,7 @@ shoppingApp.controller("orderConfirmation", function( $scope,
         return items;
     }
     
-    function saveTextAsFile (data, filename){
+    function saveTextAsFile (data, filename){ //save receipt as txt file
 
         if(!data) {
             alert("Console.save: No data");
@@ -37,9 +37,6 @@ shoppingApp.controller("orderConfirmation", function( $scope,
             window.navigator.msSaveOrOpenBlob(blob, filename);
         }
         else{
-            // e = document.createEvent("MouseEvents");
-            // a = document.createElement("a");
-
             a.download = filename;
             a.href = window.URL.createObjectURL(blob);
             a.dataset.downloadurl = ["text/plain", a.download, a.href].join(":");

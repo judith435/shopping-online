@@ -9,17 +9,6 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
                                                             cartInfo,
                                                             $location)
 {
-    //used to determine if cart in shop ('clear cart' & 'order' link buttons available) 
-    //or order ('return to shopping' link button avilable) mode 
-    $scope.ordering = $routeParams.cartStatus === "order";
-    const customer = customerInfo.getCustomerInfo();
-    var cart  = cartInfo.getCartInfo();
-    var cartSave; //used for search cart mechanism
-    $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
-    $scope.cartItems = [];
-    
-    //necessary to show contents of page header after page reload is clicked
-    $rootScope.$broadcast("show-header");
 
     function addCart() {
 
@@ -74,6 +63,22 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
         });
     }
 
+    //*******************************************************************************************************
+    //statements performed every time shoppingCart.html (shoppingCart.controller) loaded 
+    //*******************************************************************************************************
+
+    //used to determine if cart in shop ('clear cart' & 'order' link buttons available) 
+    //or order ('return to shopping' link button avilable) mode 
+    $scope.ordering = $routeParams.cartStatus === "order";
+    const customer = customerInfo.getCustomerInfo();
+    var cart  = cartInfo.getCartInfo();
+    var cartSave; //used for search cart mechanism
+    $scope.cartOwner = "My Cart: " + customer.firstName + " " + customer.lastName;
+    $scope.cartItems = [];
+    
+    //necessary to show contents of page header after page reload is clicked
+    $rootScope.$broadcast("show-header");
+
     //no cart found for customer - create one / 
     //or cart order submitted => in both cases create new cart
     if (!cart || cart.orderDate) { 
@@ -83,6 +88,9 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
         getCartItems();
     }
 
+    //*******************************************************************************************************
+    // functions triggered by broadcasting from productDisplay controller (after product selected)
+    //*******************************************************************************************************
     $scope.$on("product-selected", function(event, product) {
 
         var productDialog = $uibModal.open({
@@ -121,6 +129,9 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
         });
     });
 
+    //*******************************************************************************************************
+    // functions triggered by clicking on buttons/links on shoppingCart.html
+    //*******************************************************************************************************
     $scope.deleteCartItem = function(cartItem) { 
         cartService.deleteCartItem(configSettings, cartItem.id, function(response) {  
             if (response.data.status === "error") {

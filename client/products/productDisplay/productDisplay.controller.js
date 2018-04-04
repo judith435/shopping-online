@@ -12,6 +12,9 @@ shoppingApp.controller("productDisplay", function displayProducts(  $scope,
     //necessary to show contents of page header after page reload is clicked
     $rootScope.$broadcast("show-header");
 
+    //*******************************************************************************************************
+    //handle product display
+    //*******************************************************************************************************
     function getProducts() {
         productService.getProducts(configSettings, location , function(products) {
             if (products.data.status === "error" ) {
@@ -52,13 +55,16 @@ shoppingApp.controller("productDisplay", function displayProducts(  $scope,
 
     getCategories();
 
+    //*******************************************************************************************************
+    //search product handling - using filter mechanism
+    //*******************************************************************************************************
     $scope.productFilter = function() {
         if ($scope.active === 0) {
             return $scope.foundProducts;
         }
     };
 
-    $scope.searchProduct = function()  {//display update product panel => + add product button clicked
+    $scope.searchProduct = function()  {
 
         $scope.productSearch = true;
         $scope.active = 0;
@@ -74,6 +80,9 @@ shoppingApp.controller("productDisplay", function displayProducts(  $scope,
         }
     };  
 
+    //****************************************************************************************************************************
+    // function triggered by broadcasting from productUpdate controller / broadcast  product-selected to product update controller
+    //****************************************************************************************************************************
     $scope.$on("product-changed", function(event, opt) {
         getProducts();
         $scope.active = opt.prod.category;

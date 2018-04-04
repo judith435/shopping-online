@@ -7,7 +7,7 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
                                                                     $filter)
 {
 
-    function fillCategoriesDDL() {
+    function fillCategoriesDDL() { 
         categoryService.getCategories(configSettings, function(response) {
             if (response.data.status === "error") {
                 alert("error occured - please contact support center");
@@ -17,8 +17,6 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
             }
         });
     }
-
-    fillCategoriesDDL();
 
     function initUpdatePanel() {
         $scope.showProductUpdate = true; //show directive containing product cuForm
@@ -38,14 +36,24 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
         $scope.activity = "addProduct";
     };  
 
+    //*******************************************************************************************************
+    //statements performed every time productUpdate.html (productUpdate.controller) loaded 
+    //*******************************************************************************************************
     $scope.productName = "click +  to add product";
     $scope.showProductUpdate = false; //hide directive containing product cuForm
+    fillCategoriesDDL(); //perform once when controller loaded and NOT every time addProduct (+) button clicked
 
+    //*******************************************************************************************************
+    //function called after product image upload
+    //*******************************************************************************************************
     $scope.imageUploaded  = function () {
         var drawingCanvas = document.getElementById("canvasProduct");
         imageService.uploadImage(drawingCanvas, $scope.productImage); 
     };
 
+    //*******************************************************************************************************
+    // function triggered by broadcasting from productDisplay controller
+    //*******************************************************************************************************
     $scope.$on("product-selected", function(event, product) {
         initUpdatePanel();
         $scope.product = {};
@@ -59,7 +67,9 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
         $scope.activity = "updateProduct";
     });
 
-
+    //*******************************************************************************************************
+    //add/update product including input validation
+    //*******************************************************************************************************
     function validateInput() { 
 
         if ($scope.activity === "updateProduct") {//relevant for update product only

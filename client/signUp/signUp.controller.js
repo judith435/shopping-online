@@ -48,7 +48,7 @@ shoppingApp.controller("signUp", function signUp(   $scope,
             let duplicateCustomerFound = response.data.content.duplicateCustomerFound;
             $scope.errorsFound = duplicateCustomerFound > 0 || $scope.errorsFound;
             $scope.duplicateCustomerErrorMessage =  duplicateCustomerFound > 0 
-                    ? "customer with same id and/or email already exist(s)" : "" ;
+                    ? "customer(s) with same id and/or email already exist(s)" : "" ;
                 callback($scope.errorsFound);
             });
         }
@@ -56,11 +56,10 @@ shoppingApp.controller("signUp", function signUp(   $scope,
 
 
     $scope.continueSignUp = function()  {
-
+        //wrapped in callback because validateInputStep1 contains server call => checkDuplicateCustomer
         validateInputStep1(function(errorsFound) {
-
             if (errorsFound) { return; }
-    
+            //display step2 of signUp process
             $templateRequest("signUp/step2.html").then(function(html){
                 var template = $compile(html)($scope);
                 angular.element(document.querySelector("#signUP")).empty().append(template);

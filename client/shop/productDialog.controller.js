@@ -11,6 +11,6 @@ shoppingApp.controller("productDialog", function($scope, $uibModalInstance, prod
     };
 
     $scope.cancel = function () {
-        $uibModalInstance.close(0); //0 productQuantity
+        $uibModalInstance.close(0); //productQuantity = 0 => informs shopping cart controller that cancel was clicked
     };
 });

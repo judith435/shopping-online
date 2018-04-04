@@ -10,6 +10,9 @@ shoppingApp.controller("home", function handleHome( $scope,
 {
     var cart = ""; //contains info of last customer cart  if such a cart is found for logged in user
 
+    //*******************************************************************************************************
+    //general functions
+    //*******************************************************************************************************
     function getStoreStatistics() {
         storeService.getStoreStatistics(configSettings, function(response) {
             if (response.data.status === "error") {
@@ -30,6 +33,15 @@ shoppingApp.controller("home", function handleHome( $scope,
         return date.substring(8,10) + "/" +   date.substring(5,7) + "/" +   date.substring(0,4);
     }
 
+    function init() { 
+        $scope.customer = null;
+        $scope.entryAction = "";
+        $scope.entryMessage = "";
+    }
+
+    //*******************************************************************************************************
+    //handle home page for logged in user (customer or administrator)
+    //*******************************************************************************************************
     function handleCustomerWithCart(response) {
         //customer with cart: last cart can be open  => resume shopping 
         //or closed => order submitted for last cart 
@@ -44,12 +56,6 @@ shoppingApp.controller("home", function handleHome( $scope,
         let notification = !cart.orderDate  ? "You have an open cart from " : "Your last purchase was on ";    
         $scope.entryMessage = "Notification: " +  notification + displayDate;
         
-    }
-
-    function init() { 
-        $scope.customer = null;
-        $scope.entryAction = "";
-        $scope.entryMessage = "";
     }
 
     function setPageForLoggedInUser(cust) { 

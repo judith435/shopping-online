@@ -15,9 +15,13 @@ shoppingApp.controller("order", function signUp($scope,
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
-    var filledDeliveryDates; //delivery dates with 3 orders placed - cannot place any more orders - dates disabled in calendar 
+    //delivery dates with 3 scheduled deliveries - cannot place any more orders - dates disabled in calendar 
+    var filledDeliveryDates; 
     $scope.showErrorMessages = false;
 
+    //*******************************************************************************************************
+    //get dates with 3 scheduled deliveries
+    //*******************************************************************************************************
     orderService.getDeliveryDates(configSettings, function(response) {  
         if (response.data.status === "error") {
             alert("error occured - please contact support center");
@@ -30,7 +34,9 @@ shoppingApp.controller("order", function signUp($scope,
         filledDeliveryDates = response.data.content.map((record) => record.deliveryDate);
     });
 
-
+    //*******************************************************************************************************
+    //handle double click event on city and street input fields 
+    //*******************************************************************************************************
     $scope.inputDoubleClick = function(inputCtrl)  {
         if (inputCtrl.name === "city") {
             $scope.order.city = customer.city;
@@ -40,6 +46,9 @@ shoppingApp.controller("order", function signUp($scope,
         }
     };
 
+    //*******************************************************************************************************
+    //order button click handling (including credit card validation using Luhn algorithm)
+    //*******************************************************************************************************
     function luhnAlgorithm(cc, nCheck) { //used to check credit card
         var nDigit = 0; 
         var bEven = false;
@@ -170,7 +179,7 @@ shoppingApp.controller("order", function signUp($scope,
     };
     
     //*******************************************************************************************************
-    //datepicker functions end
+    //credit card input ng-keyup event 
     //*******************************************************************************************************
     $scope.editCreditCard = function() {  
         if ($scope.order.creditCard) {
@@ -186,5 +195,4 @@ shoppingApp.controller("order", function signUp($scope,
             $scope.order.creditCard = ccOUT;
         }
     };
-
 });

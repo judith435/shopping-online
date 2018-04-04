@@ -1,4 +1,4 @@
-shoppingApp.directive("fileModel", ["$parse", function ($parse) {
+shoppingApp.directive("fileModel", ["$parse", function ($parse) { //used for product image upload
     return {
        restrict: "A",
        link(scope, element, attrs) {
