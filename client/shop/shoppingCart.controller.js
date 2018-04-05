@@ -174,7 +174,7 @@ shoppingApp.controller("shoppingCart", function updateCart( $scope,
     $scope.searchCart = function(searchArg) {
         var cartItems = cartSave;
         //remove special characters in searchArg some of them mess up search mechanism 
-        searchArg = searchArg.replace(/[^a-zA-Z 0-9]+/g, '');  
+        searchArg = searchArg.replace(/[^a-zA-Z 0-9]+/g, "");  
         var sarg = searchArg ? searchArg : "";//if searchArg empty reset all cart items
         var pattern = new RegExp(sarg, "g");
 
