@@ -13,8 +13,10 @@
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
+                        <!-- <select class="form-control order-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
+                             ng-options="o as o for o in options"  ng-model="order.city" required></select> -->
                         <select class="form-control order-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
-                             ng-options="o as o for o in options"  ng-model="order.city" required></select>
+                             ng-options="o as o for o in options"  ng-model="city" required></select>
                         <label class="validationError" 
                             ng-show="!formOrder.city.$valid && showErrorMessages">city required</label>     
                     </div>

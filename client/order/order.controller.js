@@ -1,12 +1,12 @@
-shoppingApp.controller("order", function signUp($scope,
-                                                    $routeParams, 
-                                                    configSettings,
-                                                    customerInfo,
-                                                    cartInfo,
-                                                    orderService,
-                                                    $location,
-                                                    $uibModal)   { 
-
+shoppingApp.controller("order", function signUp($scope, 
+                                                $window,
+                                                $routeParams, 
+                                                configSettings,
+                                                customerInfo,
+                                                cartInfo,
+                                                orderService,
+                                                $location,
+                                                $uibModal)   { 
     //cartStatus parm not present in url => customer attempted to access order page directly (not via order link on shopping page)
     if (!$routeParams.cartStatus) {
         alert("attempt to handle order directly bypassing shopping panel");
@@ -15,6 +15,13 @@ shoppingApp.controller("order", function signUp($scope,
 
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
+    //test if browser firefox or edge: ng-dblclick does not work on city select  => set select to customer's 
+    //city on page load 
+    if ($window.navigator.userAgent.includes("Edge") || $window.navigator.userAgent.includes("Firefox") ) {
+        $scope.city = customer.city;
+        alert("in select browser handling");
+    }
+
     //delivery dates with 3 scheduled deliveries - cannot place any more orders - dates disabled in calendar 
     var filledDeliveryDates; 
     $scope.showErrorMessages = false;
@@ -39,7 +46,7 @@ shoppingApp.controller("order", function signUp($scope,
     //*******************************************************************************************************
     $scope.inputDoubleClick = function(inputCtrl)  {
         if (inputCtrl.name === "city") {
-            $scope.order.city = customer.city;
+            $scope.city = customer.city;
         }
         else {
             $scope.order.street = customer.street;
@@ -115,7 +122,7 @@ shoppingApp.controller("order", function signUp($scope,
         let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
-                                deliveryCity: $scope.order.city,
+                                deliveryCity: $scope.city,
                                 deliveryStreet: $scope.order.street,
                                 deliveryDate: deliveryDateTemp,
                                 ccInfo: $scope.order.creditCard ? //remove separating spaces if cc not empty
