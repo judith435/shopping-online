@@ -16,7 +16,7 @@ shoppingApp.controller("orderConfirmation", function(   $scope,
         return items;
     }
 
-    function WriteToFile(fileContents, fileName)
+    function writeToFile(fileContents, fileName)
     {
         var blob = new Blob([fileContents], {type: "text/plain;charset=utf-8"});
         //saveAs function is in FileSaver.js file by By Eli Grey github:  
@@ -29,7 +29,7 @@ shoppingApp.controller("orderConfirmation", function(   $scope,
         var fileContents = "Receipt for purchase " + purchaseDate + "\r\nList of Items" + buildItemList();
         fileContents += "\r\nTotal: " + order.cartTotal + "$";
         var fileName = "receipt_"  + purchaseDate + ".txt";
-        WriteToFile(fileContents, fileName);  
+        writeToFile(fileContents, fileName);  
     };
 
     $scope.confirm = function () {
