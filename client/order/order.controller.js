@@ -12,14 +12,12 @@ shoppingApp.controller("order", function signUp($scope,
         alert("attempt to handle order directly bypassing shopping panel");
         $location.path("/home");
     }
-
     $scope.options  = configSettings.citiesList;
     const customer = customerInfo.getCustomerInfo();
     //test if browser firefox or edge: ng-dblclick does not work on city select  => set select to customer's 
     //city on page load 
-    if ($window.navigator.userAgent.includes("Edge") || $window.navigator.userAgent.includes("Firefox") ) {
+    if ($window.navigator.userAgent.includes("Edge") || $window.navigator.userAgent.includes("Firefox")) {
         $scope.city = customer.city;
-        alert("in select browser handling");
     }
 
     //delivery dates with 3 scheduled deliveries - cannot place any more orders - dates disabled in calendar 
@@ -49,7 +47,7 @@ shoppingApp.controller("order", function signUp($scope,
             $scope.city = customer.city;
         }
         else {
-            $scope.order.street = customer.street;
+            $scope.street = customer.street;
         }
     };
 
@@ -89,8 +87,8 @@ shoppingApp.controller("order", function signUp($scope,
 
     function validateInput() {  
 
-        if ($scope.order.creditCard) {
-            var creditCard = $scope.order.creditCard.replace(/\s/g, "");
+        if ($scope.creditCard) {
+            var creditCard = $scope.creditCard.replace(/\s/g, "");
             var ccRegex = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
             var ccValid = ccRegex.test(creditCard);
             ccValid =  validateCC(creditCard);
@@ -113,20 +111,20 @@ shoppingApp.controller("order", function signUp($scope,
 
         let cartDetails = cartInfo.getCartInfo(); 
         let deliveryDateTemp = "";
-        if ($scope.order.deliveryDate) {
-            deliveryDateTemp =  $scope.order.deliveryDate.getFullYear() + "-" +
-            ($scope.order.deliveryDate.getMonth() + 1) + "-" +
-            $scope.order.deliveryDate.getDate();
+        if ($scope.deliveryDate) {
+            deliveryDateTemp =  $scope.deliveryDate.getFullYear() + "-" +
+            ($scope.deliveryDate.getMonth() + 1) + "-" +
+             $scope.deliveryDate.getDate();
         }
 
         let order = new Order({ customer: customer.teudatZehut,
                                 shoppingCart: cartDetails.id,
                                 price: cartDetails.cartTotal,
                                 deliveryCity: $scope.city,
-                                deliveryStreet: $scope.order.street,
+                                deliveryStreet: $scope.street,
                                 deliveryDate: deliveryDateTemp,
-                                ccInfo: $scope.order.creditCard ? //remove separating spaces if cc not empty
-                                        $scope.order.creditCard.replace(/\s/g, "") : $scope.order.creditCard});
+                                ccInfo: $scope.creditCard ? //remove separating spaces if cc not empty
+                                        $scope.creditCard.replace(/\s/g, "") : $scope.creditCard});
         orderService.addOrder(configSettings, order, function(response) {  
             if (response.data.status === "error") {
                 alert("error occured - please contact support center");
@@ -167,7 +165,7 @@ shoppingApp.controller("order", function signUp($scope,
     };
 
     $scope.setDate = function(year, month, day) {
-        $scope.order.deliveryDate = new Date(year, month, day);
+        $scope.deliveryDate = new Date(year, month, day);
     };
     $scope.format = "dd/MM/yyyy";
 
@@ -189,8 +187,8 @@ shoppingApp.controller("order", function signUp($scope,
     //credit card input ng-keyup event 
     //*******************************************************************************************************
     $scope.editCreditCard = function() {  
-        if ($scope.order.creditCard) {
-            var ccIN = $scope.order.creditCard;
+        if ($scope.creditCard) {
+            var ccIN = $scope.creditCard;
             var ccOUT = "";
             ccIN = ccIN.replace(/\s/g, "");
             for (var i=0; i < ccIN.length; i++) {
@@ -199,7 +197,7 @@ shoppingApp.controller("order", function signUp($scope,
                 }
                 ccOUT = ccOUT.concat(ccIN[i]);
             }
-            $scope.order.creditCard = ccOUT;
+            $scope.creditCard = ccOUT;
         }
     };
 });

@@ -15,43 +15,21 @@ shoppingApp.controller("orderConfirmation", function(   $scope,
         }
         return items;
     }
-    
-    function saveTextAsFile (data, filename){ //save receipt as txt file
 
-        if(!data) {
-            alert("Console.save: No data");
-            return;
-        }
-
-        if(!filename) {
-            filename = "console.json";
-        } 
-
-        var blob = new Blob([data], {type: "text/plain"});
-        var e    = document.createEvent("MouseEvents");
-        var a    = document.createElement("a");
-
-
-    // FOR IE:
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(blob, filename);
-        }
-        else{
-            a.download = filename;
-            a.href = window.URL.createObjectURL(blob);
-            a.dataset.downloadurl = ["text/plain", a.download, a.href].join(":");
-            e.initEvent("click", true, false, window,
-                0, 0, 0, 0, 0, false, false, false, false, 0, null);
-            a.dispatchEvent(e);
-        }
+    function WriteToFile(fileContents, fileName)
+    {
+        var blob = new Blob([fileContents], {type: "text/plain;charset=utf-8"});
+        //saveAs function is in FileSaver.js file by By Eli Grey github:  
+        //https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md 
+        saveAs(blob, fileName); 
     }
-    
+
     $scope.downloadReceipt = function () {
         var purchaseDate =  String(new Date()).substring(4,24);
-        var fileText = "Receipt for purchase " + purchaseDate + "\r\nList of Items" + buildItemList();
-        fileText += "\r\nTotal: " + order.cartTotal + "$";
+        var fileContents = "Receipt for purchase " + purchaseDate + "\r\nList of Items" + buildItemList();
+        fileContents += "\r\nTotal: " + order.cartTotal + "$";
         var fileName = "receipt_"  + purchaseDate + ".txt";
-        saveTextAsFile(fileText, fileName);
+        WriteToFile(fileContents, fileName);  
     };
 
     $scope.confirm = function () {

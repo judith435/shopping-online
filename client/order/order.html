@@ -13,8 +13,6 @@
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">City</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        <!-- <select class="form-control order-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
-                             ng-options="o as o for o in options"  ng-model="order.city" required></select> -->
                         <select class="form-control order-control" name='city' ng-dblclick='inputDoubleClick($event.currentTarget)'
                              ng-options="o as o for o in options"  ng-model="city" required></select>
                         <label class="validationError" 
@@ -24,7 +22,7 @@
                 <div class="form-group row">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Street</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
-                        <input type="text" name='street' ng-model=order.street class="form-control order-control" maxlength="45" 
+                        <input type="text" name='street' ng-model=street class="form-control order-control" maxlength="45" 
                             ng-dblclick='inputDoubleClick($event.currentTarget)'  placeholder="Enter Street" required>
                         <label class="validationError" 
                             ng-show="!formOrder.street.$valid && showErrorMessages">street required</label>     
@@ -34,7 +32,7 @@
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Delivery Date</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <input type="text" class="delivery-date pull-left form-control" 
-                            uib-datepicker-popup="{{format}}" ng-model="order.deliveryDate" 
+                            uib-datepicker-popup="{{format}}" ng-model="deliveryDate" 
                             is-open="DatePicker.opened" datepicker-options="dateOptions" 
                             show-button-bar="false" close-text="Close" name=deliveryDate readonly required/>
                         <button type="button" class="btn btn-default pull-left calendar" ng-click="openDatePicker()"
@@ -50,7 +48,7 @@
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-left">Credit Card</label>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-left">
                         <input placeholder="Enter Credit Card" type="text" class="form-control order-control" 
-                            ng-model='order.creditCard' ng-keyup='editCreditCard()' maxlength="19">
+                            ng-model='creditCard' ng-keyup='editCreditCard()' maxlength="19">
                         <label class="validationError">{{creditCardErrorMessage}}</label>     
                     </div>
                 </div>
