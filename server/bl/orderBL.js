@@ -1,3 +1,6 @@
+//all string mysql string parameters (parmObject.SPparm("parm name", true)) have any ' escaped
+//reason mysql fails if string contains unescaped apostrophe
+
 const dal = require("..//dal/dal");
 const parmObject = require("..//dal/SPparm");
 const model = require("../models/deliveryDateModel");

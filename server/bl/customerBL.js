@@ -1,3 +1,6 @@
+//all string mysql string parameters (parmObject.SPparm("parm name", true)) have any ' escaped
+//reason mysql fails if string contains unescaped apostrophe
+
 const dal = require("..//dal/dal");
 const parmObject = require("..//dal/SPparm");
 
@@ -20,7 +23,6 @@ function getDuplicateCustomer(teudatZehut, email, callback) {
 }
 
 function addCustomer(customer, callback) {
-    //req.body
     const spParms = []; 
     spParms.push(new parmObject.SPparm(customer.teudatZehut, false));
 

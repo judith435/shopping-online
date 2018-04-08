@@ -1,3 +1,6 @@
+//all string mysql string parameters (parmObject.SPparm("parm name", true)) have any ' escaped
+//reason mysql fails if string contains unescaped apostrophe
+
 const dal = require("..//dal/dal");
 const parmObject = require("..//dal/SPparm");
 const model = require("../models/productModel");
@@ -34,11 +37,11 @@ function addUpdateProduct(activity, product, callback) {
         if (err) {
             callback("called by productBL.addUpdateProduct => activity: " + activity + " " + err);
         }
-        else {
+        else { //insert/update successful
             if (activity === "addProduct") {
                 callback(null, rows[0][0].new_product_id);
             }
-            else {
+            else { //update product
                 callback(null, 0);
             }
         }

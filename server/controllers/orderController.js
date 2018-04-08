@@ -41,8 +41,8 @@ function addOrder(req, callback) {
     var filledDates;
 
     //check delivery date not filled => more than 3 deliveries sheduled for same day versus mysql
-    //this must be performed here as callback => processing (checking data, inserting to mysql) can only
-    //occur after deliveryDates returned from database 
+    //this must be performed here as callback => processing (checking data => orderValid, inserting to mysql => bl.addOrder) 
+    //can only occur after deliveryDates returned from database 
     getDeliveryDates(function(err, deliveryDates) {
         if (err) {
             logError.writeToErrorLog("called by orderController.getDeliveryDates => " + err);
@@ -63,7 +63,7 @@ function addOrder(req, callback) {
                 }
             });
         }
-        else {
+        else { //errors in input data from client - client bypassed client side validations
             callback(null, null, inputErrorsFound); 
         }
     });

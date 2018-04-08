@@ -40,6 +40,8 @@ function addCustomer(req, callback) {
     }
 
 
+    //wrap calls to functions customerValid & bl.addCustomer in callback because function getDuplicateCustomer
+    //performs call to mysql
     getDuplicateCustomer(!customer.teudatZehut ? 0 : customer.teudatZehut, 
                          !customer.email  ? "" : customer.email,
        function(err, result) {
@@ -55,14 +57,14 @@ function addCustomer(req, callback) {
                     callback("called by customerController.addCustomer => " + err, null, null);
                 }
                 else {
-                    //send back customer info to be used as login info when new customer clicks start shoppin
+                    //send back customer info to be used as login info when new customer clicks start shopping
                     //must "star out" password first -> this can NEVER be sent back to client
                     customer.password = "***************";
                     callback(null, customer, null);
                 }
             });
         }
-        else {
+        else { //errors in input data from client - client bypassed client side validations
             callback(null, null, inputErrorsFound); 
         }
     });

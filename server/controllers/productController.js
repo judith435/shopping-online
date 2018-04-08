@@ -21,11 +21,11 @@ function productValid(activity, product, req) {
     errorsFound += validations.inputEmpty(product.category) ? "product category required \n" : "";
 
     //check productImage sent and valid
-    if (!req.files) {
-        errorsFound += activity === "addProduct" ?  "no product image supplied and uploaded \n" : ""; //sending product image mandatory only for add product
+    if (!req.files) {//sending product image mandatory only for add product
+        errorsFound += activity === "addProduct" ?  "no product image supplied and uploaded \n" : ""; 
     }
     else {
-        let prodImage = req.files.productImage;  //sampleFile.name   sampleFile.data.length
+        let prodImage = req.files.productImage;  
         errorsFound += validations.fileTooLarge(prodImage) ? "product image larger than 5MB - actual size: " + prodImage.data.length + " bytes \n" : "";
         errorsFound += validations.fileExtensionInvalid(prodImage) ? 
             "product image file extension invalid - valid extensions are: jpg, jpeg, png or gif" : "";
@@ -53,15 +53,16 @@ function addUpdateProduct(activity, req, callback) {
             if (err) {
                 callback("called by productController.addUpdateProduct => " + err, null, null);
             }
-            else {
-                if (activity === "updateProduct" && !req.files) {
+            else {//insert/update product successfull
+                if (activity === "updateProduct" && !req.files) { //update product without replacing product image
                     callback(null, product.id, null);
                 }
-                else {
+                else {//insert new product/update product with product image replaced
                     let productID = activity === "addProduct" ? response : product.id;
                     saveProductImage(req, productID, function (err) {
                         if (err) {
-                            callback(null, productID + err, null); //save product succeeded however saving image failed - send relevant message to user 
+                            //save product succeeded however saving image failed - send relevant message to user 
+                            callback(null, productID + err, null); 
                         }
                         callback(null, productID, null);
                     }); 
@@ -69,7 +70,7 @@ function addUpdateProduct(activity, req, callback) {
             }
         });
     }
-    else {
+    else { //errors in input data from client - client bypassed client side validations
         callback(null, null, inputErrorsFound); 
     }
 }
