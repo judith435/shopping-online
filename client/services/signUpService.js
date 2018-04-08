@@ -1,7 +1,7 @@
 shoppingApp.service("signUpService", function($http) {
 
     function error(response) {
-        alert("Sorry Error occured in productService: " + JSON.stringify(response));
+        alert("Sorry Error occured in signUpService: " + JSON.stringify(response));
     }
 
     this.checkDuplicateCustomer = function (configSettings, customerID, customerEmail, success) { 

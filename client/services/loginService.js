@@ -1,7 +1,7 @@
 shoppingApp.service("loginService", function($http) {
 
     function error(response) {
-        alert("Sorry Error occured in $http: " + JSON.stringify(response));
+        alert("Sorry Error occured in loginService: " + JSON.stringify(response));
     }
 
     this.checkUserLoggedIn = function (configSettings, success) { 

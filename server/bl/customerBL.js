@@ -8,8 +8,10 @@ function getDuplicateCustomer(teudatZehut, email, callback) {
 
     const spParms = []; 
     spParms.push(new parmObject.SPparm(teudatZehut, false));
-
-    email = email.replace("'", "\\'");
+   
+    if (email) { //email empty if client bypasses client validations and sends empty email to server 
+        email = email.replace("'", "\\'");
+    }
     spParms.push(new parmObject.SPparm(email, true));
 
     dal.executeQuery("shopping", "check_customer_exists", spParms, function(err, rows) {

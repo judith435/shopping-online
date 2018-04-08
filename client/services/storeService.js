@@ -1,6 +1,6 @@
 shoppingApp.service("storeService", function($http) {
     function error(response) {
-        alert("Sorry Error occured in $http: " + JSON.stringify(response));
+        alert("Sorry Error occured in storeService: " + JSON.stringify(response));
     }
 
     this.getStoreStatistics = function (configSettings, success) { 

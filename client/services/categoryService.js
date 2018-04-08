@@ -1,7 +1,7 @@
 shoppingApp.service("categoryService", function($http) {
     
     function error(response) {
-        alert("Sorry Error occured in $http: " + JSON.stringify(response));
+        alert("Sorry Error occured in categoryService: " + JSON.stringify(response));
     }
 
     this.getCategories = function (configSettings, success) { 

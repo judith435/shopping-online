@@ -1,7 +1,7 @@
 shoppingApp.service("cartService", function($http) {
 
     function error(response) {
-        alert("Sorry Error occured in $http: " + JSON.stringify(response));
+        alert("Sorry Error occured in cartService: " + JSON.stringify(response));
     }
 
     this.getLastCart = function(configSettings, tz, success, error) {

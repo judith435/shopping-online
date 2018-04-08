@@ -1,7 +1,7 @@
 shoppingApp.service("orderService", function($http) {
 
     function error(response) {
-        alert("Sorry Error occured in productService: " + JSON.stringify(response));
+        alert("Sorry Error occured in orderService: " + JSON.stringify(response));
     }
 
     this.getDeliveryDates = function(configSettings, success, error) {
