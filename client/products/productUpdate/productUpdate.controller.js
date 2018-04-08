@@ -133,6 +133,11 @@ shoppingApp.controller("productUpdate", function updateProducts($scope,
             $rootScope.$broadcast("product-changed", {prod: product});
             initUpdatePanel();
             $scope.activity = "addProduct";
+
+            //if saving product image failed display warning
+            if (response.data.content.includes( "however uploading product image failed!")) {
+                alert ("product added/updated sucessfully \nhowever uploading product image failed!");
+            }
         });
     }; 
 });
